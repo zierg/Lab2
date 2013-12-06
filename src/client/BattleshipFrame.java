@@ -7,9 +7,6 @@ import java.io.File;
 
 class BattleshipFrame extends JFrame {
     private class PlayerFieldListener implements ActionListener {
-        //private final Icon missIcon = new ImageIcon("data" + File.separator + "miss.png");
-        
-
         @Override
         public void actionPerformed(ActionEvent ae) {
             JButton a = (JButton) ae.getSource();
