@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,6 +22,7 @@ public class JPanelChat extends JPanel {
                 return;
             }
             addMessage(message);
+            listenAction(new ChatActionEvent(this, message));
         }
     }
     
@@ -79,5 +81,12 @@ public class JPanelChat extends JPanel {
         chatOutput.append("\n" + message);
         chatOutput.setCaretPosition(chatOutput.getText().length()-1);
         chatInput.setText("");
+    }
+    
+    private void listenAction(ChatActionEvent e) {
+        ListIterator<ChatActionListener> iterator = listeners.listIterator();
+        while ( iterator.hasNext() ) {
+            iterator.next().actionPerformed(e);
+        }
     }
 }
