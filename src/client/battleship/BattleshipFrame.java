@@ -102,10 +102,16 @@ public class BattleshipFrame extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weighty = 0.3;
-        gbc.gridheight = 1;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
         JPanelChat chat = new JPanelChat();
+        chat.addChatActionListener(new ChatActionListener() {
+
+            @Override
+            public void actionPerformed(ChatActionEvent e) {
+                setTitle(e.getMessage());
+            }
+        });
         layout.setConstraints(chat, gbc);
         add(chat);
     }
