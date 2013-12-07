@@ -6,7 +6,7 @@ public class JButtonField extends JButton implements Field {
     
     @Override
     public AttackTypes attack() {
-        
+        return null;
     }
     
     @Override
