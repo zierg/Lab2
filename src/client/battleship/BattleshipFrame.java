@@ -1,5 +1,7 @@
 package client.battleship;
 
+import client.battleship.events.BattlefieldActionEvent;
+import client.battleship.events.BattlefieldActionListener;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -92,6 +94,13 @@ public class BattleshipFrame extends JFrame {
         constraint.insets = RIGHT_INSETS;
         //JPanel battlefield = createBattlefield(enemyField, true, new Color(0xF0F0F0));
         JPanelBattlefield battlefield = new JButtonBattlefield(true);
+        battlefield.addBattlefieldActionListener(new BattlefieldActionListener() {
+
+            @Override
+            public void actionPerformed(BattlefieldActionEvent e) {
+                setTitle(e.getMessage());
+            }
+        });
         constraint.gridwidth = GridBagConstraints.REMAINDER;
         layout.setConstraints(battlefield, constraint);
         add(battlefield);
