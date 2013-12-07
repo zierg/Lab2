@@ -1,26 +1,22 @@
 package client.battleship;
 
-import client.battleship.events.BattlefieldActionEvent;
-import client.battleship.events.BattlefieldActionListener;
+import client.battleship.events.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.File;
 
 public class BattleshipFrame extends JFrame {
-    
-
     private static final Insets LEFT_INSETS = new Insets(0, 0, 0, 2);
     private static final Insets RIGHT_INSETS = new Insets(0, 2, 0, 0);
     private static final int BATTLEFIELD_SIDE = JButtonBattlefield.SIDE_FIELDS_COUNT;
     
     private final GridBagLayout layout;
-    
-
-    
     private GridBagConstraints battlefieldConstraint;
     
     private JTextArea chatOutput;
+    
+    private JPanelBattlefield playerBF;     // delete
     
     public BattleshipFrame() {
         layout = new GridBagLayout();
@@ -30,7 +26,6 @@ public class BattleshipFrame extends JFrame {
         createPlayerBattlefield(battlefieldConstraint);
         createEnemyBattlefield(battlefieldConstraint);
         createChat();
-        
     }
     
     private void configureFrame() {
@@ -84,41 +79,26 @@ public class BattleshipFrame extends JFrame {
     
     private void createPlayerBattlefield(GridBagConstraints constraint) { 
         constraint.insets = LEFT_INSETS;
-       // JPanel battlefield = createBattlefield(playerField, false, Color.white);
-        JPanelBattlefield battlefield = new JButtonBattlefield(false);
-        layout.setConstraints(battlefield, constraint);
-        add(battlefield);
+        playerBF = new JButtonBattlefield(false);
+        layout.setConstraints(playerBF, constraint);
+        add(playerBF);
     }
     
     private void createEnemyBattlefield(GridBagConstraints constraint) {
         constraint.insets = RIGHT_INSETS;
-        //JPanel battlefield = createBattlefield(enemyField, true, new Color(0xF0F0F0));
         JPanelBattlefield battlefield = new JButtonBattlefield(true);
         battlefield.addBattlefieldActionListener(new BattlefieldActionListener() {
 
             @Override
             public void actionPerformed(BattlefieldActionEvent e) {
-                setTitle(e.getMessage());
+                //setTitle(e.getMessage());
+                playerBF.attack(Integer.parseInt(e.getMessage()));
             }
         });
         constraint.gridwidth = GridBagConstraints.REMAINDER;
         layout.setConstraints(battlefield, constraint);
         add(battlefield);
     }
-    
-    /*private JPanel createBattlefield(JButtonField[] buttons, boolean enabled, Color color) {
-        JPanel battlefield = new JPanel(new GridLayout(FIELD_WIDTH,FIELD_WIDTH));
-                
-        PlayerFieldListener listener = new PlayerFieldListener();
-        for (int i = 0; i < FIELDS_COUNT; i++) {
-            buttons[i] = new BackgroundViewField(enabled, i);
-            buttons[i].addActionListener(listener);
-            buttons[i].setFill( (i%3 == 0) ? true : false );
-            battlefield.add(buttons[i]);
-        }
-        
-        return battlefield;
-    }*/
     
     private void createChat() {
         GridBagConstraints gbc = new GridBagConstraints();

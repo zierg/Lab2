@@ -36,7 +36,7 @@ class JButtonBattlefield extends JPanelBattlefield {
     
     @Override
     public boolean attack(int index) {
-        return false;
+        return fields[index].attack();
     }
     
     @Override
