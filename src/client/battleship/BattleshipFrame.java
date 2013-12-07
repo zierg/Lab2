@@ -9,10 +9,8 @@ public class BattleshipFrame extends JFrame {
     private class PlayerFieldListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            JButton a = (JButton) ae.getSource();
-            setTitle(a.getActionCommand());
-            a.setBackground(Color.black);
-            a.setEnabled(false);
+            Field a = (Field) ae.getSource();
+            a.attack();
         }
     }
 
@@ -23,13 +21,12 @@ public class BattleshipFrame extends JFrame {
     
     private final GridBagLayout layout;
     
-    private JButton[] playerField = new JButton[FIELDS_COUNT];
-    private JButton[] enemyField = new JButton[FIELDS_COUNT];
+    private JButtonField[] playerField = new JButtonField[FIELDS_COUNT];
+    private JButtonField[] enemyField = new JButtonField[FIELDS_COUNT];
     
     private GridBagConstraints battlefieldConstraint;
     
     private JTextArea chatOutput;
-    //private JTextField chatInput;
     
     public BattleshipFrame() {
         layout = new GridBagLayout();
@@ -106,18 +103,13 @@ public class BattleshipFrame extends JFrame {
         add(battlefield);
     }
     
-    private JPanel createBattlefield(JButton[] buttons, boolean enabled, Color color) {
+    private JPanel createBattlefield(JButtonField[] buttons, boolean enabled, Color color) {
         JPanel battlefield = new JPanel(new GridLayout(FIELD_WIDTH,FIELD_WIDTH));
                 
         PlayerFieldListener listener = new PlayerFieldListener();
         for (int i = 0; i < FIELDS_COUNT; i++) {
-            buttons[i] = new JButton();
-            buttons[i].setBackground(color);
-            buttons[i].setEnabled(enabled);
-            buttons[i].setActionCommand(Integer.toString(i));
-            if (enabled) {
-                buttons[i].addActionListener(listener);
-            }
+            buttons[i] = new BackgroundViewField(enabled, i, listener);
+            buttons[i].setFill( (i%3==0)?true:false );
             battlefield.add(buttons[i]);
         }
         

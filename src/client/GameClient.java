@@ -1,5 +1,6 @@
 package client;
 
+import client.battleship.BattleshipFrame;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
