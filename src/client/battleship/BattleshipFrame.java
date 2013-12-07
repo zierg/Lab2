@@ -91,8 +91,7 @@ public class BattleshipFrame extends JFrame {
 
             @Override
             public void actionPerformed(BattlefieldActionEvent e) {
-                //setTitle(e.getMessage());
-                playerBF.attack(Integer.parseInt(e.getMessage()));
+                setTitle(Boolean.toString(playerBF.attack(Integer.parseInt(e.getMessage()))));
             }
         });
         constraint.gridwidth = GridBagConstraints.REMAINDER;
