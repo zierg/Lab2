@@ -1,7 +1,6 @@
 package client.battleship;
 
 import java.awt.Color;
-import java.awt.event.ActionListener;
 
 class BackgroundViewField extends JButtonField {
     private static final Color HIT_COLOR = Color.DARK_GRAY;
