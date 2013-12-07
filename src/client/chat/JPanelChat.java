@@ -13,10 +13,23 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class JPanelChat extends JPanel {
+    private class ChatInputListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) { 
+            String message = chatInput.getText();
+            if (message.length()==0) {
+                return;
+            }
+            addMessage(message);
+        }
+    }
+    
     protected List<ChatActionListener> listeners = new LinkedList<>();
     
     private JTextArea chatOutput;
     private JTextField chatInput;
+    
+    private ChatInputListener chatInputListener = new ChatInputListener();
     
     GridBagLayout layout = new GridBagLayout();
 
@@ -53,20 +66,7 @@ public class JPanelChat extends JPanel {
     
     private void createChatInput(GridBagConstraints gbc) {
         chatInput = new JTextField();
-        chatInput.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) { 
-                String msg = chatInput.getText();
-                if (msg.length()==0) {
-                    return;
-                }
-                chatOutput.append("\n" + msg);
-                chatOutput.setCaretPosition(chatOutput.getText().length()-1);
-                chatInput.setText("");
-            }
-        });
-        
+        chatInput.addActionListener(chatInputListener);
         layout.setConstraints(chatInput, gbc);
         add(chatInput);
     }
@@ -76,6 +76,8 @@ public class JPanelChat extends JPanel {
     }
     
     public void addMessage(String message) {
-
+        chatOutput.append("\n" + message);
+        chatOutput.setCaretPosition(chatOutput.getText().length()-1);
+        chatInput.setText("");
     }
 }
