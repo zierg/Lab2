@@ -2,9 +2,8 @@ package client.battleship;
 
 import client.battleship.events.*;
 import java.awt.*;
-import java.awt.event.*;
+import client.chat.*;
 import javax.swing.*;
-import java.io.File;
 
 public class BattleshipFrame extends JFrame {
     private static final Insets LEFT_INSETS = new Insets(0, 0, 0, 2);
@@ -14,7 +13,7 @@ public class BattleshipFrame extends JFrame {
     private final GridBagLayout layout;
     private GridBagConstraints battlefieldConstraint;
     
-    private JTextArea chatOutput;
+    
     
     private JPanelBattlefield playerBF;     // delete
     
@@ -102,49 +101,12 @@ public class BattleshipFrame extends JFrame {
     private void createChat() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 1;
+        gbc.weighty = 0.3;
         gbc.gridheight = 1;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-        createChatLabel(gbc);     
-        gbc.weighty = 0.3;
-        createChatOutput(gbc);
-        gbc.weighty = 0.05;
-        createChatInput(gbc);
-    }
-    
-    private void createChatLabel(GridBagConstraints gbc) {
-        JLabel chatLabel = new JLabel("Chat:");
-        layout.setConstraints(chatLabel, gbc);
-        add(chatLabel);
-    }
-    
-    private void createChatOutput(GridBagConstraints gbc) {
-        chatOutput = new JTextArea("coming soon");
-        chatOutput.setLineWrap(true);
-        chatOutput.setEditable(false);
-        JScrollPane chatPanel = new JScrollPane(chatOutput);
-        layout.setConstraints(chatPanel, gbc);
-        add(chatPanel);
-    }
-    
-    private void createChatInput(GridBagConstraints gbc) {
-        final JTextField chatInput = new JTextField();
-        chatInput.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) { 
-                String msg = chatInput.getText();
-                if (msg.length()==0) {
-                    return;
-                }
-                chatOutput.append("\n" + msg);
-                chatOutput.setCaretPosition(chatOutput.getText().length()-1);
-                chatInput.setText("");
-            }
-        });
-        
-        layout.setConstraints(chatInput, gbc);
-        add(chatInput);
+        JPanelChat chat = new JPanelChat();
+        layout.setConstraints(chat, gbc);
+        add(chat);
     }
 }
