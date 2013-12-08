@@ -17,7 +17,7 @@ class JButtonBattlefield extends JPanelBattlefield {
     }
     
     public static final int SIDE_FIELDS_COUNT = 10;
-    private static final int TOTAL_FIELDS_COUNT = SIDE_FIELDS_COUNT*SIDE_FIELDS_COUNT;
+    public static final int TOTAL_FIELDS_COUNT = SIDE_FIELDS_COUNT*SIDE_FIELDS_COUNT;
     
     private JButtonField[] fields = new JButtonField[TOTAL_FIELDS_COUNT];
     
