@@ -1,29 +1,37 @@
 package client.battleship;
 
 import client.battleship.events.*;
-import java.awt.*;
 import client.chat.*;
-import javax.swing.*;
+import java.awt.CardLayout;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.GridBagConstraints;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class BattleshipFrame extends JFrame {
     private static final Insets LEFT_INSETS = new Insets(0, 0, 0, 2);
     private static final Insets RIGHT_INSETS = new Insets(0, 2, 0, 0);
     private static final int BATTLEFIELD_SIDE = JButtonBattlefield.SIDE_FIELDS_COUNT;
     
-    private final GridBagLayout layout;
+    private final CardLayout mainCardLayout;
+    
+    private final GridBagLayout playLayout;
     private GridBagConstraints battlefieldConstraint;
-    
-    
-    
+        
     private JPanelBattlefield playerBF;     // delete
     
     public BattleshipFrame() {
-        layout = new GridBagLayout();
+        mainCardLayout = new CardLayout();
+        playLayout = new GridBagLayout();
         configureFrame();
         initConstraints();
         createTitleLabels();
-        createPlayerBattlefield(battlefieldConstraint);
-        createEnemyBattlefield(battlefieldConstraint);
+        createBattlefiedls();
         createChat();
     }
     
@@ -43,7 +51,8 @@ public class BattleshipFrame extends JFrame {
         setSize(frameWidth, frameHeihgt);
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
         setResizable(false);
-        setLayout(layout);
+        setLayout(playLayout);
+        //setLayout(mainCardLayout);
     }
     
     private void initConstraints() {
@@ -65,37 +74,50 @@ public class BattleshipFrame extends JFrame {
         gbc.insets = LEFT_INSETS;
         JLabel playerLabel = new JLabel("Your ships will be here");
         playerLabel.setHorizontalAlignment(JLabel.CENTER);
-        layout.setConstraints(playerLabel, gbc);
+        playLayout.setConstraints(playerLabel, gbc);
         add(playerLabel);
         
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.insets = RIGHT_INSETS;
         JLabel enemyLabel = new JLabel("Enemy ships will be here");
         enemyLabel.setHorizontalAlignment(JLabel.CENTER);
-        layout.setConstraints(enemyLabel, gbc);
+        playLayout.setConstraints(enemyLabel, gbc);
         add(enemyLabel);
     }
     
-    private void createPlayerBattlefield(GridBagConstraints constraint) { 
-        constraint.insets = LEFT_INSETS;
-        playerBF = new JButtonBattlefield(false);
-        layout.setConstraints(playerBF, constraint);
-        add(playerBF);
+    private void createBattlefiedls() {
+        JPanel battlefieldsPanel = new JPanel(new GridLayout(1, 2));
+        battlefieldsPanel.add(createPlayerBattlefield(battlefieldConstraint));
+        battlefieldsPanel.add(createEnemyBattlefield(battlefieldConstraint));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridheight = 2;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        playLayout.setConstraints(battlefieldsPanel, gbc);
+        add(battlefieldsPanel);
     }
     
-    private void createEnemyBattlefield(GridBagConstraints constraint) {
-        constraint.insets = RIGHT_INSETS;
+    private JPanelBattlefield createPlayerBattlefield(GridBagConstraints constraint) { 
+        playerBF = new JButtonBattlefield(false);
+        return playerBF;
+    }
+    
+    private int total = 0;
+    private JPanelBattlefield createEnemyBattlefield(GridBagConstraints constraint) {       
         JPanelBattlefield battlefield = new JButtonBattlefield(true);
         battlefield.addBattlefieldActionListener(new BattlefieldActionListener() {
 
             @Override
             public void actionPerformed(BattlefieldActionEvent e) {
-                setTitle(Boolean.toString(playerBF.attack(Integer.parseInt(e.getMessage()))));
+                if (playerBF.attack(Integer.parseInt(e.getMessage()))) {
+                    total++;
+                    setTitle(Integer.toString(total));
+                }
             }
         });
-        constraint.gridwidth = GridBagConstraints.REMAINDER;
-        layout.setConstraints(battlefield, constraint);
-        add(battlefield);
+        return battlefield;
     }
     
     private void createChat() {
@@ -112,7 +134,7 @@ public class BattleshipFrame extends JFrame {
                 setTitle(e.getMessage());
             }
         });
-        layout.setConstraints(chat, gbc);
+        playLayout.setConstraints(chat, gbc);
         add(chat);
     }
 }

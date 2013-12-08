@@ -11,7 +11,9 @@ class JButtonBattlefield extends JPanelBattlefield {
         @Override
         public void actionPerformed(ActionEvent ae) {
             JButtonField a = (JButtonField) ae.getSource();
-            a.attack();
+            //a.attack();
+            a.setVisibleField(true);
+            a.setEnabled(false);
             listenAction(new BattlefieldActionEvent(this, ae.getActionCommand()));
         }
     }
