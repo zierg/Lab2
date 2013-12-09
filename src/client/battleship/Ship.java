@@ -79,14 +79,7 @@ class Ship extends JToggleButton {
         verticalUnselectedIcon = new ShipIcon(shipSize, sideSize, SHIP_VERTICAL, Color.darkGray);
         horizontalSelectedIcon = new ShipIcon(shipSize, sideSize, SHIP_HORIZONTAL, Color.lightGray);
         verticalSelectedIcon = new ShipIcon(shipSize, sideSize, SHIP_VERTICAL, Color.lightGray);
-        setRotation(SHIP_VERTICAL);
-        addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                toggleRotation();
-            }
-        });
+        setRotation(SHIP_HORIZONTAL);
     }
     
     public void toggleRotation() {
