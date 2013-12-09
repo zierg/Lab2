@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.JToggleButton;
 
@@ -78,6 +80,21 @@ class Ship extends JToggleButton {
         horizontalSelectedIcon = new ShipIcon(shipSize, sideSize, SHIP_HORIZONTAL, Color.lightGray);
         verticalSelectedIcon = new ShipIcon(shipSize, sideSize, SHIP_VERTICAL, Color.lightGray);
         setRotation(SHIP_VERTICAL);
+        addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toggleRotation();
+            }
+        });
+    }
+    
+    public void toggleRotation() {
+        if (rotation == SHIP_HORIZONTAL) {
+            setRotation(SHIP_VERTICAL);
+        } else {
+            setRotation(SHIP_HORIZONTAL);
+        }
     }
     
     public int getRotation() {
