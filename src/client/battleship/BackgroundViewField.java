@@ -2,14 +2,13 @@ package client.battleship;
 
 import java.awt.Color;
 
-class BackgroundViewField extends JButtonField {
+final class BackgroundViewField extends JButtonField {
     private static final Color HIT_COLOR = Color.red;
     private static final Color MISS_COLOR = new Color(0x99D9EA);
     private static final Color FILL_COLOR = Color.DARK_GRAY;
     private static final Color EMPTY_COLOR = MISS_COLOR;
-    private static final Color ENABLED_COLOR = Color.white;
-    private static final Color DISABLED_COLOR = new Color(0xF0F0F0);
-    private static final Color AVAILABLE_COLOR = ENABLED_COLOR;
+    private static final Color DEFAULT_COLOR = Color.white;
+    private static final Color AVAILABLE_COLOR = DEFAULT_COLOR;
     private static final Color NOT_AVAILABLE_COLOR = new Color(0xF8A7AB);
     
     private boolean filled;
@@ -21,6 +20,7 @@ class BackgroundViewField extends JButtonField {
         super();
         setFill(false);
         setEnabled(enabled);
+        currentEnableColor = DEFAULT_COLOR;
         setBackground(currentEnableColor);
         setActionCommand(Integer.toString(index));
     }
@@ -34,16 +34,6 @@ class BackgroundViewField extends JButtonField {
         }
         setEnabled(false);
         return filled;
-    }
-    
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        if (enabled) {
-            currentEnableColor = ENABLED_COLOR;
-        } else {
-            currentEnableColor = DISABLED_COLOR;
-        }
     }
     
     @Override

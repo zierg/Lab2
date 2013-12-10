@@ -89,6 +89,7 @@ public class BattleshipFrame extends JFrame {
     private void createBattlefiedls() {
         JPanel battlefieldsPanel = new JPanel(new GridLayout(1, 2));
         JPanelBattlefield playerBattlefield = createPlayerBattlefield(battlefieldConstraint);
+        playerBattlefield.setEnabled(false);
         battlefieldsPanel.add(playerBattlefield);
         add(battlefieldsPanel);
         //battlefieldsPanel.add(createEnemyBattlefield(battlefieldConstraint));
@@ -104,7 +105,7 @@ public class BattleshipFrame extends JFrame {
     }
     
     private JPanelBattlefield createPlayerBattlefield(GridBagConstraints constraint) { 
-        playerBF = new JButtonBattlefield(false);
+        playerBF = new JButtonBattlefield(true);
         return playerBF;
     }
     
