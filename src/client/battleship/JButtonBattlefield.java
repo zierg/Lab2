@@ -11,13 +11,13 @@ class JButtonBattlefield extends JPanelBattlefield {
         @Override
         public void actionPerformed(ActionEvent ae) {
             JButtonField a = (JButtonField) ae.getSource();
-            //a.attack();
             a.setVisibleField(true);
             a.setEnabled(false);
             listenAction(new BattlefieldActionEvent(this, ae.getActionCommand()));
         }
     }
     
+    private boolean enabled;
     public static final int SIDE_FIELDS_COUNT = 10;
     public static final int TOTAL_FIELDS_COUNT = SIDE_FIELDS_COUNT*SIDE_FIELDS_COUNT;
     
@@ -25,6 +25,7 @@ class JButtonBattlefield extends JPanelBattlefield {
     
     public JButtonBattlefield(boolean enabled) {
         super();
+        this.enabled = enabled;
         setLayout(new GridLayout(SIDE_FIELDS_COUNT,SIDE_FIELDS_COUNT));
         PlayerFieldListener listener = new PlayerFieldListener();
         for (int i = 0; i < TOTAL_FIELDS_COUNT; i++) {
@@ -36,6 +37,16 @@ class JButtonBattlefield extends JPanelBattlefield {
         
     }
         
+    @Override
+    public void setEnabled(boolean enabled) {
+        if (this.enabled == enabled) {
+            return;
+        }
+        for (int i = 0; i < TOTAL_FIELDS_COUNT; i++) {
+            fields[i].setEnabled(enabled);
+        }
+    }
+    
     @Override
     public boolean attack(int index) {
         return fields[index].attack();
