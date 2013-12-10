@@ -1,6 +1,6 @@
 package client.battleship;
 
-public interface Ship {
+interface Ship {
     public static final int SHIP_HORIZONTAL = 1;
     public static final int SHIP_VERTICAL = 0;
     

@@ -89,7 +89,7 @@ public class BattleshipFrame extends JFrame {
         JPanel battlefieldsPanel = new JPanel(new GridLayout(1, 2));
         battlefieldsPanel.add(createPlayerBattlefield(battlefieldConstraint));
         //battlefieldsPanel.add(createEnemyBattlefield(battlefieldConstraint));
-        battlefieldsPanel.add(new BrowseShipPanel());
+        battlefieldsPanel.add(new JButtonBrowseShipPanel());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
