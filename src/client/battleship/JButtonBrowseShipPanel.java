@@ -12,16 +12,17 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 class JButtonBrowseShipPanel extends BrowseShipPanel {
-    private class ShipItemListener implements ItemListener {
-
+    private class ShipActionListener implements ActionListener {
         @Override
-        public void itemStateChanged(ItemEvent e) {
-            JButtonShip shipItem = (JButtonShip) e.getItem();
+        public void actionPerformed(ActionEvent e) {
+            JButtonShip shipItem = (JButtonShip) e.getSource();
             if ( shipItem.isSelected() ) {
                 resetShips(shipItem);
                 selectedShip = shipItem;
+            } else {
+                shipItem.setSelected(true);
             }
-        }  
+        }
     }
     
     private final static int DEFAULT_ROTATION = JButtonShip.SHIP_HORIZONTAL;
@@ -46,12 +47,12 @@ class JButtonBrowseShipPanel extends BrowseShipPanel {
         
         
         setLayout(layout);
-        ShipItemListener listener = new ShipItemListener();
+        ShipActionListener listener = new ShipActionListener();
         for (int i = 0; i < MAX_SHIPS; i++) {
             JPanel panel = new JPanel(layout);
             for (int j = i; j < MAX_SHIPS; j++) {
                 JButtonShip newShip = new JButtonShip(i+1, sideSize);
-                newShip.addItemListener(listener);
+                newShip.addActionListener(listener);
                 shipList.add(newShip);
                 panel.add(newShip);
             }
