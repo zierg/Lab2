@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import javax.swing.Icon;
 import javax.swing.JToggleButton;
 
-class JButtonShip extends JToggleButton implements Ship {
+final class JButtonShip extends JToggleButton implements Ship {
     private static class ShipIcon implements Icon {
         private final int sideSize;
         private final int shipSize;
@@ -77,6 +77,11 @@ class JButtonShip extends JToggleButton implements Ship {
         horizontalSelectedIcon = new ShipIcon(shipSize, sideSize, SHIP_HORIZONTAL, Color.lightGray);
         verticalSelectedIcon = new ShipIcon(shipSize, sideSize, SHIP_VERTICAL, Color.lightGray);
         setRotation(SHIP_HORIZONTAL);
+    }
+    
+    @Override
+    public int getShipSize() {
+        return shipSize;
     }
     
     @Override
