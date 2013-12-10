@@ -17,6 +17,7 @@ public class BattleshipFrame extends JFrame {
     private static final Insets LEFT_INSETS = new Insets(0, 0, 0, 2);
     private static final Insets RIGHT_INSETS = new Insets(0, 2, 0, 0);
     private static final int BATTLEFIELD_SIDE = JButtonBattlefield.SIDE_FIELDS_COUNT;
+    private static final int BROWSE_SHIP_SIDE_SIZE = 35;
     
     private final CardLayout mainCardLayout;
     
@@ -87,9 +88,11 @@ public class BattleshipFrame extends JFrame {
     
     private void createBattlefiedls() {
         JPanel battlefieldsPanel = new JPanel(new GridLayout(1, 2));
-        battlefieldsPanel.add(createPlayerBattlefield(battlefieldConstraint));
+        JPanelBattlefield playerBattlefield = createPlayerBattlefield(battlefieldConstraint);
+        battlefieldsPanel.add(playerBattlefield);
+        add(battlefieldsPanel);
         //battlefieldsPanel.add(createEnemyBattlefield(battlefieldConstraint));
-        battlefieldsPanel.add(new JButtonBrowseShipPanel());
+        battlefieldsPanel.add(new JButtonBrowseShipPanel(BROWSE_SHIP_SIDE_SIZE));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
@@ -97,7 +100,7 @@ public class BattleshipFrame extends JFrame {
         gbc.gridheight = 2;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         playLayout.setConstraints(battlefieldsPanel, gbc);
-        add(battlefieldsPanel);
+        
     }
     
     private JPanelBattlefield createPlayerBattlefield(GridBagConstraints constraint) { 

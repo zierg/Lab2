@@ -30,12 +30,11 @@ class JButtonBrowseShipPanel extends BrowseShipPanel {
     
     private List<JButtonShip> shipList = new LinkedList<>();
         
-    public JButtonBrowseShipPanel() {
+    public JButtonBrowseShipPanel(int sideSize) {
         super();
         FlowLayout layout = new FlowLayout();
-        JButton b = new JButton("Rotate");
-        b.addActionListener(new ActionListener() {
-
+        JButton rotateButton = new JButton("Rotate");
+        rotateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedShip != null) {
@@ -43,7 +42,7 @@ class JButtonBrowseShipPanel extends BrowseShipPanel {
                 }
             }
         });
-        add (b);
+        add (rotateButton);
         
         
         setLayout(layout);
@@ -51,7 +50,7 @@ class JButtonBrowseShipPanel extends BrowseShipPanel {
         for (int i = 0; i < MAX_SHIPS; i++) {
             JPanel panel = new JPanel(layout);
             for (int j = i; j < MAX_SHIPS; j++) {
-                JButtonShip newShip = new JButtonShip(i+1, 30);
+                JButtonShip newShip = new JButtonShip(i+1, sideSize);
                 newShip.addItemListener(listener);
                 shipList.add(newShip);
                 panel.add(newShip);
