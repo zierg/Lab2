@@ -41,7 +41,7 @@ class JButtonBrowseShipPanel extends BrowseShipPanel {
         shipPanels = new JPanel[ships.length];
         FlowLayout layout = new FlowLayout();
         setLayout(new GridLayout(2,1));
-        JButton rotateButton = new JButton("Rotate");
+        final JButton rotateButton = new JButton("Rotate");
         rotateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,6 +49,10 @@ class JButtonBrowseShipPanel extends BrowseShipPanel {
                     selectedShip.toggleRotation();
                     shipPanels[selectedShip.getShipSize()-1].remove(selectedShip);
                     shipPanels[selectedShip.getShipSize()-1].repaint();
+                    shipList.remove(selectedShip);
+                    if (shipList.isEmpty()) {
+                        rotateButton.setText("asd");
+                    }
                 }
             }
         });
