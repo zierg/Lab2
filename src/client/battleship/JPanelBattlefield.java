@@ -25,4 +25,5 @@ abstract class JPanelBattlefield extends JPanel {
     public abstract void setFill(int index, boolean filled);
     public abstract void setAllowTurn(boolean allow);
     public abstract void addShip(int index, Ship ship) throws UncorrectFieldException;
+    public abstract void setVisibleField(int index, boolean visible);
 }
