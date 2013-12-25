@@ -80,25 +80,45 @@ class JButtonBattlefield extends JPanelBattlefield {
     
     @Override
     public void addShip(int index, Ship ship) throws UncorrectFieldException {
-        int increment = ship.getRotation() == Ship.SHIP_HORIZONTAL ? 1 : SIDE_FIELDS_COUNT;
+        int rotation = ship.getRotation();
+        int increment = (rotation == Ship.SHIP_HORIZONTAL) ? 1 : SIDE_FIELDS_COUNT;
         
         if (!isFieldForShipCorrect(index, ship)) {
             throw new UncorrectFieldException();
         }
         
+        switch (rotation) {
+            case Ship.SHIP_HORIZONTAL: {
+                // Запретить поля перед кораблём
+                // Вызвать метод заполнения кораблей
+                // Запретить поля после корабля
+                break;
+            }
+            case Ship.SHIP_VERTICAL: {
+                // Так же
+                break;
+            }
+        }
+        
+        // Убрать в отдельный метод
         for (int i = 0; i < ship.getShipSize()*increment; i+=increment) {
+            try {
+                
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                
+            }
             setFill(index + i, true);
             setVisibleField(index + i, true);
         }
     }
     
     private boolean isFieldForShipCorrect(int index, Ship ship) {
-        int increment = ship.getRotation() == Ship.SHIP_HORIZONTAL ? 1 : SIDE_FIELDS_COUNT;
         int rotation = ship.getRotation();
+        int increment = (rotation == Ship.SHIP_HORIZONTAL) ? 1 : SIDE_FIELDS_COUNT;
         int size = ship.getShipSize();
         if (index + increment*(size-1) >= TOTAL_FIELDS_COUNT
                 || (rotation == Ship.SHIP_HORIZONTAL 
-                && index%SIDE_FIELDS_COUNT > ((index + increment*(size-1))%SIDE_FIELDS_COUNT)) ) { // Это очень плохо. Но для shipSize<=10 сгодится
+                && index%SIDE_FIELDS_COUNT > ((index + increment*(size-1))%SIDE_FIELDS_COUNT)) ) { // Тут был бред
             return false;
         }
         return true;
