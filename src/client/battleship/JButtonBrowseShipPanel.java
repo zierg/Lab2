@@ -3,7 +3,6 @@ package client.battleship;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import client.battleship.events.BrowseShipPanelActionEvent;
+import client.battleship.events.BrowseShipPanelActionListener;
 
 final class JButtonBrowseShipPanel extends BrowseShipPanel {
     private class ShipActionListener implements ActionListener {
@@ -22,6 +23,7 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
             if ( shipItem.isSelected() ) {
                 resetShips(shipItem);
                 selectedShip = shipItem;
+                listenAction(new BrowseShipPanelActionEvent(this));
             } else {
                 shipItem.setSelected(true);
             }
@@ -85,6 +87,13 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
                     currentShip.setSelected(false);
                 }
             }
+        }
+    }
+    
+    private void listenAction(BrowseShipPanelActionEvent e) {
+        ListIterator<BrowseShipPanelActionListener> iterator = listeners.listIterator();
+        while ( iterator.hasNext() ) {
+            iterator.next().actionPerformed(e);
         }
     }
     
