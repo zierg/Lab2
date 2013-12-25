@@ -12,7 +12,7 @@ abstract class BrowseShipPanel extends JPanel {
         super();
     }
 
-    public void addBattlefieldActionListener(BrowseShipPanelActionListener listener) {
+    public void addBrowseShipPanelActionListener(BrowseShipPanelActionListener listener) {
         listeners.add(listener);
     }
     

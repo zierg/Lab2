@@ -73,6 +73,11 @@ class JButtonBattlefield extends JPanelBattlefield {
         fields[index].setAvailableField(available);
     }
     
+    @Override
+    public void addShip(int index, Ship ship) throws UncorrectFieldException {
+        
+    }
+    
     private void listenAction(BattlefieldActionEvent e) {
         ListIterator<BattlefieldActionListener> iterator = listeners.listIterator();
         while ( iterator.hasNext() ) {

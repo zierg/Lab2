@@ -24,6 +24,7 @@ public class BattleshipFrame extends JFrame {
     private GridBagConstraints battlefieldConstraint;
         
     private JPanelBattlefield playerBF;     // delete
+    JButtonBrowseShipPanel browseShipPanel;
     
     public BattleshipFrame() {
         mainCardLayout = new CardLayout();
@@ -87,12 +88,20 @@ public class BattleshipFrame extends JFrame {
     
     private void createBattlefiedls() {
         JPanel battlefieldsPanel = new JPanel(new GridLayout(1, 2));
-        JPanelBattlefield playerBattlefield = createPlayerBattlefield(battlefieldConstraint);
-        //playerBattlefield.setEnabled(false);
-        battlefieldsPanel.add(playerBattlefield);
+        /*JPanelBattlefield playerBattlefield = */createPlayerBattlefield();
+        playerBF.setEnabled(false);
+        battlefieldsPanel.add(playerBF);
         add(battlefieldsPanel);
-        //battlefieldsPanel.add(createEnemyBattlefield(battlefieldConstraint));
-        battlefieldsPanel.add(new JButtonBrowseShipPanel(4, 3, 2, 1));
+        //battlefieldsPanel.add(createEnemyBattlefield());
+        browseShipPanel = new JButtonBrowseShipPanel(4, 3, 2, 1);
+        browseShipPanel.addBrowseShipPanelActionListener(new BrowseShipPanelActionListener() {
+
+            @Override
+            public void actionPerformed(BrowseShipPanelActionEvent e) {
+                playerBF.setEnabled(true);
+            }
+        });
+        battlefieldsPanel.add(browseShipPanel);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
@@ -103,13 +112,20 @@ public class BattleshipFrame extends JFrame {
         
     }
     
-    private JPanelBattlefield createPlayerBattlefield(GridBagConstraints constraint) { 
+    private JPanelBattlefield createPlayerBattlefield() { 
         playerBF = new JButtonBattlefield(true);
+        playerBF.addBattlefieldActionListener(new BattlefieldActionListener() {
+
+            @Override
+            public void actionPerformed(BattlefieldActionEvent e) {
+                browseShipPanel.deleteSelectedShip();
+            }
+        });
         return playerBF;
     }
     
     private int total = 0;
-    private JPanelBattlefield createEnemyBattlefield(GridBagConstraints constraint) {       
+    private JPanelBattlefield createEnemyBattlefield() {       
         JPanelBattlefield battlefield = new JButtonBattlefield(true);
         battlefield.addBattlefieldActionListener(new BattlefieldActionListener() {
 
