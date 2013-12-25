@@ -1,13 +1,17 @@
 package client.battleship;
 
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 class JButtonBrowseShipPanel extends BrowseShipPanel {
     private class ShipActionListener implements ActionListener {
@@ -23,40 +27,56 @@ class JButtonBrowseShipPanel extends BrowseShipPanel {
         }
     }
     
-    
     private static final int BROWSE_SHIP_SIDE_SIZE = 30;
     private final static int DEFAULT_ROTATION = JButtonShip.SHIP_HORIZONTAL;
-    private final static int MAX_SHIPS = 4;
+
     private JButtonShip selectedShip;
+    private final JScrollPane shipScrollPane;
     
-    private List<JButtonShip> shipList = new LinkedList<>();
+    private List<JButtonShip> shipList = new ArrayList<>();
+    private JPanel shipPanels[];
         
     public JButtonBrowseShipPanel(int ... ships) {
         super();
+        shipPanels = new JPanel[ships.length];
         FlowLayout layout = new FlowLayout();
+        setLayout(new GridLayout(2,1));
         JButton rotateButton = new JButton("Rotate");
         rotateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedShip != null) {
                     selectedShip.toggleRotation();
+                    shipPanels[selectedShip.getShipSize()-1].remove(selectedShip);
+                    shipPanels[selectedShip.getShipSize()-1].repaint();
                 }
             }
         });
         add (rotateButton);
         
-        
-        setLayout(layout);
-        ShipActionListener listener = new ShipActionListener();
-        for (int i = 0; i < ships.length; i++) {
-            JPanel panel = new JPanel(layout);
-            for (int j = 0; j < ships[i]; j++) {
-                JButtonShip newShip = new JButtonShip(i+1, BROWSE_SHIP_SIDE_SIZE);
-                newShip.addActionListener(listener);
-                shipList.add(newShip);
-                panel.add(newShip);
+        {
+            GridBagLayout shipPanelLayout = new GridBagLayout();
+            JPanel shipPanel = new JPanel(shipPanelLayout);
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.fill = GridBagConstraints.BOTH;
+            gbc.weightx = 1;
+            gbc.weighty = 1;
+            gbc.gridwidth = GridBagConstraints.REMAINDER;
+            ShipActionListener listener = new ShipActionListener();
+            for (int i = 0; i < ships.length; i++) {
+                shipPanels[i] = new JPanel(layout);
+                for (int j = 0; j < ships[i]; j++) {
+                    JButtonShip newShip = new JButtonShip(i+1, BROWSE_SHIP_SIDE_SIZE);
+                    newShip.addActionListener(listener);
+                    shipList.add(newShip);
+                    shipPanels[i].add(newShip);
+                }
+                shipPanelLayout.setConstraints(shipPanels[i], gbc);
+                shipPanel.add(shipPanels[i]);
             }
-            add(panel);
+
+            shipScrollPane = new JScrollPane(shipPanel);
+            add(shipScrollPane);
         }
     }
     
