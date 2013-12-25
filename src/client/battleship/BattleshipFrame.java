@@ -118,7 +118,9 @@ public class BattleshipFrame extends JFrame {
 
             @Override
             public void actionPerformed(BattlefieldActionEvent e) {
+                playerBF.addShip(Integer.parseInt(e.getMessage()), browseShipPanel.getSelectedShip());
                 browseShipPanel.deleteSelectedShip();
+                playerBF.setEnabled(false);
             }
         });
         return playerBF;

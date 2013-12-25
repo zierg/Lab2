@@ -81,7 +81,7 @@ class JButtonBattlefield extends JPanelBattlefield {
     @Override
     public void addShip(int index, Ship ship) throws UncorrectFieldException {
         int increment = ship.getRotation() == Ship.SHIP_HORIZONTAL ? 1 : SIDE_FIELDS_COUNT;
-        for (int i = 0; i < ship.getShipSize(); i+=increment) {
+        for (int i = 0; i < ship.getShipSize()*increment; i+=increment) {
             setFill(index + i, true);
             setVisibleField(index + i, true);
         }
