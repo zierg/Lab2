@@ -87,7 +87,7 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
                 }
             }
         });
-        add (rotateButton);
+        add(rotateButton);
     }
     
     private void createShipPanel(int ... ships) {
