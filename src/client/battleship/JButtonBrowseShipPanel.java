@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ListIterator;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 final class JButtonBrowseShipPanel extends BrowseShipPanel {
@@ -111,7 +112,16 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
             shipPanel.add(shipPanels[i]);
         }
 
+        
+        int unitIncrement = 10;
+        JScrollBar horizontalScrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
+        JScrollBar verticalScrollBar = new JScrollBar(JScrollBar.VERTICAL);
+        horizontalScrollBar.setUnitIncrement(unitIncrement);
+        verticalScrollBar.setUnitIncrement(unitIncrement);
+        
         shipScrollPane = new JScrollPane(shipPanel);
+        shipScrollPane.setHorizontalScrollBar(horizontalScrollBar);
+        shipScrollPane.setVerticalScrollBar(verticalScrollBar);
         add(shipScrollPane);
     }
 }
