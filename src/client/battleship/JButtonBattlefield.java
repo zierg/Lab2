@@ -11,8 +11,8 @@ class JButtonBattlefield extends JPanelBattlefield {
         @Override
         public void actionPerformed(ActionEvent ae) {
             JButtonField a = (JButtonField) ae.getSource();
-            a.setVisibleField(true);
-            a.setEnabled(false);
+            //a.setVisibleField(true);
+            //a.setEnabled(false);
             listenAction(new BattlefieldActionEvent(this, ae.getActionCommand()));
         }
     }
@@ -61,6 +61,16 @@ class JButtonBattlefield extends JPanelBattlefield {
     @Override
     public void setAllowTurn(boolean allow) {
         
+    }
+    
+    @Override
+    public void setFieldEnabled(int index, boolean enabled) {
+        fields[index].setEnabled(enabled);
+    }
+    
+    @Override
+    public void setAvailableField(int index, boolean available) {
+        fields[index].setAvailableField(available);
     }
     
     private void listenAction(BattlefieldActionEvent e) {
