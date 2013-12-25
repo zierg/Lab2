@@ -47,12 +47,6 @@ class JButtonBrowseShipPanel extends BrowseShipPanel {
             public void actionPerformed(ActionEvent e) {
                 if (selectedShip != null) {
                     selectedShip.toggleRotation();
-                    shipPanels[selectedShip.getShipSize()-1].remove(selectedShip);
-                    shipPanels[selectedShip.getShipSize()-1].repaint();
-                    shipList.remove(selectedShip);
-                    if (shipList.isEmpty()) {
-                        rotateButton.setText("asd");
-                    }
                 }
             }
         });
@@ -87,6 +81,18 @@ class JButtonBrowseShipPanel extends BrowseShipPanel {
     @Override
     public Ship getSelectedShip() {
         return selectedShip;
+    }
+    
+    @Override
+    public void deleteSelectedShip() {
+        if (selectedShip != null) {
+            shipPanels[selectedShip.getShipSize()-1].remove(selectedShip);
+            shipPanels[selectedShip.getShipSize()-1].repaint();
+            shipList.remove(selectedShip);
+            if (shipList.isEmpty()) {
+                // do something
+            }
+        }
     }
     
     private void resetShips(JButtonShip dontReset) {
