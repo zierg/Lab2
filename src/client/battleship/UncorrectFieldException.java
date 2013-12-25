@@ -1,6 +1,6 @@
 package client.battleship;
 
-public class UncorrectFieldException extends RuntimeException{
+public class UncorrectFieldException extends Exception{
     public UncorrectFieldException() {
         super();
     }
