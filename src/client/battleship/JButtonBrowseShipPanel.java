@@ -32,7 +32,6 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
     private final static int DEFAULT_ROTATION = JButtonShip.SHIP_HORIZONTAL;
 
     private JButtonShip selectedShip;
-    private JScrollPane shipScrollPane;
     
     private List<JButtonShip> shipList = new ArrayList<>();
     private JPanel shipPanels[];
@@ -40,9 +39,21 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
     public JButtonBrowseShipPanel(int ... ships) {
         super();
         shipPanels = new JPanel[ships.length];
-        setLayout(new GridLayout(2,1));
-        createRotateButton();
-        createShipPanel(ships);
+        GridBagLayout layout = new GridBagLayout();
+        setLayout(layout);
+        GridBagConstraints constraints = new GridBagConstraints();
+                         
+        constraints.weightx = 1;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
+        JButton rotateButton = createRotateButton();
+        layout.setConstraints(rotateButton, constraints);
+        add(rotateButton);        
+     
+        constraints.weighty = 1;
+        constraints.fill = GridBagConstraints.BOTH;
+        JScrollPane shipScrollPane = createShipScrollPane(ships);
+        layout.setConstraints(shipScrollPane, constraints);
+        add(shipScrollPane);
     }
     
     @Override
@@ -77,8 +88,8 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
         }
     }
     
-    private void createRotateButton() {
-        final JButton rotateButton = new JButton("Rotate");
+    private JButton createRotateButton() {
+        JButton rotateButton = new JButton("Rotate");
         rotateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,10 +98,10 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
                 }
             }
         });
-        add(rotateButton);
+        return rotateButton;
     }
     
-    private void createShipPanel(int ... ships) {
+    private JScrollPane createShipScrollPane(int ... ships) {
         GridBagLayout shipPanelLayout = new GridBagLayout();
         JPanel shipPanel = new JPanel(shipPanelLayout);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -112,16 +123,16 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
             shipPanel.add(shipPanels[i]);
         }
 
-        
         int unitIncrement = 10;
         JScrollBar horizontalScrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
         JScrollBar verticalScrollBar = new JScrollBar(JScrollBar.VERTICAL);
         horizontalScrollBar.setUnitIncrement(unitIncrement);
         verticalScrollBar.setUnitIncrement(unitIncrement);
         
-        shipScrollPane = new JScrollPane(shipPanel);
+        
+        JScrollPane shipScrollPane = new JScrollPane(shipPanel);
         shipScrollPane.setHorizontalScrollBar(horizontalScrollBar);
         shipScrollPane.setVerticalScrollBar(verticalScrollBar);
-        add(shipScrollPane);
+        return shipScrollPane;
     }
 }
