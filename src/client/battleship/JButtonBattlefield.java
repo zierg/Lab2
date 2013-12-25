@@ -98,7 +98,7 @@ class JButtonBattlefield extends JPanelBattlefield {
         int size = ship.getShipSize();
         if (index + increment*(size-1) >= TOTAL_FIELDS_COUNT
                 || (rotation == Ship.SHIP_HORIZONTAL 
-                && index%SIDE_FIELDS_COUNT > ((index + increment*size)%SIDE_FIELDS_COUNT)) ) { // Это очень плохо. Но для shipSize<=10 сгодится
+                && index%SIDE_FIELDS_COUNT > ((index + increment*(size-1))%SIDE_FIELDS_COUNT)) ) { // Это очень плохо. Но для shipSize<=10 сгодится
             return false;
         }
         return true;
