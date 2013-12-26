@@ -4,13 +4,12 @@ import client.battleship.events.*;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ListIterator;
 
 class JButtonBattlefield extends JPanelBattlefield {
     private class PlayerFieldListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            JButtonField a = (JButtonField) ae.getSource();
+            //JButtonField a = (JButtonField) ae.getSource();
             listenAction(new BattlefieldActionEvent(this, ae.getActionCommand()));
         }
     }
@@ -18,6 +17,8 @@ class JButtonBattlefield extends JPanelBattlefield {
     private boolean enabled;
     public static final int SIDE_FIELDS_COUNT = 10;
     public static final int TOTAL_FIELDS_COUNT = SIDE_FIELDS_COUNT*SIDE_FIELDS_COUNT;
+    
+    private int totalShipFields = 0;
     
     private JButtonField[] fields = new JButtonField[TOTAL_FIELDS_COUNT];
     
@@ -31,8 +32,7 @@ class JButtonBattlefield extends JPanelBattlefield {
             fields[i].addActionListener(listener);
             fields[i].setFill(false);
             add(fields[i]);
-        }
-        
+        } 
     }
         
     @Override
@@ -48,7 +48,14 @@ class JButtonBattlefield extends JPanelBattlefield {
     
     @Override
     public boolean attack(int index) {
-        return fields[index].attack();
+        boolean hit = fields[index].attack();
+        if (hit) {
+            totalShipFields--;
+            if (totalShipFields==0) {
+                listenGameOver(new BattlefieldGameOverEvent(this));
+            }
+        }
+        return hit;
     }
     
     @Override
@@ -85,6 +92,7 @@ class JButtonBattlefield extends JPanelBattlefield {
         blockFieldsBeforeShip(index, ship);
         putShip(index, ship);
         blockFieldsAfterShip(index, ship);
+        totalShipFields+=ship.getShipSize();
     }
     
     @Override
