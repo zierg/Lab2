@@ -147,10 +147,10 @@ public class BattleshipFrame extends JFrame {
                 playerBF.setEnabled(false);
             }
         });
-        playerBF.addBattlefieldGameOverListener(new BattlefieldGameOverListener() {
+        playerBF.addBattlefieldGameOverListener(new GameOverListener() {
 
             @Override
-            public void gameOver(BattlefieldGameOverEvent e) {
+            public void gameOver(GameOverEvent e) {
                 enemyBF.setEnabled(false);
                 chat.addMessage("Game over!");
             }

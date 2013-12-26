@@ -9,7 +9,7 @@ import java.util.ListIterator;
 abstract class JPanelBattlefield extends JPanel {
    
     protected List<BattlefieldActionListener> actionListeners = new LinkedList<>();
-    protected List<BattlefieldGameOverListener> gameOverListeners = new LinkedList<>();
+    protected List<GameOverListener> gameOverListeners = new LinkedList<>();
     
     public JPanelBattlefield() {
         super();
@@ -19,7 +19,7 @@ abstract class JPanelBattlefield extends JPanel {
         actionListeners.add(listener);
     }
     
-    public void addBattlefieldGameOverListener(BattlefieldGameOverListener listener) {
+    public void addBattlefieldGameOverListener(GameOverListener listener) {
         gameOverListeners.add(listener);
     }
     
@@ -42,8 +42,8 @@ abstract class JPanelBattlefield extends JPanel {
         }
     }
     
-    protected void listenGameOver(BattlefieldGameOverEvent e) {
-        ListIterator<BattlefieldGameOverListener> iterator = gameOverListeners.listIterator();
+    protected void listenGameOver(GameOverEvent e) {
+        ListIterator<GameOverListener> iterator = gameOverListeners.listIterator();
         while ( iterator.hasNext() ) {
             iterator.next().gameOver(e);
         }

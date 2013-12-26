@@ -52,7 +52,7 @@ class JButtonBattlefield extends JPanelBattlefield {
         if (hit) {
             totalShipFields--;
             if (totalShipFields==0) {
-                listenGameOver(new BattlefieldGameOverEvent(this));
+                listenGameOver(new GameOverEvent(this));
             }
         }
         return hit;
