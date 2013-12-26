@@ -4,17 +4,23 @@ import javax.swing.JPanel;
 import java.util.List;
 import java.util.LinkedList;
 import client.battleship.events.*;
+import java.util.ListIterator;
 
 abstract class JPanelBattlefield extends JPanel {
    
-    protected List<BattlefieldActionListener> listeners = new LinkedList<>();
+    protected List<BattlefieldActionListener> actionListeners = new LinkedList<>();
+    protected List<BattlefieldGameOverListener> gameOverListeners = new LinkedList<>();
     
     public JPanelBattlefield() {
         super();
     }
 
     public void addBattlefieldActionListener(BattlefieldActionListener listener) {
-        listeners.add(listener);
+        actionListeners.add(listener);
+    }
+    
+    public void addBattlefieldGameOverListener(BattlefieldGameOverListener listener) {
+        gameOverListeners.add(listener);
     }
     
     @Override
@@ -28,4 +34,18 @@ abstract class JPanelBattlefield extends JPanel {
     public abstract void setAllowTurn(boolean allow);
     public abstract void addShip(int index, Ship ship) throws UncorrectFieldException;
     public abstract void setVisibleField(int index, boolean visible);
+    
+    protected void listenAction(BattlefieldActionEvent e) {
+        ListIterator<BattlefieldActionListener> iterator = actionListeners.listIterator();
+        while ( iterator.hasNext() ) {
+            iterator.next().actionPerformed(e);
+        }
+    }
+    
+    protected void listenGameOver(BattlefieldGameOverEvent e) {
+        ListIterator<BattlefieldGameOverListener> iterator = gameOverListeners.listIterator();
+        while ( iterator.hasNext() ) {
+            iterator.next().gameOver(e);
+        }
+    }
 }

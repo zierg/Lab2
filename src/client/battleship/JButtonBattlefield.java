@@ -192,11 +192,4 @@ class JButtonBattlefield extends JPanelBattlefield {
         }
         return true;
     }
-    
-    private void listenAction(BattlefieldActionEvent e) {
-        ListIterator<BattlefieldActionListener> iterator = listeners.listIterator();
-        while ( iterator.hasNext() ) {
-            iterator.next().actionPerformed(e);
-        }
-    }
 }
