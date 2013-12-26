@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
 
 public class ClientFrame extends JFrame {
     private class BattleshipWindowListener extends WindowAdapter {
@@ -25,7 +26,11 @@ public class ClientFrame extends JFrame {
     public ClientFrame() {
         super();
         configureFrame();
-        JButton b = new JButton("open bs");
+        
+        JList<String> list = new JList<>(new String[] {"asd", "asd", "asdasd qw"});
+        add(list);
+        
+        /*JButton b = new JButton("open bs");
         b.addActionListener(new ActionListener() {
 
             @Override
@@ -35,7 +40,8 @@ public class ClientFrame extends JFrame {
                 setVisible(false);
             }
         });
-        add(b);
+        add(b);*/
+        
         setVisible(true);
     }
     
