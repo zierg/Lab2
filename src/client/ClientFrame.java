@@ -7,15 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 public class ClientFrame extends JFrame {
 
     public ClientFrame() {
         super();
         configureFrame();
-        /*JButton b = new JButton("open bs");
+        JButton b = new JButton("open bs");
         b.addActionListener(new ActionListener() {
 
             @Override
@@ -24,13 +22,7 @@ public class ClientFrame extends JFrame {
                 //setVisible(false);
             }
         });
-        add(b);*/
-        Object[] data = new Object[] { new Object[] {}, "Первый", "Второй", "Третий", new Object[] {new Object[] {"sad"}, "Чей-то потомок",
-"Еще потомок" }
-};
-        //DefaultMutableTreeNode n = new DefaultMutableTreeNode(1);
-        JTree tree = new JTree(data);
-        add(tree);
+        add(b);
         setVisible(true);
     }
     
