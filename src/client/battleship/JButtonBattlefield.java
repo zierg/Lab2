@@ -80,15 +80,13 @@ class JButtonBattlefield extends JPanelBattlefield {
     
     @Override
     public void addShip(int index, Ship ship) throws UncorrectFieldException {
-        //int rotation = ship.getRotation();
-        //int increment = (rotation == Ship.SHIP_HORIZONTAL) ? 1 : SIDE_FIELDS_COUNT;
-        
         if (!isFieldForShipCorrect(index, ship)) {
             throw new UncorrectFieldException();
         }
         
         blockFieldsBeforeShip(index, ship);
         putShip(index, ship);
+        blockFieldsAfterShip(index, ship);
     }
     
     private void blockFieldsBeforeShip(int index, Ship ship) {
@@ -113,6 +111,38 @@ class JButtonBattlefield extends JPanelBattlefield {
                     }
                     if (index % SIDE_FIELDS_COUNT < SIDE_FIELDS_COUNT-1) {
                         setAvailableField(index-SIDE_FIELDS_COUNT+1, false);
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
+    private void blockFieldsAfterShip(int index, Ship ship) {
+        int rotation = ship.getRotation();
+        int increment = (rotation == Ship.SHIP_HORIZONTAL) ? 1 : SIDE_FIELDS_COUNT;
+        int endOfShip = index + (ship.getShipSize()-1)*increment;
+        switch (rotation) {
+            case Ship.SHIP_HORIZONTAL: {
+                if (endOfShip % SIDE_FIELDS_COUNT < SIDE_FIELDS_COUNT-1) {
+                    setAvailableField(endOfShip+1, false);
+                    if (endOfShip > SIDE_FIELDS_COUNT) {
+                        setAvailableField(endOfShip-SIDE_FIELDS_COUNT+1, false);
+                    }
+                    if (endOfShip + SIDE_FIELDS_COUNT < TOTAL_FIELDS_COUNT) {
+                        setAvailableField(endOfShip+SIDE_FIELDS_COUNT+1, false);
+                    }
+                }
+                break;
+            }
+            case Ship.SHIP_VERTICAL: {
+                if (endOfShip + SIDE_FIELDS_COUNT < TOTAL_FIELDS_COUNT) {
+                    setAvailableField(endOfShip+SIDE_FIELDS_COUNT, false);
+                    if (endOfShip % SIDE_FIELDS_COUNT > 0) {
+                        setAvailableField(endOfShip+SIDE_FIELDS_COUNT-1, false);
+                    }
+                    if (endOfShip % SIDE_FIELDS_COUNT < SIDE_FIELDS_COUNT-1) {
+                        setAvailableField(endOfShip+SIDE_FIELDS_COUNT+1, false);
                     }
                 }
                 break;
