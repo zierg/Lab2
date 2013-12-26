@@ -13,9 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import client.battleship.events.BrowseShipPanelActionEvent;
-import client.battleship.events.BrowseShipPanelActionListener;
 import client.battleship.events.BrowseShipPanelEmptyEvent;
-import client.battleship.events.BrowseShipPanelEmptyListener;
 
 final class JButtonBrowseShipPanel extends BrowseShipPanel {
     private class ShipActionListener implements ActionListener {
@@ -91,21 +89,7 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
             }
         }
     }
-    
-    private void listenAction(BrowseShipPanelActionEvent e) {
-        ListIterator<BrowseShipPanelActionListener> iterator = actionListeners.listIterator();
-        while ( iterator.hasNext() ) {
-            iterator.next().actionPerformed(e);
-        }
-    }
-    
-    private void listenEmpty(BrowseShipPanelEmptyEvent e) {
-        ListIterator<BrowseShipPanelEmptyListener> iterator = emptyListeners.listIterator();
-        while ( iterator.hasNext() ) {
-            iterator.next().panelIsEmpty(e);
-        }
-    }
-    
+      
     private JButton createRotateButton() {
         JButton rotateButton = new JButton("Rotate");
         rotateButton.addActionListener(new ActionListener() {

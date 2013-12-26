@@ -1,9 +1,12 @@
 package client.battleship;
 
+import client.battleship.events.BrowseShipPanelActionEvent;
 import client.battleship.events.BrowseShipPanelActionListener;
+import client.battleship.events.BrowseShipPanelEmptyEvent;
 import client.battleship.events.BrowseShipPanelEmptyListener;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import javax.swing.JPanel;
 
 abstract class BrowseShipPanel extends JPanel {
@@ -24,4 +27,18 @@ abstract class BrowseShipPanel extends JPanel {
     
     public abstract Ship getSelectedShip();
     public abstract void deleteSelectedShip();
+    
+    protected void listenAction(BrowseShipPanelActionEvent e) {
+        ListIterator<BrowseShipPanelActionListener> iterator = actionListeners.listIterator();
+        while ( iterator.hasNext() ) {
+            iterator.next().actionPerformed(e);
+        }
+    }
+    
+    protected void listenEmpty(BrowseShipPanelEmptyEvent e) {
+        ListIterator<BrowseShipPanelEmptyListener> iterator = emptyListeners.listIterator();
+        while ( iterator.hasNext() ) {
+            iterator.next().panelIsEmpty(e);
+        }
+    }
 }
