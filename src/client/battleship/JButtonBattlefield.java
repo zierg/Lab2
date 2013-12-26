@@ -80,14 +80,19 @@ class JButtonBattlefield extends JPanelBattlefield {
     
     @Override
     public void addShip(int index, Ship ship) throws UncorrectFieldException {
-        int rotation = ship.getRotation();
-        int increment = (rotation == Ship.SHIP_HORIZONTAL) ? 1 : SIDE_FIELDS_COUNT;
+        //int rotation = ship.getRotation();
+        //int increment = (rotation == Ship.SHIP_HORIZONTAL) ? 1 : SIDE_FIELDS_COUNT;
         
         if (!isFieldForShipCorrect(index, ship)) {
             throw new UncorrectFieldException();
         }
         
-        switch (rotation) {
+        blockFieldsBeforeShip(index, ship);
+        putShip(index, ship);
+    }
+    
+    private void blockFieldsBeforeShip(int index, Ship ship) {
+        switch (ship.getRotation()) {
             case Ship.SHIP_HORIZONTAL: {
                 if (index % SIDE_FIELDS_COUNT > 0) {
                     setAvailableField(index-1, false);
@@ -98,12 +103,18 @@ class JButtonBattlefield extends JPanelBattlefield {
                         setAvailableField(index+SIDE_FIELDS_COUNT-1, false);
                     }
                 }
-                putShip(index, ship);
-                // Запретить поля после корабля
                 break;
             }
             case Ship.SHIP_VERTICAL: {
-                // Так же
+                if (index >= SIDE_FIELDS_COUNT) {
+                    setAvailableField(index-SIDE_FIELDS_COUNT, false);
+                    if (index % SIDE_FIELDS_COUNT > 0) {
+                        setAvailableField(index-SIDE_FIELDS_COUNT-1, false);
+                    }
+                    if (index % SIDE_FIELDS_COUNT < SIDE_FIELDS_COUNT-1) {
+                        setAvailableField(index-SIDE_FIELDS_COUNT+1, false);
+                    }
+                }
                 break;
             }
         }
