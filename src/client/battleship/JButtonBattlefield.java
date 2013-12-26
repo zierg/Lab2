@@ -31,7 +31,7 @@ class JButtonBattlefield extends JPanelBattlefield {
         for (int i = 0; i < TOTAL_FIELDS_COUNT; i++) {
             fields[i] = new BackgroundViewField(enabled, i);
             fields[i].addActionListener(listener);
-            fields[i].setFill( ( (i%2 == 0 && (i/10)%2 != 0) || (i%2 != 0 && (i/10)%2 == 0) ) ? true : false );
+            fields[i].setFill( false/*( (i%2 == 0 && (i/10)%2 != 0) || (i%2 != 0 && (i/10)%2 == 0) ) ? true : false*/ );
             add(fields[i]);
         }
         
@@ -175,6 +175,11 @@ class JButtonBattlefield extends JPanelBattlefield {
                 || (rotation == Ship.SHIP_HORIZONTAL 
                 && index%SIDE_FIELDS_COUNT > ((index + increment*(size-1))%SIDE_FIELDS_COUNT)) ) { // Тут был бред
             return false;
+        }
+        for (int i = 0; i < size*increment; i+=increment) {
+            if (!fields[index+i].getAvailableField() || fields[index+i].getFill()) {
+                return false;
+            }
         }
         return true;
     }
