@@ -88,11 +88,24 @@ public class BattleshipFrame extends JFrame {
     
     private void createBattlefiedls() {
         JPanel battlefieldsPanel = new JPanel(new GridLayout(1, 2));
-        /*JPanelBattlefield playerBattlefield = */createPlayerBattlefield();
-        playerBF.setEnabled(false);
+        createPlayerBattlefield();
         battlefieldsPanel.add(playerBF);
-        add(battlefieldsPanel);
+        
         //battlefieldsPanel.add(createEnemyBattlefield());
+        createBroweShipPanel();
+        battlefieldsPanel.add(browseShipPanel);
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridheight = 2;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        playLayout.setConstraints(battlefieldsPanel, gbc);
+        add(battlefieldsPanel);
+    }
+    
+    private void createBroweShipPanel() {
         browseShipPanel = new JButtonBrowseShipPanel(4, 3, 2, 1);
         browseShipPanel.addBrowseShipPanelEmptyListener(new BrowseShipPanelEmptyListener() {
 
@@ -109,18 +122,9 @@ public class BattleshipFrame extends JFrame {
                 playerBF.setEnabled(true);
             }
         });
-        battlefieldsPanel.add(browseShipPanel);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.gridheight = 2;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        playLayout.setConstraints(battlefieldsPanel, gbc);
-        
     }
     
-    private JPanelBattlefield createPlayerBattlefield() { 
+    private void createPlayerBattlefield() { 
         playerBF = new JButtonBattlefield(true);
         playerBF.addBattlefieldActionListener(new BattlefieldActionListener() {
 
@@ -135,7 +139,8 @@ public class BattleshipFrame extends JFrame {
                 playerBF.setEnabled(false);
             }
         });
-        return playerBF;
+        playerBF.setEnabled(false);
+        //return playerBF;
     }
     
     private int total = 0;
