@@ -18,17 +18,17 @@ public class BattleshipFrame extends JFrame {
     private static final Insets RIGHT_INSETS = new Insets(0, 2, 0, 0);
     private static final int BATTLEFIELD_SIDE = JButtonBattlefield.SIDE_FIELDS_COUNT;
     
-    private final CardLayout mainCardLayout;
+    private final CardLayout mainCardLayout = new CardLayout();
+    JPanel cardPanel = new JPanel(mainCardLayout);
     
-    private final GridBagLayout playLayout;
+    private final GridBagLayout playLayout = new GridBagLayout();
     private GridBagConstraints battlefieldConstraint;
         
-    private JPanelBattlefield playerBF;     // delete
-    JButtonBrowseShipPanel browseShipPanel;
+    private JPanelBattlefield playerBF;
+    private JPanelBattlefield enemyBF;
+    private JButtonBrowseShipPanel browseShipPanel;
     
     public BattleshipFrame() {
-        mainCardLayout = new CardLayout();
-        playLayout = new GridBagLayout();
         configureFrame();
         initConstraints();
         createTitleLabels();
@@ -37,7 +37,10 @@ public class BattleshipFrame extends JFrame {
     }
     
     private void configureFrame() {
-        int screenHeight, screenWidth, frameHeihgt, frameWidth;
+        int screenHeight;
+        int screenWidth;
+        int frameHeihgt;
+        int frameWidth;
         {
             Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
             screenHeight = screenDim.height;
@@ -91,10 +94,16 @@ public class BattleshipFrame extends JFrame {
         createPlayerBattlefield();
         battlefieldsPanel.add(playerBF);
         
-        //battlefieldsPanel.add(createEnemyBattlefield());
-        createBroweShipPanel();
-        battlefieldsPanel.add(browseShipPanel);
         
+        
+        
+        
+        createBroweShipPanel();
+        cardPanel.add(browseShipPanel);
+        //battlefieldsPanel.add(browseShipPanel);
+        createEnemyBattlefield();
+        cardPanel.add(enemyBF);
+        battlefieldsPanel.add(cardPanel);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weightx = 1;
@@ -112,7 +121,7 @@ public class BattleshipFrame extends JFrame {
             @Override
             public void panelIsEmpty(BrowseShipPanelEmptyEvent e) {
                 playerBF.setAvailable(true);
-                setTitle("Empty");
+                showEnemyBF();
             }
         });
         browseShipPanel.addBrowseShipPanelActionListener(new BrowseShipPanelActionListener() {
@@ -140,13 +149,12 @@ public class BattleshipFrame extends JFrame {
             }
         });
         playerBF.setEnabled(false);
-        //return playerBF;
     }
     
     private int total = 0;
-    private JPanelBattlefield createEnemyBattlefield() {       
-        JPanelBattlefield battlefield = new JButtonBattlefield(true);
-        battlefield.addBattlefieldActionListener(new BattlefieldActionListener() {
+    private void createEnemyBattlefield() {       
+        enemyBF = new JButtonBattlefield(true);
+        enemyBF.addBattlefieldActionListener(new BattlefieldActionListener() {
 
             @Override
             public void actionPerformed(BattlefieldActionEvent e) {
@@ -156,7 +164,6 @@ public class BattleshipFrame extends JFrame {
                 }
             }
         });
-        return battlefield;
     }
     
     private void createChat() {
@@ -175,5 +182,9 @@ public class BattleshipFrame extends JFrame {
         });
         playLayout.setConstraints(chat, gbc);
         add(chat);
+    }
+    
+    private void showEnemyBF() {
+        mainCardLayout.last(cardPanel);
     }
 }
