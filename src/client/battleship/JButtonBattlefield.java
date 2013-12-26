@@ -161,10 +161,14 @@ class JButtonBattlefield extends JPanelBattlefield {
         int shift = (rotation == Ship.SHIP_HORIZONTAL) ? SIDE_FIELDS_COUNT : 1;
         for (int i = 0; i < ship.getShipSize()*increment; i+=increment) {
             try {
-                setAvailableField(index+i-shift, false);
+                if ( !(rotation == Ship.SHIP_VERTICAL && (index+i)%SIDE_FIELDS_COUNT==0) ) {
+                    setAvailableField(index+i-shift, false);
+                }
             } catch (ArrayIndexOutOfBoundsException ex) {}
-             try {
-                setAvailableField(index+i+shift, false);
+             try {                 
+                if ( !(rotation == Ship.SHIP_VERTICAL && (index+i)%SIDE_FIELDS_COUNT==SIDE_FIELDS_COUNT-1) ) {
+                    setAvailableField(index+i+shift, false);
+                }
             } catch (ArrayIndexOutOfBoundsException ex) {}
              
             setFill(index + i, true);
