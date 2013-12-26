@@ -10,8 +10,7 @@ public class GameClient {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JFrame f = new BattleshipFrame();
-                f.setVisible(true);
+                new ClientFrame();
             }
         });
     }
