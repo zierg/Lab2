@@ -89,8 +89,16 @@ class JButtonBattlefield extends JPanelBattlefield {
         
         switch (rotation) {
             case Ship.SHIP_HORIZONTAL: {
-                // Запретить поля перед кораблём
-                // Вызвать метод заполнения кораблей
+                if (index % SIDE_FIELDS_COUNT > 0) {
+                    setAvailableField(index-1, false);
+                    if (index > SIDE_FIELDS_COUNT) {
+                        setAvailableField(index-SIDE_FIELDS_COUNT-1, false);
+                    }
+                    if (index + SIDE_FIELDS_COUNT < TOTAL_FIELDS_COUNT) {
+                        setAvailableField(index+SIDE_FIELDS_COUNT-1, false);
+                    }
+                }
+                putShip(index, ship);
                 // Запретить поля после корабля
                 break;
             }
@@ -99,8 +107,11 @@ class JButtonBattlefield extends JPanelBattlefield {
                 break;
             }
         }
-        
-        // Убрать в отдельный метод
+    }
+    
+    private void putShip(int index, Ship ship) {
+        int rotation = ship.getRotation();
+        int increment = (rotation == Ship.SHIP_HORIZONTAL) ? 1 : SIDE_FIELDS_COUNT;
         for (int i = 0; i < ship.getShipSize()*increment; i+=increment) {
             try {
                 
