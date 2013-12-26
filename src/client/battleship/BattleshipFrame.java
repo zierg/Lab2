@@ -28,6 +28,8 @@ public class BattleshipFrame extends JFrame {
     private JPanelBattlefield enemyBF;
     private JButtonBrowseShipPanel browseShipPanel;
     
+    private JPanelChat chat;
+    
     public BattleshipFrame() {
         configureFrame();
         initConstraints();
@@ -93,14 +95,10 @@ public class BattleshipFrame extends JFrame {
         JPanel battlefieldsPanel = new JPanel(new GridLayout(1, 2));
         createPlayerBattlefield();
         battlefieldsPanel.add(playerBF);
-        
-        
-        
-        
-        
+
         createBroweShipPanel();
         cardPanel.add(browseShipPanel);
-        //battlefieldsPanel.add(browseShipPanel);
+
         createEnemyBattlefield();
         cardPanel.add(enemyBF);
         battlefieldsPanel.add(cardPanel);
@@ -115,7 +113,7 @@ public class BattleshipFrame extends JFrame {
     }
     
     private void createBroweShipPanel() {
-        browseShipPanel = new JButtonBrowseShipPanel(4, 3, 2, 1);
+        browseShipPanel = new JButtonBrowseShipPanel(1);// тестить проще(4, 3, 2, 1);
         browseShipPanel.addBrowseShipPanelEmptyListener(new BrowseShipPanelEmptyListener() {
 
             @Override
@@ -151,16 +149,19 @@ public class BattleshipFrame extends JFrame {
         playerBF.setEnabled(false);
     }
     
-    private int total = 0;
     private void createEnemyBattlefield() {       
         enemyBF = new JButtonBattlefield(true);
         enemyBF.addBattlefieldActionListener(new BattlefieldActionListener() {
 
             @Override
             public void actionPerformed(BattlefieldActionEvent e) {
-                if (playerBF.attack(Integer.parseInt(e.getMessage()))) {
-                    total++;
-                    setTitle(Integer.toString(total));
+                int fieldNum = Integer.parseInt(e.getMessage());
+                boolean hit = playerBF.attack(fieldNum);
+                enemyBF.setFill(fieldNum, hit);
+                enemyBF.setVisibleField(fieldNum, true);
+                
+                if (hit) {
+                    chat.addMessage("Wow!");
                 }
             }
         });
@@ -172,7 +173,7 @@ public class BattleshipFrame extends JFrame {
         gbc.weighty = 0.3;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-        JPanelChat chat = new JPanelChat();
+        chat = new JPanelChat();
         chat.addChatActionListener(new ChatActionListener() {
 
             @Override
