@@ -58,7 +58,6 @@ public class BattleshipFrame extends JFrame {
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
         setResizable(false);
         setLayout(playLayout);
-        //setLayout(mainCardLayout);
     }
     
     private void initConstraints() {
@@ -113,7 +112,7 @@ public class BattleshipFrame extends JFrame {
     }
     
     private void createBroweShipPanel() {
-        browseShipPanel = new JButtonBrowseShipPanel(1);// тестить проще(4, 3, 2, 1);
+        browseShipPanel = new JButtonBrowseShipPanel(0,0,2);// тестить проще(4, 3, 2, 1);
         browseShipPanel.addBrowseShipPanelEmptyListener(new BrowseShipPanelEmptyListener() {
 
             @Override
@@ -132,7 +131,7 @@ public class BattleshipFrame extends JFrame {
     }
     
     private void createPlayerBattlefield() { 
-        playerBF = new JButtonBattlefield(true);
+        playerBF = new JButtonBattlefield(false);
         playerBF.addBattlefieldActionListener(new BattlefieldActionListener() {
 
             @Override
@@ -146,7 +145,14 @@ public class BattleshipFrame extends JFrame {
                 playerBF.setEnabled(false);
             }
         });
-        playerBF.setEnabled(false);
+        playerBF.addBattlefieldGameOverListener(new BattlefieldGameOverListener() {
+
+            @Override
+            public void gameOver(BattlefieldGameOverEvent e) {
+                enemyBF.setEnabled(false);
+                chat.addMessage("Game over!");
+            }
+        });
     }
     
     private void createEnemyBattlefield() {       
@@ -158,7 +164,7 @@ public class BattleshipFrame extends JFrame {
                 int fieldNum = Integer.parseInt(e.getMessage());
                 boolean hit = playerBF.attack(fieldNum);
                 enemyBF.setFill(fieldNum, hit);
-                enemyBF.setVisibleField(fieldNum, true);
+                enemyBF.attack(fieldNum);
                 
                 if (hit) {
                     chat.addMessage("Wow!");
