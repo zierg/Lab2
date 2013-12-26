@@ -54,7 +54,7 @@ final class BackgroundViewField extends JButtonField {
     @Override
     public void setAvailableField(boolean available) {
         if (available) {
-            setBackground(AVAILABLE_COLOR);
+            setBackground(currentFillColor);
         } else {
             setBackground(NOT_AVAILABLE_COLOR);
         }

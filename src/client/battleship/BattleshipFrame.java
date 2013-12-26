@@ -94,6 +94,14 @@ public class BattleshipFrame extends JFrame {
         add(battlefieldsPanel);
         //battlefieldsPanel.add(createEnemyBattlefield());
         browseShipPanel = new JButtonBrowseShipPanel(4, 3, 2, 1);
+        browseShipPanel.addBrowseShipPanelEmptyListener(new BrowseShipPanelEmptyListener() {
+
+            @Override
+            public void panelIsEmpty(BrowseShipPanelEmptyEvent e) {
+                playerBF.setAvailable(true);
+                setTitle("Empty");
+            }
+        });
         browseShipPanel.addBrowseShipPanelActionListener(new BrowseShipPanelActionListener() {
 
             @Override
