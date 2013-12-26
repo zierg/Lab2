@@ -19,6 +19,8 @@ abstract class JPanelBattlefield extends JPanel {
     
     @Override
     public abstract void setEnabled(boolean enabled);
+    
+    public abstract void setAvailable(boolean available);
     public abstract boolean attack(int index);
     public abstract void setFieldEnabled(int index, boolean enabled);
     public abstract void setAvailableField(int index, boolean available);

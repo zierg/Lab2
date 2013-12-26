@@ -11,8 +11,6 @@ class JButtonBattlefield extends JPanelBattlefield {
         @Override
         public void actionPerformed(ActionEvent ae) {
             JButtonField a = (JButtonField) ae.getSource();
-            //a.setVisibleField(true);
-            //a.setEnabled(false);
             listenAction(new BattlefieldActionEvent(this, ae.getActionCommand()));
         }
     }
@@ -31,7 +29,7 @@ class JButtonBattlefield extends JPanelBattlefield {
         for (int i = 0; i < TOTAL_FIELDS_COUNT; i++) {
             fields[i] = new BackgroundViewField(enabled, i);
             fields[i].addActionListener(listener);
-            fields[i].setFill( false/*( (i%2 == 0 && (i/10)%2 != 0) || (i%2 != 0 && (i/10)%2 == 0) ) ? true : false*/ );
+            fields[i].setFill(false);
             add(fields[i]);
         }
         
@@ -87,6 +85,13 @@ class JButtonBattlefield extends JPanelBattlefield {
         blockFieldsBeforeShip(index, ship);
         putShip(index, ship);
         blockFieldsAfterShip(index, ship);
+    }
+    
+    @Override
+    public void setAvailable(boolean available) {
+        for (JButtonField field:fields) {
+            field.setAvailableField(available);
+        }
     }
     
     private void blockFieldsBeforeShip(int index, Ship ship) {
