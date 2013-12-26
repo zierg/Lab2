@@ -6,9 +6,8 @@ final class BackgroundViewField extends JButtonField {
     private static final Color HIT_COLOR = Color.red;
     private static final Color MISS_COLOR = new Color(0x99D9EA);
     private static final Color FILL_COLOR = Color.DARK_GRAY;
-    private static final Color EMPTY_COLOR = MISS_COLOR;
+    private static final Color EMPTY_COLOR = Color.white;
     private static final Color DEFAULT_COLOR = Color.white;
-    private static final Color AVAILABLE_COLOR = DEFAULT_COLOR;
     private static final Color NOT_AVAILABLE_COLOR = new Color(0xF8A7AB);
     
     private boolean filled;
