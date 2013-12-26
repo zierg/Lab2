@@ -1,6 +1,5 @@
 package client.battleship;
 
-import client.ClientFrame;
 import client.battleship.events.*;
 import client.chat.*;
 import java.awt.CardLayout;
