@@ -1,5 +1,6 @@
 package client.battleship;
 
+import client.ClientFrame;
 import client.battleship.events.*;
 import client.chat.*;
 import java.awt.CardLayout;
@@ -31,11 +32,13 @@ public class BattleshipFrame extends JFrame {
     private JPanelChat chat;
     
     public BattleshipFrame() {
+        super();
         configureFrame();
         initConstraints();
         createTitleLabels();
         createBattlefiedls();
         createChat();
+        setVisible(true);
     }
     
     private void configureFrame() {
@@ -53,7 +56,7 @@ public class BattleshipFrame extends JFrame {
         frameWidth = frameHeihgt * 4/3;
         
         setTitle("Battleship");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(frameWidth, frameHeihgt);
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
         setResizable(false);
