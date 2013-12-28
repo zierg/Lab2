@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import javax.swing.JButton;
@@ -28,6 +29,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.Vector;
 
 public class ClientFrame extends JFrame {
     private class BattleshipWindowListener extends WindowAdapter {
@@ -153,6 +155,15 @@ public class ClientFrame extends JFrame {
                 if ( !connect() ) {
                     return;
                 }
+                try {
+                    Vector<User> usersList = getUsersList();
+                    if (usersList == null) {
+                        return;
+                    }
+                    playersList.setListData(usersList);
+                } catch (IOException ex) {
+                    return;
+                }
                 playersList.setEnabled(true);
                 mainCardLayout.next(cardPanel);
             }
@@ -168,16 +179,34 @@ public class ClientFrame extends JFrame {
             sin = clientSocket.getInputStream();
             sout = clientSocket.getOutputStream();
             input = new ObjectInputStream(sin);
-            System.out.println("asdasd");
             output = new ObjectOutputStream(sout);
             
             Message authMessage = new Message(Message.AUTHORIZATION, playerNameTextField.getText());
-            output.writeObject(authMessage);
-        } catch (Exception ex) {
+            sendMessage(authMessage);
+        } catch (IOException ex) {
             System.out.println("FAIL (nothing epic..)");
             return false;
         }
         System.out.println("Successfully conected =)");
         return true;
+    }
+    
+    private Vector<User> getUsersList() throws IOException {
+        sendMessage(new Message(Message.GET_USER_LIST));
+        Message usersListMessage = getMessage();
+        return (Vector<User>) usersListMessage.getAttributes()[0];
+    }
+    
+    private Message getMessage() throws IOException {
+        try {
+            return (Message) input.readObject();
+        } catch (ClassNotFoundException ex) {
+            return null;
+        }
+    }
+    
+    private void sendMessage(Message message) throws IOException {
+        output.writeObject(message);
+        output.flush();
     }
 }
