@@ -9,14 +9,14 @@ import java.net.Socket;
 
 public class NetworkMessenger implements Messenger {
     
-    private final Socket socket;
+    //private final Socket socket;
     private final InputStream sin;
     private final OutputStream sout;
     private final ObjectInputStream input;
     private final ObjectOutputStream output;
     
     public NetworkMessenger(Socket socket) throws IOException {
-        this.socket = socket;
+        //this.socket = socket;
         sin = socket.getInputStream();
         sout = socket.getOutputStream();
         input = new ObjectInputStream(sin);
