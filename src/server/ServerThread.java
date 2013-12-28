@@ -40,17 +40,17 @@ class ServerThread extends Thread {
     
     private boolean createUser() {
         try {
-            Message authMessage = (Message) input.readObject();
+            Message authMessage = getMessage();
             if (authMessage.getType() != Message.AUTHORIZATION) {
                 return false;
             }
             String userName = (String) authMessage.getAttributes()[0];
-
+            // Добавить проверку имени на уникальность
             user = new User(userName, clientSocket);
             Server.addUser(user);
             System.out.println(user);
             return true;
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException ex) {
              return false;
         }
     }
@@ -58,13 +58,36 @@ class ServerThread extends Thread {
     private void communicate() {
         try {
             while(true) {
-                Message message = (Message) input.readObject();
+                Message message = getMessage();
+                if (message == null) {
+                    continue;
+                }
+                switch (message.getType()) {
+                    case Message.GET_USER_LIST: {
+                        sendMessage(new Message(Message.RETURN_USER_LIST, Server.getUsers()));
+                        break;
+                    }
+                    default: {
+                        // отправить юзеру ошибку
+                        continue;
+                    }
+                }
                 System.out.println(message.getType());
             }
         } catch (IOException ex) {
              System.out.println("User " + user + " is offline.");
-        } catch (ClassNotFoundException ex) {
-            // What? Not found? Impossible!
         }
+    }
+    
+    private Message getMessage() throws IOException {
+        try {
+            return (Message) input.readObject();
+        } catch (ClassNotFoundException ex) {
+            return null;
+        }
+    }
+    
+    private void sendMessage(Message message) throws IOException {
+        output.writeObject(message);
     }
 }
