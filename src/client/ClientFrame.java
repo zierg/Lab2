@@ -1,9 +1,11 @@
 package client;
 
 import client.battleship.*;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 public class ClientFrame extends JFrame {
@@ -25,10 +29,13 @@ public class ClientFrame extends JFrame {
         }
     }
 
-    private final JPanel buttonsPanel;
+    private JPanel connectedPanel;
+    private JPanel nonConnectedPanel;
     
+    private final CardLayout mainCardLayout = new CardLayout();
+    JPanel cardPanel = new JPanel(mainCardLayout);
     
-    private final JList<String> playersList;
+    private final JList<String> playersList;        // Заменить на JList<User>
     private BattleshipFrame battleshipFrame;
     private final BattleshipWindowListener battleshipWindowListener = new BattleshipWindowListener();
     
@@ -45,18 +52,21 @@ public class ClientFrame extends JFrame {
         constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.gridheight = GridBagConstraints.RELATIVE;
         
+        // Вынести в отдельный метод ----------
         playersList = new JList<>(new String[] {"asd", "asd", "asdasd qw"});
         playersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        playersList.setEnabled(false);
         JScrollPane playersListScrollPane = new JScrollPane(playersList);
         layout.setConstraints(playersListScrollPane, constraints);
         add(playersListScrollPane);
+        // ------------------------------------
         
-        buttonsPanel = new JPanel();
-        createButtonsPanel();
+        createNonConnectedPanel();
+        createConnectedPanel();
         constraints.weighty = 0;
         constraints.gridheight = GridBagConstraints.REMAINDER;
-        layout.setConstraints(buttonsPanel, constraints);
-        add(buttonsPanel);
+        layout.setConstraints(cardPanel, constraints);
+        add(cardPanel);
         setVisible(true);
     }
     
@@ -81,7 +91,8 @@ public class ClientFrame extends JFrame {
         setResizable(false);
     }
     
-    private void createButtonsPanel() {
+    private void createConnectedPanel() {
+        connectedPanel = new JPanel();
         final JButton startGameButton = new JButton("Start game");
         startGameButton.addActionListener(new ActionListener() {
 
@@ -100,6 +111,36 @@ public class ClientFrame extends JFrame {
             }
         });
         
-        buttonsPanel.add(startGameButton);
+        connectedPanel.add(startGameButton);
+        cardPanel.add(connectedPanel);
+    }
+    
+    private void createNonConnectedPanel() {
+        nonConnectedPanel = new JPanel();
+        nonConnectedPanel.setLayout(new GridLayout());
+        
+        JTextField serverIPTextField = new JTextField("127.0.0.1");
+        nonConnectedPanel.add(serverIPTextField);
+        
+        final JButton connectButton = new JButton("Connect");
+        connectButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                /*if (playersList.isSelectionEmpty()) {
+                    return;
+                }*/
+                playersList.setEnabled(true);
+                mainCardLayout.next(cardPanel);
+                //playersList.add("as");
+                //System.out.println(/*playersList.gets*/);
+                /*battleshipFrame = new BattleshipFrame();
+                battleshipFrame.addWindowListener(battleshipWindowListener);
+                setVisible(false);*/
+            }
+        });
+        
+        nonConnectedPanel.add(connectButton);
+        cardPanel.add(nonConnectedPanel);
     }
 }
