@@ -1,6 +1,7 @@
 package client;
 
 import client.battleship.*;
+import network.*;
 import server.Server;
 
 import java.awt.CardLayout;
@@ -17,6 +18,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -38,7 +40,7 @@ public class ClientFrame extends JFrame {
     private final CardLayout mainCardLayout = new CardLayout();
     JPanel cardPanel = new JPanel(mainCardLayout);
     
-    private final JList<String> playersList;        // Заменить на JList<User>
+    private final JList<User> playersList;        // Заменить на JList<User>
     private BattleshipFrame battleshipFrame;
     private final BattleshipWindowListener battleshipWindowListener = new BattleshipWindowListener();
     
@@ -56,7 +58,7 @@ public class ClientFrame extends JFrame {
         constraints.gridheight = GridBagConstraints.RELATIVE;
         
         // Вынести в отдельный метод ----------
-        playersList = new JList<>(new String[] {"asd", "asd", "asdasd qw"});
+        playersList = new JList<>(new User[] {new User("Pit", new Socket())});
         playersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         playersList.setEnabled(false);
         JScrollPane playersListScrollPane = new JScrollPane(playersList);
@@ -105,7 +107,7 @@ public class ClientFrame extends JFrame {
                     return;
                 }
                 System.out.println(playersList.getSelectedValue());
-                playersList.setListData(new String[] {"hahahah"});
+                //playersList.setListData(new String[] {"hahahah"});
                 //playersList.add("as");
                 //System.out.println(/*playersList.gets*/);
 //                battleshipFrame = new BattleshipFrame();
@@ -119,8 +121,13 @@ public class ClientFrame extends JFrame {
     
     private void createNonConnectedPanel() {
         nonConnectedPanel = new JPanel();
-        nonConnectedPanel.setLayout(new GridLayout());
+        nonConnectedPanel.setLayout(new GridLayout(3, 2));
         
+        nonConnectedPanel.add(new JLabel("Player name:"));
+        final JTextField playerNameTextField = new JTextField("петя");
+        nonConnectedPanel.add(playerNameTextField);
+        
+        nonConnectedPanel.add(new JLabel("Server:"));
         final JTextField serverIPTextField = new JTextField("127.0.0.1");
         nonConnectedPanel.add(serverIPTextField);
         
