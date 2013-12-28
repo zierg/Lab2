@@ -10,49 +10,33 @@ import java.net.Socket;
 
 class ServerThread extends Thread {
     private User user = null;
-    private Socket clientSocket = null;
-    private InputStream sin;
-    private OutputStream sout;
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
+    private ServerThreadMessenger serverThreadMessenger;
     
     public ServerThread(Socket clientSocket) {
-        this.clientSocket = clientSocket;
+        try {
+            NetworkMessenger messenger = new NetworkMessenger(clientSocket);
+        } catch (IOException ex) {
+            return;
+        }
         start();
     }
     
     @Override
     public void run() {
-        try {
-            sin = clientSocket.getInputStream();
-            sout = clientSocket.getOutputStream();
-            output = new ObjectOutputStream(sout);
-            input = new ObjectInputStream(sin);
-            if ( !createUser() ) {
-                System.out.println("Can not add user.");
-                return;
-            }                
-        } catch (IOException ex) {
-            System.out.println("some error occured");   // Добавить логгер
-        }
+        if ( !createUser() ) {
+            System.out.println("Can not add user.");
+            return;
+        }                
         communicate();
     }
     
     private boolean createUser() {
-        try {
-            Message authMessage = getMessage();
-            if (authMessage.getType() != Message.AUTHORIZATION) {
-                return false;
-            }
-            String userName = (String) authMessage.getAttributes()[0];
-            // Добавить проверку имени на уникальность
-            user = new User(userName, clientSocket);
-            Server.addUser(user);
-            System.out.println(user);
-            return true;
-        } catch (IOException ex) {
-             return false;
+        User user = serverThreadMessenger.createUser();
+        if (user == null) {
+            return false;
         }
+        Server.addUser(user);
+        return true;
     }
     
     private void communicate() {
@@ -80,6 +64,7 @@ class ServerThread extends Thread {
         }
     }
     
+    // Сделать получение сообщений в виде событий
     private Message getMessage() throws IOException {
         try {
             return (Message) input.readObject();
