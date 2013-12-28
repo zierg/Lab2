@@ -5,7 +5,9 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
+import server.Server;
 
 public class NetworkMessenger {
     
@@ -21,6 +23,10 @@ public class NetworkMessenger {
         sout = socket.getOutputStream();
         input = new ObjectInputStream(sin);
         output = new ObjectOutputStream(sout);
+    }
+    
+    public NetworkMessenger(String serverName, int port) throws IOException {
+        this( new Socket(InetAddress.getByName(serverName), port) );
     }
     
     public Socket getSocket() {
