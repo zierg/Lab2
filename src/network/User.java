@@ -1,25 +1,18 @@
 package network;
 
 import java.io.Serializable;
-import java.net.Socket;
 
 public class User implements Serializable {
     private final String userName;
-    //private final Socket socket;
     private boolean free = true;
     
-    public User(String userName, Socket socket) {
+    public User(String userName) {
         this.userName = userName;
-        //this.socket = socket;
     }
     
     public String getName() {
         return userName;
     }
-    
-    /*public Socket getSocket() {
-        return socket;
-    }*/
     
     public void setFree(boolean free) {
         this.free = free;
