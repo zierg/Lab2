@@ -1,18 +1,17 @@
 package client;
 
 import java.io.IOException;
-import network.Message;
-import network.Messenger;
+import java.util.Vector;
+import network.*;
 
-public class NetworkClientMessenger extends ClientMessenger {
+public class NetworkClientMessenger{
     
-    private final Messenger messenger;
+    private final NetworkMessenger messenger;
     
-    public NetworkClientMessenger(Messenger messenger) {
+    public NetworkClientMessenger(NetworkMessenger messenger) {
         this.messenger = messenger;
     }
     
-    @Override
     public boolean login(String userName) {
         try {
             Message authMessage = new Message(Message.AUTHORIZATION, userName);
@@ -23,5 +22,15 @@ public class NetworkClientMessenger extends ClientMessenger {
         }
         //System.out.println("Successfully conected =)");
         return true;
+    }
+
+    public Vector<User> getUsersList() {
+        try {
+            messenger.sendMessage(new Message(Message.GET_USER_LIST));
+            Message usersListMessage = messenger.getMessage();
+            return (Vector<User>) usersListMessage.getAttributes()[0];
+        } catch (IOException ex) {
+            return null;
+        }
     }
 }
