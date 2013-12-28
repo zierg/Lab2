@@ -12,7 +12,8 @@ public class NetworkClientMessenger extends ClientMessenger {
         this.messenger = messenger;
     }
     
-    public boolean connect(String userName) {
+    @Override
+    public boolean login(String userName) {
         try {
             Message authMessage = new Message(Message.AUTHORIZATION, userName);
             messenger.sendMessage(authMessage);
