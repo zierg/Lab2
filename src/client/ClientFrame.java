@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,14 +25,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import java.util.Vector;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-
 public class ClientFrame extends JFrame {
     private class BattleshipWindowListener extends WindowAdapter {
         @Override
@@ -40,14 +33,8 @@ public class ClientFrame extends JFrame {
             battleshipFrame = null;
         }
     }
-
-    private User user = null;
-    private Socket clientSocket = null;
-    private InputStream sin;
-    private OutputStream sout;
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
-    
+    private NetworkClientMessenger clientMessenger;
+      
     private JPanel connectedPanel;
     private JPanel nonConnectedPanel;
     private JTextField playerNameTextField;
@@ -89,6 +76,16 @@ public class ClientFrame extends JFrame {
         layout.setConstraints(cardPanel, constraints);
         add(cardPanel);
         setVisible(true);
+    }
+    
+    private boolean configureMessengers(String serverName) {
+        try {
+            NetworkMessenger messenger = new NetworkMessenger(serverName, Server.PORT); // Поменять на чтение из поля
+            clientMessenger = new NetworkClientMessenger(messenger);
+        } catch (IOException ex) {
+            return false;
+        }
+        return true;
     }
     
     private void configureFrame() {
@@ -153,18 +150,18 @@ public class ClientFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
+                if (!configureMessengers(serverIPTextField.getText())) {
+                    return;
+                }
                 if ( !connect() ) {
                     return;
                 }
-                try {
-                    Vector<User> usersList = getUsersList();
-                    if (usersList == null) {
-                        return;
-                    }
-                    playersList.setListData(usersList);
-                } catch (IOException ex) {
+                Vector<User> usersList = clientMessenger.getUsersList();
+                if (usersList == null) {
                     return;
                 }
+                playersList.setListData(usersList);
+
                 playersList.setEnabled(true);
                 mainCardLayout.next(cardPanel);
             }
@@ -173,41 +170,7 @@ public class ClientFrame extends JFrame {
         cardPanel.add(nonConnectedPanel);
     }
     
-    private boolean connect(){
-        try {
-            InetAddress ipAddress = InetAddress.getByName(serverIPTextField.getText());
-            clientSocket = new Socket(ipAddress, Server.PORT);
-            sin = clientSocket.getInputStream();
-            sout = clientSocket.getOutputStream();
-            input = new ObjectInputStream(sin);
-            output = new ObjectOutputStream(sout);
-            
-            Message authMessage = new Message(Message.AUTHORIZATION, playerNameTextField.getText());
-            sendMessage(authMessage);
-        } catch (IOException ex) {
-            System.out.println("FAIL (nothing epic..)");
-            return false;
-        }
-        System.out.println("Successfully conected =)");
-        return true;
-    }
-    
-    private Vector<User> getUsersList() throws IOException {
-        sendMessage(new Message(Message.GET_USER_LIST));
-        Message usersListMessage = getMessage();
-        return (Vector<User>) usersListMessage.getAttributes()[0];
-    }
-    
-    private Message getMessage() throws IOException {
-        try {
-            return (Message) input.readObject();
-        } catch (ClassNotFoundException ex) {
-            return null;
-        }
-    }
-    
-    private void sendMessage(Message message) throws IOException {
-        output.writeObject(message);
-        output.flush();
+    private boolean connect(){           
+        return clientMessenger.login(playerNameTextField.getText());
     }
 }
