@@ -24,6 +24,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 public class ClientFrame extends JFrame {
     private class BattleshipWindowListener extends WindowAdapter {
@@ -34,8 +38,17 @@ public class ClientFrame extends JFrame {
         }
     }
 
+    private User user = null;
+    private Socket clientSocket = null;
+    private InputStream sin;
+    private OutputStream sout;
+    private ObjectInputStream input;
+    private ObjectOutputStream output;
+    
     private JPanel connectedPanel;
     private JPanel nonConnectedPanel;
+    private JTextField playerNameTextField;
+    private JTextField serverIPTextField;
     
     private final CardLayout mainCardLayout = new CardLayout();
     JPanel cardPanel = new JPanel(mainCardLayout);
@@ -124,11 +137,11 @@ public class ClientFrame extends JFrame {
         nonConnectedPanel.setLayout(new GridLayout(3, 2));
         
         nonConnectedPanel.add(new JLabel("Player name:"));
-        final JTextField playerNameTextField = new JTextField("петя");
+        playerNameTextField = new JTextField("петя");
         nonConnectedPanel.add(playerNameTextField);
         
         nonConnectedPanel.add(new JLabel("Server:"));
-        final JTextField serverIPTextField = new JTextField("127.0.0.1");
+        serverIPTextField = new JTextField("127.0.0.1");
         nonConnectedPanel.add(serverIPTextField);
         
         final JButton connectButton = new JButton("Connect");
@@ -137,18 +150,34 @@ public class ClientFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                try {
-                    InetAddress ipAddress = InetAddress.getByName(serverIPTextField.getText());
-                    Socket socket = new Socket(ipAddress, Server.PORT);
-                } catch (Exception ex) {
-                    System.out.println("FAIL (nothing epic..)");
+                if ( !connect() ) {
+                    return;
                 }
-                System.out.println("Successfully conected =)");
                 playersList.setEnabled(true);
                 mainCardLayout.next(cardPanel);
             }
         });
         nonConnectedPanel.add(connectButton);
         cardPanel.add(nonConnectedPanel);
+    }
+    
+    private boolean connect(){
+        try {
+            InetAddress ipAddress = InetAddress.getByName(serverIPTextField.getText());
+            clientSocket = new Socket(ipAddress, Server.PORT);
+            sin = clientSocket.getInputStream();
+            sout = clientSocket.getOutputStream();
+            input = new ObjectInputStream(sin);
+            System.out.println("asdasd");
+            output = new ObjectOutputStream(sout);
+            
+            Message authMessage = new Message(Message.AUTHORIZATION, playerNameTextField.getText());
+            output.writeObject(authMessage);
+        } catch (Exception ex) {
+            System.out.println("FAIL (nothing epic..)");
+            return false;
+        }
+        System.out.println("Successfully conected =)");
+        return true;
     }
 }
