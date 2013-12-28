@@ -32,8 +32,6 @@ public class Server {
             while (true) {
                 Socket client = serverSocket.accept();  // заставляем сервер ждать подключений и выводим сообщение,
                 System.out.println("Got a client.");    // когда кто-то связался с сервером
-                //User newUser = new User("Pit", client);
-                //addUser(newUser);
                 new ServerThread(client);
             }
         } catch (IOException ex) {
