@@ -73,7 +73,7 @@ public class ClientFrame extends JFrame {
         constraints.gridheight = GridBagConstraints.RELATIVE;
         
         // Вынести в отдельный метод ----------
-        playersList = new JList<>(new User[] {new User("Pit", new Socket())});
+        playersList = new JList<>();
         playersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         playersList.setEnabled(false);
         JScrollPane playersListScrollPane = new JScrollPane(playersList);
