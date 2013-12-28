@@ -3,10 +3,24 @@ package network;
 import java.io.Serializable;
 
 public class Message implements Serializable {
+    /**
+     * Attributes of this type must be like this:
+     * String errorText
+     */
+    public static final int ERROR = -1;
+    
+    
     public static final int TURN = 0;
     
+    /**
+     * Attributes of this type must be like this:
+     * String userName
+     */
+    public static final int AUTHORIZATION = 1;
+    
     private static final int[] TYPES = {
-        TURN
+        TURN,
+        AUTHORIZATION
     };
     
     private int type;
