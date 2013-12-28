@@ -18,9 +18,22 @@ public class Message implements Serializable {
      */
     public static final int AUTHORIZATION = 1;
     
+    /**
+     * This type of message has no attributes
+     */
+    public static final int GET_USER_LIST = 2;
+    
+    /**
+     * Attributes of this type must be like this:
+     * Vector<User> usersList
+     */
+    public static final int RETURN_USER_LIST = 3;
+    
     private static final int[] TYPES = {
         TURN,
-        AUTHORIZATION
+        AUTHORIZATION,
+        GET_USER_LIST,
+        RETURN_USER_LIST
     };
     
     private int type;
