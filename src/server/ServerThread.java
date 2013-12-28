@@ -76,6 +76,7 @@ class ServerThread extends Thread {
             }
         } catch (IOException ex) {
              System.out.println("User " + user + " is offline.");
+             Server.removeUser(user);
         }
     }
     
@@ -89,5 +90,6 @@ class ServerThread extends Thread {
     
     private void sendMessage(Message message) throws IOException {
         output.writeObject(message);
+        output.flush();
     }
 }
