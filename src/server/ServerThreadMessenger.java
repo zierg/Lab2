@@ -38,12 +38,28 @@ public class ServerThreadMessenger {
         callMessageEvent(message);
     }
 
-    public void getUsersListRequested() {
+    private void getUsersListRequested() {
         try {
             messenger.sendMessage(new Message(Message.RETURN_USER_LIST, Server.getUsers()));
         } catch (IOException ex) {
             //Добавить логгирование
         }
+    }
+    
+    private void letsPlayRequested(Message message) {
+        Object[] attrs = message.getAttributes();
+        User user1 = (User) attrs[0];
+        User opponent = (User) attrs[1];
+
+        NetworkMessenger opponentMessenger = Server.getUserServerThread(opponent).
+                getServerThreadMessenger().getMessenger();
+        try {
+            opponentMessenger.sendMessage(message);
+        } catch (IOException ex) {
+            System.out.println("NOOOoo");
+            // Отправить запросившему игроку ошибку
+        }
+        System.out.println(user1 + " wanna play with " + opponent);
     }
     
     private void callMessageEvent(Message message) {
@@ -53,13 +69,11 @@ public class ServerThreadMessenger {
                 break;
             }
             case Message.LETS_PLAY: {
-                Object[] attrs = message.getAttributes();
-                User user1 = (User) attrs[0];
-                User user2 = (User) attrs[1];
-                System.out.println(user1 + " wanna play with " + user2);
+                letsPlayRequested(message);
+                break;
             }
             default: {
-                // отправить юзеру ошибк
+                // отправить юзеру ошибку
             }
         }
     }
