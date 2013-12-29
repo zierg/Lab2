@@ -36,6 +36,15 @@ public class Server {
         return usersList;
     }
     
+    ServerThread getUserServerThread(User user) {
+        for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
+            if (entry.getKey().equals(user)) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+    
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
