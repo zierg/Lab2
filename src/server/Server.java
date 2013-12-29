@@ -5,6 +5,8 @@ import network.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 
@@ -12,14 +14,17 @@ public class Server {
     public static final int PORT = 12345;
     
     private static Vector<User> usersList = new Vector<>();
+    private static Map<User, Socket> usersMap = new HashMap<>();
     
-    public synchronized static void addUser(User user) {
+    public synchronized static void addUser(User user, Socket userSocket) {
         usersList.add(user);
+        usersMap.put(user, userSocket);
         System.out.println("User " + user + " has been added to users list.");
     }
     
     public synchronized static void removeUser(User user) {
         usersList.remove(user);
+        usersMap.remove(user);
         System.out.println("User " + user + " has been removed from users list.");
     }
     

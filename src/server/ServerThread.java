@@ -32,11 +32,13 @@ class ServerThread extends Thread {
     }
     
     private boolean createUser() {
-        user = serverThreadMessenger.createUser();
+        UserAndSocket userAndSocket = serverThreadMessenger.createUser();
         if (user == null) {
             return false;
         }
-        Server.addUser(user);
+        user = userAndSocket.getUser();
+        
+        Server.addUser(user, userAndSocket.getSocket());
         return true;
     }
     
