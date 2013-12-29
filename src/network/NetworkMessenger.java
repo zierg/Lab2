@@ -37,7 +37,6 @@ public class NetworkMessenger {
         try {
             return (Message) input.readObject();
         } catch (ClassNotFoundException ex) {
-            System.out.println("grgrgrgrgrr");
             return null;
         }
     }
