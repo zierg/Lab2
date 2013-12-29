@@ -42,19 +42,11 @@ public class NetworkClientMessenger{
         private void callMessageEvent(Message message) {
             switch(message.getType()) {
                 case Message.RETURN_USER_LIST: {
-                    /*System.out.println(message.getAttributes());
-                    Vector<User> us = (Vector<User>) message.getAttributes()[0];
-                    System.out.println(us);
-                    System.out.println("x = " + (String) message.getAttributes()[1]);
-                    System.out.println("Test vector" + message.getAttributes()[2]);
-                    /*for (User user : us) {
-                        System.out.println(user);
-                    }*/
                     listenUsersListRefreshed( (Vector<User>) message.getAttributes()[0] );
                     break;
                 }
                 case Message.LETS_PLAY: {
-                    
+                    listenInvitedToPlay((User) message.getAttributes()[0]);
                     break;
                 }
                 default: {
@@ -114,6 +106,12 @@ public class NetworkClientMessenger{
     private void listenUsersListRefreshed(Vector<User> usersList) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.usersListRefreshed(usersList);
+        }
+    }
+    
+    private void listenInvitedToPlay(User invitor) {
+        for (NetworkClientMessengerListener listener : listeners) {
+            listener.invitedToPlay(invitor);
         }
     }
 }

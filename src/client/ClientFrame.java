@@ -87,6 +87,11 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         setUsersList(usersList);
     }
     
+    @Override
+    public void invitedToPlay(User invitor) {
+        System.out.println(invitor + " wanna play with you!");
+    }
+    
     private boolean configureMessengers(String serverName) {
         try {
             NetworkMessenger messenger = new NetworkMessenger(serverName, Server.PORT); // Поменять на чтение из поля
