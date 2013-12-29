@@ -14,11 +14,11 @@ public class Server {
     public static final int PORT = 12345;
     
     private static Vector<User> usersList = new Vector<>();
-    private static Map<User, Socket> usersMap = new HashMap<>();
+    private static Map<User, ServerThread> usersMap = new HashMap<>();
     
-    public synchronized static void addUser(User user, Socket userSocket) {
+    public synchronized static void addUser(User user, ServerThread userThread) {
         usersList.add(user);
-        usersMap.put(user, userSocket);
+        usersMap.put(user, userThread);
         System.out.println("User " + user + " has been added to users list.");
     }
     

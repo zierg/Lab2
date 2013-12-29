@@ -15,7 +15,7 @@ public class ServerThreadMessenger {
         return messenger;
     }
     
-    public UserAndSocket createUser() {
+    public User createUser() {
         try {
             Message authMessage = messenger.getMessage();
             if (authMessage.getType() != Message.AUTHORIZATION || authMessage==null) {
@@ -24,7 +24,7 @@ public class ServerThreadMessenger {
             String userName = (String) authMessage.getAttributes()[0];
             // Добавить проверку имени на уникальность
             User user = new User(userName);
-            return new UserAndSocket(user, messenger.getSocket());
+            return user;
         } catch (IOException ex) {
              return null;
         }
@@ -53,7 +53,7 @@ public class ServerThreadMessenger {
                 break;
             }
             default: {
-                // отправить юзеру ошибку
+                // отправить юзеру ошибк
             }
         }
     }
