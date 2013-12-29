@@ -26,4 +26,8 @@ public class User implements Serializable {
     public String toString() {
         return userName;
     }
+    
+    public boolean equals(User user) {
+        return userName.equals(user.userName);
+    }
 }
