@@ -39,7 +39,6 @@ public class ServerThreadMessenger {
         callMessageEvent(message);
     }
 
-    int x = 0;
     void getUsersListRequested() {
         try {
             // Так надо о_О:
