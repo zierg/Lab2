@@ -126,14 +126,12 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //playersList.setListData(new User[] { new User("s"), new User("gasd")});
-                refreshUsersList();
-                /*if (playersList.isSelectionEmpty()) {
+                if (playersList.isSelectionEmpty()) {
                     return;
-                }*/
-                /*User selectedUser = playersList.getSelectedValue();
+                }
+                User selectedUser = playersList.getSelectedValue();
                 System.out.println("I wanna play with " + selectedUser);
-                letsPlay(selectedUser);*/
+                letsPlay(selectedUser);
                 
 //                battleshipFrame = new BattleshipFrame();
 //                battleshipFrame.addWindowListener(battleshipWindowListener);
@@ -168,7 +166,6 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
                 if ( !connect() ) {
                     return;
                 }
-                //refreshUsersList();
                 mainCardLayout.next(cardPanel);
             }
         });
