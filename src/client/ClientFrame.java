@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ListIterator;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,6 +34,7 @@ public class ClientFrame extends JFrame {
             battleshipFrame = null;
         }
     }
+    private User user;
     private NetworkClientMessenger clientMessenger;
       
     private JPanel connectedPanel;
@@ -43,7 +45,7 @@ public class ClientFrame extends JFrame {
     private final CardLayout mainCardLayout = new CardLayout();
     JPanel cardPanel = new JPanel(mainCardLayout);
     
-    private final JList<User> playersList;        // Заменить на JList<User>
+    private final JList<User> playersList;
     private BattleshipFrame battleshipFrame;
     private final BattleshipWindowListener battleshipWindowListener = new BattleshipWindowListener();
     
@@ -156,13 +158,7 @@ public class ClientFrame extends JFrame {
                 if ( !connect() ) {
                     return;
                 }
-                Vector<User> usersList = clientMessenger.getUsersList();
-                if (usersList == null) {
-                    return;
-                }
-                playersList.setListData(usersList);
-
-                playersList.setEnabled(true);
+                refreshUsersList();
                 mainCardLayout.next(cardPanel);
             }
         });
@@ -170,7 +166,38 @@ public class ClientFrame extends JFrame {
         cardPanel.add(nonConnectedPanel);
     }
     
-    private boolean connect(){           
-        return clientMessenger.login(playerNameTextField.getText());
+    private boolean connect(){
+        String userName = playerNameTextField.getText();
+        boolean connected = clientMessenger.login(userName);
+        if (connected) {
+            user = new User(userName);
+        }
+        return connected;
+    }
+    
+    private void refreshUsersList() {
+        Vector<User> usersList = clientMessenger.getUsersList();
+        if (usersList == null) {
+            return;
+        }
+
+        trimUsersList(usersList);
+        playersList.setListData(usersList);
+
+        playersList.setEnabled(true);
+    }
+    
+    private void trimUsersList(Vector<User> usersList) {
+        if (usersList.isEmpty()) {
+            return;
+        }
+        ListIterator<User> iterator = usersList.listIterator();
+        while(iterator.hasNext()) {
+            User currentUser = iterator.next();
+            if (!currentUser.isFree() || currentUser.equals(user)) {
+                iterator.remove();
+            }
+            
+        }
     }
 }
