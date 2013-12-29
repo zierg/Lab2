@@ -2,10 +2,6 @@ package server;
 
 import java.io.IOException;
 import network.*;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 
 class ServerThread extends Thread {
@@ -37,8 +33,11 @@ class ServerThread extends Thread {
             return false;
         }
         
-        Server.addUser(user, this);
-        return true;
+        return Server.addUser(user, this);
+    }
+    
+    public ServerThreadMessenger getServerThreadMessenger() {
+        return serverThreadMessenger;
     }
     
     private void communicate() {
