@@ -16,19 +16,23 @@ public class Server {
     private static Vector<User> usersList = new Vector<>();
     private static Map<User, ServerThread> usersMap = new HashMap<>();
     
-    public synchronized static void addUser(User user, ServerThread userThread) {
+    synchronized static boolean addUser(User user, ServerThread userThread) {
+        if (userExists(user)) {
+            return false;
+        }
         usersList.add(user);
         usersMap.put(user, userThread);
         System.out.println("User " + user + " has been added to users list.");
+        return true;
     }
     
-    public synchronized static void removeUser(User user) {
+    synchronized static void removeUser(User user) {
         usersList.remove(user);
         usersMap.remove(user);
         System.out.println("User " + user + " has been removed from users list.");
     }
     
-    public synchronized static Vector<User> getUsers() {
+    synchronized static Vector<User> getUsers() {
         return usersList;
     }
     
@@ -44,5 +48,14 @@ public class Server {
         } catch (IOException ex) {
             
         }
+    }
+    
+    private static boolean userExists(User user) {
+        for (User currentUser:usersList) {
+            if (currentUser.equals(user)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
