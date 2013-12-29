@@ -31,7 +31,7 @@ public class Message implements Serializable {
     
     /**
      * Attributes of this type must be like this:
-     * User user
+     * User whoWantsPlay, User withWhomWantsPlay
      */
     public static final int LETS_PLAY = 4;
     
