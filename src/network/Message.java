@@ -29,11 +29,19 @@ public class Message implements Serializable {
      */
     public static final int RETURN_USER_LIST = 3;
     
+    /**
+     * Attributes of this type must be like this:
+     * User user
+     */
+    public static final int LETS_PLAY = 4;
+    
     private static final int[] TYPES = {
+        ERROR,
         TURN,
         AUTHORIZATION,
         GET_USER_LIST,
-        RETURN_USER_LIST
+        RETURN_USER_LIST,
+        LETS_PLAY
     };
     
     private int type;

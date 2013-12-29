@@ -121,10 +121,9 @@ public class ClientFrame extends JFrame {
                 if (playersList.isSelectionEmpty()) {
                     return;
                 }
-                System.out.println(playersList.getSelectedValue());
-                //playersList.setListData(new String[] {"hahahah"});
-                //playersList.add("as");
-                //System.out.println(/*playersList.gets*/);
+                User selectedUser = playersList.getSelectedValue();
+                System.out.println("I wanna play with " + selectedUser);
+                letsPlay(selectedUser);
 //                battleshipFrame = new BattleshipFrame();
 //                battleshipFrame.addWindowListener(battleshipWindowListener);
 //                setVisible(false);
@@ -183,14 +182,10 @@ public class ClientFrame extends JFrame {
 
         trimUsersList(usersList);
         playersList.setListData(usersList);
-
         playersList.setEnabled(true);
     }
     
     private void trimUsersList(Vector<User> usersList) {
-        if (usersList.isEmpty()) {
-            return;
-        }
         ListIterator<User> iterator = usersList.listIterator();
         while(iterator.hasNext()) {
             User currentUser = iterator.next();
@@ -199,5 +194,9 @@ public class ClientFrame extends JFrame {
             }
             
         }
+    }
+    
+    private boolean letsPlay(User withWhomWantsToPlay) {
+        return clientMessenger.letsPlay(user, withWhomWantsToPlay);
     }
 }

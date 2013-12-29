@@ -33,4 +33,13 @@ public class NetworkClientMessenger{
             return null;
         }
     }
+    
+    public boolean letsPlay(User whoWantsPlay, User withWhomWantsPlay) {
+        try {
+            messenger.sendMessage(new Message(Message.LETS_PLAY, whoWantsPlay, withWhomWantsPlay));
+        } catch (IOException ex) {
+            return false;   // Лучше заменить на эксепшн
+        }
+        return false;
+    }
 }

@@ -52,6 +52,12 @@ public class ServerThreadMessenger {
                 getUsersListRequested();
                 break;
             }
+            case Message.LETS_PLAY: {
+                Object[] attrs = message.getAttributes();
+                User user1 = (User) attrs[0];
+                User user2 = (User) attrs[1];
+                System.out.println(user1 + " wanna play with " + user2);
+            }
             default: {
                 // отправить юзеру ошибк
             }
