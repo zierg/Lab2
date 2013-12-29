@@ -15,10 +15,12 @@ public class Server {
     
     public synchronized static void addUser(User user) {
         usersList.add(user);
+        System.out.println("User " + user + " has been added to users list.");
     }
     
     public synchronized static void removeUser(User user) {
         usersList.remove(user);
+        System.out.println("User " + user + " has been removed from users list.");
     }
     
     public synchronized static Vector<User> getUsers() {
