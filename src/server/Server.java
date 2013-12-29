@@ -36,7 +36,7 @@ public class Server {
         return usersList;
     }
     
-    ServerThread getUserServerThread(User user) {
+    static ServerThread getUserServerThread(User user) {
         for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
             if (entry.getKey().equals(user)) {
                 return entry.getValue();
