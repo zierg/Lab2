@@ -18,7 +18,7 @@ public class ServerThreadMessenger {
     public User createUser() {
         try {
             Message authMessage = messenger.getMessage();
-            if (authMessage.getType() != Message.AUTHORIZATION) {
+            if (authMessage.getType() != Message.AUTHORIZATION || authMessage==null) {
                 return null;
             }
             String userName = (String) authMessage.getAttributes()[0];
@@ -27,6 +27,31 @@ public class ServerThreadMessenger {
             return user;
         } catch (IOException ex) {
              return null;
+        }
+    }
+    
+    public void waitMessage() throws IOException {
+        Message message = messenger.getMessage();
+        if (message==null) {
+            return;
+        }
+        callMessageEvent(message);
+    }
+
+    public void getUsersListRequested() {
+        try {
+            messenger.sendMessage(new Message(Message.RETURN_USER_LIST, Server.getUsers()));
+        } catch (IOException ex) {
+            //Добавить логгирование
+        }
+    }
+    
+    private void callMessageEvent(Message message) {
+        switch(message.getType()) {
+            case Message.GET_USER_LIST: {
+                getUsersListRequested();
+                break;                
+            }
         }
     }
 }

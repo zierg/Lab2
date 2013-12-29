@@ -21,8 +21,8 @@ public class NetworkMessenger {
         this.socket = socket;
         sin = socket.getInputStream();
         sout = socket.getOutputStream();
-        input = new ObjectInputStream(sin);
         output = new ObjectOutputStream(sout);
+        input = new ObjectInputStream(sin);
     }
     
     public NetworkMessenger(String serverName, int port) throws IOException {

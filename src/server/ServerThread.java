@@ -15,6 +15,7 @@ class ServerThread extends Thread {
     public ServerThread(Socket clientSocket) {
         try {
             NetworkMessenger messenger = new NetworkMessenger(clientSocket);
+            serverThreadMessenger = new ServerThreadMessenger(messenger);
         } catch (IOException ex) {
             return;
         }
@@ -31,7 +32,7 @@ class ServerThread extends Thread {
     }
     
     private boolean createUser() {
-        User user = serverThreadMessenger.createUser();
+        user = serverThreadMessenger.createUser();
         if (user == null) {
             return false;
         }
@@ -42,39 +43,11 @@ class ServerThread extends Thread {
     private void communicate() {
         try {
             while(true) {
-                Message message = getMessage();
-                if (message == null) {
-                    continue;
-                }
-                switch (message.getType()) {
-                    case Message.GET_USER_LIST: {
-                        sendMessage(new Message(Message.RETURN_USER_LIST, Server.getUsers()));
-                        break;
-                    }
-                    default: {
-                        // отправить юзеру ошибку
-                        continue;
-                    }
-                }
-                System.out.println(message.getType());
+                serverThreadMessenger.waitMessage();
             }
         } catch (IOException ex) {
              System.out.println("User " + user + " is offline.");
              Server.removeUser(user);
         }
-    }
-    
-    // Сделать получение сообщений в виде событий
-    private Message getMessage() throws IOException {
-        try {
-            return (Message) input.readObject();
-        } catch (ClassNotFoundException ex) {
-            return null;
-        }
-    }
-    
-    private void sendMessage(Message message) throws IOException {
-        output.writeObject(message);
-        output.flush();
     }
 }
