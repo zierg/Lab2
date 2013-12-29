@@ -1,6 +1,7 @@
 package server;
 
 import java.io.IOException;
+import java.util.Vector;
 import network.*;
 
 public class ServerThreadMessenger {
@@ -38,9 +39,13 @@ public class ServerThreadMessenger {
         callMessageEvent(message);
     }
 
-    private void getUsersListRequested() {
+    int x = 0;
+    void getUsersListRequested() {
         try {
-            messenger.sendMessage(new Message(Message.RETURN_USER_LIST, Server.getUsers()));
+            // Так надо о_О:
+            Vector<User> usersList = (Vector<User>) Server.getUsers().clone();
+            //-----------------
+            messenger.sendMessage(new Message(Message.RETURN_USER_LIST, usersList));    
         } catch (IOException ex) {
             //Добавить логгирование
         }

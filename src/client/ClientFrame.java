@@ -1,6 +1,7 @@
 package client;
 
 import client.battleship.*;
+import client.events.*;
 import network.*;
 import server.Server;
 
@@ -26,7 +27,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import java.util.Vector;
 
-public class ClientFrame extends JFrame {
+public class ClientFrame extends JFrame implements NetworkClientMessengerListener {
+
     private class BattleshipWindowListener extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
@@ -80,10 +82,16 @@ public class ClientFrame extends JFrame {
         setVisible(true);
     }
     
+    @Override
+    public void usersListRefreshed(Vector<User> usersList) {
+        setUsersList(usersList);
+    }
+    
     private boolean configureMessengers(String serverName) {
         try {
             NetworkMessenger messenger = new NetworkMessenger(serverName, Server.PORT); // Поменять на чтение из поля
             clientMessenger = new NetworkClientMessenger(messenger);
+            clientMessenger.addNetworkClientMessengerListener(this);
         } catch (IOException ex) {
             return false;
         }
@@ -118,12 +126,15 @@ public class ClientFrame extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (playersList.isSelectionEmpty()) {
+                //playersList.setListData(new User[] { new User("s"), new User("gasd")});
+                refreshUsersList();
+                /*if (playersList.isSelectionEmpty()) {
                     return;
-                }
-                User selectedUser = playersList.getSelectedValue();
+                }*/
+                /*User selectedUser = playersList.getSelectedValue();
                 System.out.println("I wanna play with " + selectedUser);
-                letsPlay(selectedUser);
+                letsPlay(selectedUser);*/
+                
 //                battleshipFrame = new BattleshipFrame();
 //                battleshipFrame.addWindowListener(battleshipWindowListener);
 //                setVisible(false);
@@ -157,7 +168,7 @@ public class ClientFrame extends JFrame {
                 if ( !connect() ) {
                     return;
                 }
-                refreshUsersList();
+                //refreshUsersList();
                 mainCardLayout.next(cardPanel);
             }
         });
@@ -175,11 +186,10 @@ public class ClientFrame extends JFrame {
     }
     
     private void refreshUsersList() {
-        Vector<User> usersList = clientMessenger.getUsersList();
-        if (usersList == null) {
-            return;
-        }
-
+        clientMessenger.getUsersList();
+    }
+    
+    private void setUsersList(Vector<User> usersList) {
         trimUsersList(usersList);
         playersList.setListData(usersList);
         playersList.setEnabled(true);

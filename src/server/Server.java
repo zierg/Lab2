@@ -23,6 +23,7 @@ public class Server {
         usersList.add(user);
         usersMap.put(user, userThread);
         System.out.println("User " + user + " has been added to users list.");
+        refreshUsersListForAll();
         return true;
     }
     
@@ -30,6 +31,7 @@ public class Server {
         usersList.remove(user);
         usersMap.remove(user);
         System.out.println("User " + user + " has been removed from users list.");
+        refreshUsersListForAll();
     }
     
     synchronized static Vector<User> getUsers() {
@@ -66,5 +68,11 @@ public class Server {
             }
         }
         return false;
+    }
+    
+    private static void refreshUsersListForAll() {
+        for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
+            entry.getValue().getServerThreadMessenger().getUsersListRequested();
+        }
     }
 }
