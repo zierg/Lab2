@@ -37,6 +37,8 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             battleshipFrame = null;
         }
     }
+    private boolean playing = false;
+    
     private User user;
     private NetworkClientMessenger clientMessenger;
       
@@ -85,11 +87,17 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     @Override
     public void usersListRefreshed(Vector<User> usersList) {
+        if (isPlaying()) {
+            return;
+        }
         setUsersList(usersList);
     }
     
     @Override
     public void invitedToPlay(User invitor) {
+        if (isPlaying()) {
+            return;
+        }
         Object[] options = { "Yes", "No" };
         int answer = JOptionPane.showOptionDialog(this, invitor + " invited you to play. Accept?",
             "Accept invitation", JOptionPane.YES_NO_OPTION,
@@ -99,6 +107,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     @Override
     public void answerToInvitationRecieved(User invitor, boolean accept) {
+        if (isPlaying()) {
+            return;
+        }
         System.out.println("User " + invitor + (accept ? "wants" : "does not want") + " play with you.");
     }
     
@@ -224,5 +235,13 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private void answerToInvitation(User invitor, boolean accept) {
         clientMessenger.answerToInvitation(invitor, user, accept);
+    }
+    
+    private void setPlaying(boolean playing) {
+        this.playing = playing;
+    }
+    
+    private boolean isPlaying() {
+        return playing;
     }
 }
