@@ -1,9 +1,6 @@
 package client.battleship;
 
-import client.battleship.events.BrowseShipPanelActionEvent;
-import client.battleship.events.BrowseShipPanelActionListener;
-import client.battleship.events.BrowseShipPanelEmptyEvent;
-import client.battleship.events.BrowseShipPanelEmptyListener;
+import client.battleship.events.bscomponents.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;

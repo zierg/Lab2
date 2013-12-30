@@ -1,6 +1,6 @@
 package client.battleship;
 
-import client.battleship.events.*;
+import client.battleship.events.bscomponents.*;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

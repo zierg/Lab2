@@ -1,6 +1,6 @@
 package client.battleship;
 
-import client.battleship.events.*;
+import client.battleship.events.bscomponents.*;
 import client.chat.*;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;

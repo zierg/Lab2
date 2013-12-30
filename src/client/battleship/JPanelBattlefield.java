@@ -1,9 +1,9 @@
 package client.battleship;
 
+import client.battleship.events.bscomponents.*;
 import javax.swing.JPanel;
 import java.util.List;
 import java.util.LinkedList;
-import client.battleship.events.*;
 import java.util.ListIterator;
 
 abstract class JPanelBattlefield extends JPanel {

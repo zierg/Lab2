@@ -12,8 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import client.battleship.events.BrowseShipPanelActionEvent;
-import client.battleship.events.BrowseShipPanelEmptyEvent;
+import client.battleship.events.bscomponents.*;
 
 final class JButtonBrowseShipPanel extends BrowseShipPanel {
     private class ShipActionListener implements ActionListener {

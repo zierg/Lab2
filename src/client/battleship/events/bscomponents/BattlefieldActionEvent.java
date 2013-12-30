@@ -1,15 +1,15 @@
-package client.battleship.events;
+package client.battleship.events.bscomponents;
 
 import java.util.EventObject;
 
-public class BrowseShipPanelActionEvent extends EventObject {
+public class BattlefieldActionEvent extends EventObject {
     private String message;
     
-    public BrowseShipPanelActionEvent(Object source) {
+    public BattlefieldActionEvent(Object source) {
         super(source);
     }
     
-    public BrowseShipPanelActionEvent(Object source, String message) {
+    public BattlefieldActionEvent(Object source, String message) {
         super(source);
         this.message = message;
     }

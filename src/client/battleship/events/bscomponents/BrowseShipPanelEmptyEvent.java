@@ -1,4 +1,4 @@
-package client.battleship.events;
+package client.battleship.events.bscomponents;
 
 import java.util.EventObject;
 
