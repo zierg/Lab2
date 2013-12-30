@@ -1,10 +1,7 @@
 package client.events;
 
-import java.util.Vector;
-import network.User;
-
 public interface NetworkClientMessengerListener {
-    public void usersListRefreshed(Vector<User> usersList);
-    public void invitedToPlay(User invitor);
-    public void answerToInvitationRecieved(User invitor, boolean accept);
+    public void usersListRefreshed(usersListRefreshedEvent e);
+    public void invitedToPlay(invitedToPlayEvent e);
+    public void answerToInvitationRecieved(answerToInvitationRecievedEvent e);
 }
