@@ -1,5 +1,6 @@
 package client.battleship;
 
+import client.battleship.events.*;
 import client.battleship.events.bscomponents.*;
 import client.chat.*;
 import java.awt.CardLayout;
@@ -9,6 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,6 +33,8 @@ public class BattleshipFrame extends JFrame {
     
     private JPanelChat chat;
     
+    protected List<BattleshipFrameListener> listeners = new LinkedList<>();
+    
     public BattleshipFrame() {
         super();
         configureFrame();
@@ -38,6 +43,10 @@ public class BattleshipFrame extends JFrame {
         createBattlefiedls();
         createChat();
         setVisible(true);
+    }
+    
+    public void addBattleshipFrameListener(BattleshipFrameListener listener) {
+        listeners.add(listener);
     }
     
     private void configureFrame() {
@@ -163,14 +172,15 @@ public class BattleshipFrame extends JFrame {
 
             @Override
             public void actionPerformed(BattlefieldActionEvent e) {
-                int fieldNum = Integer.parseInt(e.getMessage());
+                listenTurnMade(new TurnMadeEvent(this, Integer.parseInt(e.getMessage())));
+                /*int fieldNum = Integer.parseInt(e.getMessage());
                 boolean hit = playerBF.attack(fieldNum);
                 enemyBF.setFill(fieldNum, hit);
                 enemyBF.attack(fieldNum);
                 
                 if (hit) {
                     chat.addMessage("Wow!");
-                }
+                }*/
             }
         });
     }
@@ -195,5 +205,11 @@ public class BattleshipFrame extends JFrame {
     
     private void showEnemyBF() {
         mainCardLayout.last(cardPanel);
+    }
+    
+    private void listenTurnMade (TurnMadeEvent e) {
+        for (BattleshipFrameListener listener : listeners) {
+            listener.turnMade(e);
+        }
     }
 }
