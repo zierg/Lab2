@@ -124,20 +124,20 @@ public class NetworkClientMessenger{
     
     private void listenUsersListRefreshed(Vector<User> usersList) {
         for (NetworkClientMessengerListener listener : listeners) {
-            listener.usersListRefreshed(new usersListRefreshedEvent(this, usersList));
+            listener.usersListRefreshed(new UsersListRefreshedEvent(this, usersList));
         }
     }
     
     private void listenInvitedToPlay(User invitor) {
         for (NetworkClientMessengerListener listener : listeners) {
-            listener.invitedToPlay(new invitedToPlayEvent(this, invitor));
+            listener.invitedToPlay(new InvitedToPlayEvent(this, invitor));
         }
     }
     
     private void listenAnswerToInvitationRecieved(User invitor, boolean accept) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.answerToInvitationRecieved(
-                    new answerToInvitationRecievedEvent(this, invitor, accept));
+                    new AnswerToInvitationRecievedEvent(this, invitor, accept));
         }
     }
 }
