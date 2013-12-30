@@ -43,7 +43,7 @@ public class ServerThreadMessenger {
         try {
             // Так надо о_О:
             Vector<User> usersList = (Vector<User>) Server.getUsers();
-            // И так тоже надо. глючная жава
+            // И так тоже надо
             Vector<User> newUL = new Vector<>();
             for (User currentUser:usersList) {
                 newUL.add(currentUser.clone());
@@ -70,7 +70,7 @@ public class ServerThreadMessenger {
             System.out.println("NOOOoo");
             // Отправить запросившему игроку ошибку
         }
-        //System.out.println(user1 + " wanna play with " + opponent);
+        System.out.println(player + " wanna play with " + opponent);
     }
     
     private void callMessageEvent(Message message) {

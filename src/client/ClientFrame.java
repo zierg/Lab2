@@ -213,7 +213,6 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         while(iterator.hasNext()) {
             User currentUser = iterator.next();
             if (!currentUser.isFree() || currentUser.equals(user)) {
-                System.out.println(currentUser + " is free: " + currentUser.isFree());
                 iterator.remove();
             }
             
