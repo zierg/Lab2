@@ -41,16 +41,21 @@ public class NetworkClientMessenger{
         private void callMessageEvent(Message message) {
             switch(message.getType()) {
                 case Message.RETURN_USER_LIST: {
-                    listenUsersListRefreshed( (Vector<User>) message.getAttributes()[0] );
+                    
+                    listenUsersListRefreshed( new UsersListRefreshedEvent(this, (Vector<User>) message.getAttributes()[0]) );
                     break;
                 }
                 case Message.LETS_PLAY: {
-                    listenInvitedToPlay((User) message.getAttributes()[0]);
+                    listenInvitedToPlay(new InvitedToPlayEvent(this, (User) message.getAttributes()[0]));
                     break;
                 }
                 case Message.LETS_PLAY_ANSWER: {
-                    listenAnswerToInvitationRecieved((User) message.getAttributes()[0],
-                            (boolean) message.getAttributes()[2]);
+                    
+                    listenAnswerToInvitationRecieved(
+                            new AnswerToInvitationRecievedEvent(this,
+                            (User) message.getAttributes()[0],
+                            (boolean) message.getAttributes()[2])
+                            );
                     break;
                 }
                 default: {
@@ -122,22 +127,21 @@ public class NetworkClientMessenger{
         working = false;
     }
     
-    private void listenUsersListRefreshed(Vector<User> usersList) {
+    private void listenUsersListRefreshed(UsersListRefreshedEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
-            listener.usersListRefreshed(new UsersListRefreshedEvent(this, usersList));
+            listener.usersListRefreshed(e);
         }
     }
     
-    private void listenInvitedToPlay(User invitor) {
+    private void listenInvitedToPlay(InvitedToPlayEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
-            listener.invitedToPlay(new InvitedToPlayEvent(this, invitor));
+            listener.invitedToPlay(e);
         }
     }
     
-    private void listenAnswerToInvitationRecieved(User invitor, boolean accept) {
+    private void listenAnswerToInvitationRecieved(AnswerToInvitationRecievedEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
-            listener.answerToInvitationRecieved(
-                    new AnswerToInvitationRecievedEvent(this, invitor, accept));
+            listener.answerToInvitationRecieved(e);
         }
     }
 }
