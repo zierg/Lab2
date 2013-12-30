@@ -34,6 +34,17 @@ public class Server {
         refreshUsersListForAll();
     }
     
+    synchronized static void setUserFree(User user, boolean free) {
+        for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
+            User currentUser = entry.getKey();
+            if (currentUser.equals(user) && currentUser.isFree() != free) {
+                currentUser.setFree(free);
+                refreshUsersListForAll();
+                return;
+            }
+        }
+    }
+    
     synchronized static Vector<User> getUsers() {
         return usersList;
     }
