@@ -86,4 +86,6 @@ public class Server {
             entry.getValue().getServerThreadMessenger().getUsersListRequested();
         }
     }
+    
+    private Server() {}
 }
