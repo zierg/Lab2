@@ -1,7 +1,7 @@
 package client.events;
 
 public interface NetworkClientMessengerListener {
-    public void usersListRefreshed(usersListRefreshedEvent e);
-    public void invitedToPlay(invitedToPlayEvent e);
-    public void answerToInvitationRecieved(answerToInvitationRecievedEvent e);
+    public void usersListRefreshed(UsersListRefreshedEvent e);
+    public void invitedToPlay(InvitedToPlayEvent e);
+    public void answerToInvitationRecieved(AnswerToInvitationRecievedEvent e);
 }
