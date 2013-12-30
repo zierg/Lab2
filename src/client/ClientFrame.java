@@ -1,6 +1,7 @@
 package client;
 
 import client.battleship.*;
+import client.battleship.events.*;
 import client.events.*;
 import network.*;
 import server.Server;
@@ -38,9 +39,21 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             // Добавить освобождение игрока
         }
     }
+    
+    private class NetworkBattleshipFrameListener implements BattleshipFrameListener {
+
+        @Override
+        public void turnMade(TurnMadeEvent e) {
+            System.out.println("heh");
+            attackEnemy(e.getFieldNumber());
+        }
+        
+    }
+    
     private boolean playing = false;
     
     private User user;
+    private User opponent;
     private NetworkClientMessenger clientMessenger;
       
     private JPanel connectedPanel;
@@ -54,6 +67,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     private final JList<User> playersList;
     private BattleshipFrame battleshipFrame;
     private final BattleshipWindowListener battleshipWindowListener = new BattleshipWindowListener();
+    private final NetworkBattleshipFrameListener battleshipFrameListener = new NetworkBattleshipFrameListener();
     
     public ClientFrame() {
         super();
@@ -116,7 +130,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         boolean accept = e.getAccept();
         System.out.println("User " + invitor + (accept ? "wants" : "does not want") + " play with you.");
         if (accept) {
-            startGame();
+            startGame(invitor);
         }
     }
     
@@ -239,7 +253,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     private void answerToInvitation(User invitor, boolean accept) {
         clientMessenger.answerToInvitation(invitor, user, accept);
         if (accept) {
-            startGame();
+            startGame(invitor);
         }
     }
     
@@ -251,9 +265,16 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         return playing;
     }
     
-    private void startGame() {
+    private void startGame(User opponent) {
+        this.opponent = opponent;
         battleshipFrame = new BattleshipFrame();
         battleshipFrame.addWindowListener(battleshipWindowListener);
+        battleshipFrame.addBattleshipFrameListener(battleshipFrameListener);
+        setPlaying(true);
         setVisible(false);
+    }
+    
+    private void attackEnemy(int fieldNum) {
+        clientMessenger.attack(opponent, fieldNum);
     }
 }

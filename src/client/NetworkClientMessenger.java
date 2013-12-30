@@ -49,13 +49,16 @@ public class NetworkClientMessenger{
                     listenInvitedToPlay(new InvitedToPlayEvent(this, (User) message.getAttributes()[0]));
                     break;
                 }
-                case Message.LETS_PLAY_ANSWER: {
-                    
+                case Message.LETS_PLAY_ANSWER: { 
                     listenAnswerToInvitationRecieved(
                             new AnswerToInvitationRecievedEvent(this,
-                            (User) message.getAttributes()[0],
+                            (User) message.getAttributes()[1],
                             (boolean) message.getAttributes()[2])
                             );
+                    break;
+                }
+                case Message.TURN: {
+                    System.out.println("Hey! You are under attack!");
                     break;
                 }
                 default: {
@@ -115,9 +118,9 @@ public class NetworkClientMessenger{
         }
     }
     
-    public void attack(int fieldNum) {
+    public void attack(User opponent, int fieldNum) {
         try {
-            messenger.sendMessage(new Message(Message.TURN, fieldNum));
+            messenger.sendMessage(new Message(Message.TURN, opponent, fieldNum));
         } catch (IOException ex) {
             // Лучше заменить на эксепшн
         }
