@@ -35,6 +35,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         public void windowClosing(WindowEvent e) {
             setVisible(true);
             battleshipFrame = null;
+            // Добавить освобождение игрока
         }
     }
     private boolean playing = false;
@@ -86,18 +87,19 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     }
     
     @Override
-    public void usersListRefreshed(Vector<User> usersList) {
+    public void usersListRefreshed(usersListRefreshedEvent e) {
         if (isPlaying()) {
             return;
         }
-        setUsersList(usersList);
+        setUsersList(e.getUsersList());
     }
     
     @Override
-    public void invitedToPlay(User invitor) {
+    public void invitedToPlay(invitedToPlayEvent e) {
         if (isPlaying()) {
             return;
         }
+        User invitor = e.getInvitor();
         Object[] options = { "Yes", "No" };
         int answer = JOptionPane.showOptionDialog(this, invitor + " invited you to play. Accept?",
             "Accept invitation", JOptionPane.YES_NO_OPTION,
@@ -106,11 +108,16 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     }
     
     @Override
-    public void answerToInvitationRecieved(User invitor, boolean accept) {
+    public void answerToInvitationRecieved(answerToInvitationRecievedEvent e) {
         if (isPlaying()) {
             return;
         }
+        User invitor = e.getInvitor();
+        boolean accept = e.getAccept();
         System.out.println("User " + invitor + (accept ? "wants" : "does not want") + " play with you.");
+        if (accept) {
+            startGame();
+        }
     }
     
     private boolean configureMessengers(String serverName) {
@@ -158,10 +165,6 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
                 User selectedUser = playersList.getSelectedValue();
                 System.out.println("I wanna play with " + selectedUser);
                 letsPlay(selectedUser);
-                
-//                battleshipFrame = new BattleshipFrame();
-//                battleshipFrame.addWindowListener(battleshipWindowListener);
-//                setVisible(false);
             }
         });
         connectedPanel.add(startGameButton);
@@ -235,6 +238,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private void answerToInvitation(User invitor, boolean accept) {
         clientMessenger.answerToInvitation(invitor, user, accept);
+        if (accept) {
+            startGame();
+        }
     }
     
     private void setPlaying(boolean playing) {
@@ -243,5 +249,11 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private boolean isPlaying() {
         return playing;
+    }
+    
+    private void startGame() {
+        battleshipFrame = new BattleshipFrame();
+        battleshipFrame.addWindowListener(battleshipWindowListener);
+        setVisible(false);
     }
 }
