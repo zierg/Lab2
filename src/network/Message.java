@@ -7,10 +7,7 @@ public class Message implements Serializable {
      * Attributes of this type must be like this:
      * String errorText
      */
-    public static final int ERROR = -1;
-    
-    
-    public static final int TURN = 0;
+    public static final int ERROR = 0;
     
     /**
      * Attributes of this type must be like this:
@@ -41,14 +38,27 @@ public class Message implements Serializable {
      */
     public static final int LETS_PLAY_ANSWER = 5;
     
+    /**
+     * Attributes of this type must be like this:
+     * int fieldNumber
+     */
+    public static final int TURN = 6;
+    
+    /**
+     * Attributes of this type must be like this:
+     * int fieldNumber, boolean hit
+     */
+    public static final int TURN_RESULT = 7;
+    
     private static final int[] TYPES = {
         ERROR,
-        TURN,
         AUTHORIZATION,
         GET_USER_LIST,
         RETURN_USER_LIST,
         LETS_PLAY,
-        LETS_PLAY_ANSWER
+        LETS_PLAY_ANSWER,
+        TURN,
+        TURN_RESULT
     };
     
     private int type;
