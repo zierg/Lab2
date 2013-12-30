@@ -97,10 +97,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         answerToInvitation(invitor, answer == 0);
     }
     
-    
     @Override
-    public void answerToInvitationRecieved(boolean accept) {
-        System.out.println(accept);
+    public void answerToInvitationRecieved(User invitor, boolean accept) {
+        System.out.println("User " + invitor + (accept ? "wants" : "does not want") + " play with you.");
     }
     
     private boolean configureMessengers(String serverName) {

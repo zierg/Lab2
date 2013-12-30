@@ -27,7 +27,6 @@ public class NetworkClientMessenger{
                     System.out.println("ohh");
                     return;               //!!!!
                 }
-                //System.out.println(working);
             }
         }
         
@@ -49,6 +48,11 @@ public class NetworkClientMessenger{
                     listenInvitedToPlay((User) message.getAttributes()[0]);
                     break;
                 }
+                case Message.LETS_PLAY_ANSWER: {
+                    listenAnswerToInvitationRecieved((User) message.getAttributes()[0],
+                            (boolean) message.getAttributes()[2]);
+                    break;
+                }
                 default: {
                     // отправить юзеру ошибку
                 }
@@ -65,9 +69,9 @@ public class NetworkClientMessenger{
         new MessageCatcher();
     }
     
-     public void addNetworkClientMessengerListener(NetworkClientMessengerListener listener) {
-         listeners.add(listener);
-     }
+    public void addNetworkClientMessengerListener(NetworkClientMessengerListener listener) {
+        listeners.add(listener);
+    }
     
     public boolean login(String userName) {
         try {
@@ -119,6 +123,12 @@ public class NetworkClientMessenger{
     private void listenInvitedToPlay(User invitor) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.invitedToPlay(invitor);
+        }
+    }
+    
+    private void listenAnswerToInvitationRecieved(User invitor, boolean accept) {
+        for (NetworkClientMessengerListener listener : listeners) {
+            listener.answerToInvitationRecieved(invitor, accept);
         }
     }
 }
