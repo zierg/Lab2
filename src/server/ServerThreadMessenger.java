@@ -75,14 +75,16 @@ public class ServerThreadMessenger {
     
     private void letsPlayAnswered(Message message) {
         boolean accept = (boolean) message.getAttributes()[2];
+        User invitor = (User) message.getAttributes()[0];
+        User opponent = (User) message.getAttributes()[1];
+        NetworkMessenger invitorMessenger = Server.getUserServerThread(invitor).
+                getServerThreadMessenger().getMessenger();
         if (!accept) {
-            User invitor = (User) message.getAttributes()[0];
-            User opponent = (User) message.getAttributes()[1];
             Server.setUserFree(invitor, true);
             Server.setUserFree(opponent, true);
         }
         try {
-            messenger.sendMessage(message);
+            invitorMessenger.sendMessage(message);
         } catch (IOException ex) {
             System.out.println("NOOOoo");
             // Отправить запросившему игроку ошибку
