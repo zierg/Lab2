@@ -110,6 +110,14 @@ public class NetworkClientMessenger{
         }
     }
     
+    public void attack(int fieldNum) {
+        try {
+            messenger.sendMessage(new Message(Message.TURN, fieldNum));
+        } catch (IOException ex) {
+            // Лучше заменить на эксепшн
+        }
+    }
+    
     public void shutdown() {
         working = false;
     }

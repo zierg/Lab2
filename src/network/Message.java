@@ -50,6 +50,9 @@ public class Message implements Serializable {
      */
     public static final int TURN_RESULT = 7;
     
+    /**
+     * Don't forget to add all new types here!
+     */
     private static final int[] TYPES = {
         ERROR,
         AUTHORIZATION,
