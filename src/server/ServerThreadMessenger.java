@@ -73,6 +73,22 @@ public class ServerThreadMessenger {
         System.out.println(player + " wanna play with " + opponent);
     }
     
+    private void letsPlayAnswered(Message message) {
+        boolean accept = (boolean) message.getAttributes()[2];
+        if (!accept) {
+            User invitor = (User) message.getAttributes()[0];
+            User opponent = (User) message.getAttributes()[1];
+            Server.setUserFree(invitor, true);
+            Server.setUserFree(opponent, true);
+        }
+        try {
+            messenger.sendMessage(message);
+        } catch (IOException ex) {
+            System.out.println("NOOOoo");
+            // Отправить запросившему игроку ошибку
+        }
+    }
+    
     private void callMessageEvent(Message message) {
         switch(message.getType()) {
             case Message.GET_USER_LIST: {
@@ -84,7 +100,7 @@ public class ServerThreadMessenger {
                 break;
             }
             case Message.LETS_PLAY_ANSWER: {
-                
+                letsPlayAnswered(message);
                 break;
             }
             default: {

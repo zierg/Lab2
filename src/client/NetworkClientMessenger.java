@@ -98,9 +98,9 @@ public class NetworkClientMessenger{
         }
     }
     
-    public void answerToInvitation(boolean accept) {
+    public void answerToInvitation(User whoWantsPlay, User withWhomWantsPlay, boolean accept) {
         try {
-            messenger.sendMessage(new Message(Message.LETS_PLAY_ANSWER, accept));
+            messenger.sendMessage(new Message(Message.LETS_PLAY_ANSWER, whoWantsPlay, withWhomWantsPlay, accept));
         } catch (IOException ex) {
             // Лучше заменить на эксепшн
         }

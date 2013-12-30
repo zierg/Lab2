@@ -94,7 +94,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         int answer = JOptionPane.showOptionDialog(this, invitor + " invited you to play. Accept?",
             "Accept invitation", JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        answerToInvitation(answer == 0);
+        answerToInvitation(invitor, answer == 0);
     }
     
     
@@ -223,7 +223,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         clientMessenger.letsPlay(user, withWhomWantsToPlay);
     }
     
-    private void answerToInvitation(boolean accept) {
-        clientMessenger.answerToInvitation(accept);
+    private void answerToInvitation(User invitor, boolean accept) {
+        clientMessenger.answerToInvitation(invitor, user, accept);
     }
 }

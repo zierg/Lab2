@@ -37,7 +37,7 @@ public class Message implements Serializable {
     
     /**
      * Attributes of this type must be like this:
-     * boolean accept
+     * User whoWantsPlay, User withWhomWantsPlay, boolean accept
      */
     public static final int LETS_PLAY_ANSWER = 5;
     
