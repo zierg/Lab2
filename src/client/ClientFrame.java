@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 public class ClientFrame extends JFrame implements NetworkClientMessengerListener {
 
@@ -89,7 +90,17 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     @Override
     public void invitedToPlay(User invitor) {
-        System.out.println(invitor + " wanna play with you!");
+        Object[] options = { "Yes", "No" };
+        int answer = JOptionPane.showOptionDialog(this, invitor + " invited you to play. Accept?",
+            "Accept invitation", JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        answerToInvitation(answer == 0);
+    }
+    
+    
+    @Override
+    public void answerToInvitationRecieved(boolean accept) {
+        System.out.println(accept);
     }
     
     private boolean configureMessengers(String serverName) {
@@ -202,13 +213,18 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         while(iterator.hasNext()) {
             User currentUser = iterator.next();
             if (!currentUser.isFree() || currentUser.equals(user)) {
+                System.out.println(currentUser + " is free: " + currentUser.isFree());
                 iterator.remove();
             }
             
         }
     }
     
-    private boolean letsPlay(User withWhomWantsToPlay) {
-        return clientMessenger.letsPlay(user, withWhomWantsToPlay);
+    private void letsPlay(User withWhomWantsToPlay) {
+        clientMessenger.letsPlay(user, withWhomWantsToPlay);
+    }
+    
+    private void answerToInvitation(boolean accept) {
+        clientMessenger.answerToInvitation(accept);
     }
 }

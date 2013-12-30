@@ -2,7 +2,7 @@ package network;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class User implements Serializable, Cloneable {
     private final String userName;
     private boolean free = true;
     
@@ -25,6 +25,13 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return userName;
+    }
+    
+    @Override
+    public User clone() {
+        User clonedUser = new User(userName);
+        clonedUser.free = this.free;
+        return clonedUser;
     }
     
     public boolean equals(User user) {

@@ -40,6 +40,7 @@ public class Server {
             if (currentUser.equals(user) && currentUser.isFree() != free) {
                 currentUser.setFree(free);
                 refreshUsersListForAll();
+                System.out.println("I have finished setUserFree for " + user);
                 return;
             }
         }

@@ -90,13 +90,20 @@ public class NetworkClientMessenger{
         return;
     }
     
-    public boolean letsPlay(User whoWantsPlay, User withWhomWantsPlay) {
+    public void letsPlay(User whoWantsPlay, User withWhomWantsPlay) {
         try {
             messenger.sendMessage(new Message(Message.LETS_PLAY, whoWantsPlay, withWhomWantsPlay));
         } catch (IOException ex) {
-            return false;   // Лучше заменить на эксепшн
+            // Лучше заменить на эксепшн
         }
-        return false;
+    }
+    
+    public void answerToInvitation(boolean accept) {
+        try {
+            messenger.sendMessage(new Message(Message.LETS_PLAY_ANSWER, accept));
+        } catch (IOException ex) {
+            // Лучше заменить на эксепшн
+        }
     }
     
     public void shutdown() {

@@ -35,13 +35,20 @@ public class Message implements Serializable {
      */
     public static final int LETS_PLAY = 4;
     
+    /**
+     * Attributes of this type must be like this:
+     * boolean accept
+     */
+    public static final int LETS_PLAY_ANSWER = 5;
+    
     private static final int[] TYPES = {
         ERROR,
         TURN,
         AUTHORIZATION,
         GET_USER_LIST,
         RETURN_USER_LIST,
-        LETS_PLAY
+        LETS_PLAY,
+        LETS_PLAY_ANSWER
     };
     
     private int type;

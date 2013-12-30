@@ -42,9 +42,14 @@ public class ServerThreadMessenger {
     void getUsersListRequested() {
         try {
             // Так надо о_О:
-            Vector<User> usersList = (Vector<User>) Server.getUsers().clone();
+            Vector<User> usersList = (Vector<User>) Server.getUsers();
+            // И так тоже надо. глючная жава
+            Vector<User> newUL = new Vector<>();
+            for (User currentUser:usersList) {
+                newUL.add(currentUser.clone());
+            }
             //-----------------
-            messenger.sendMessage(new Message(Message.RETURN_USER_LIST, usersList));    
+            messenger.sendMessage(new Message(Message.RETURN_USER_LIST, newUL));    
         } catch (IOException ex) {
             //Добавить логгирование
         }
@@ -52,18 +57,20 @@ public class ServerThreadMessenger {
     
     private void letsPlayRequested(Message message) {
         Object[] attrs = message.getAttributes();
-        User user1 = (User) attrs[0];
+        User player = (User) attrs[0];
         User opponent = (User) attrs[1];
 
         NetworkMessenger opponentMessenger = Server.getUserServerThread(opponent).
                 getServerThreadMessenger().getMessenger();
         try {
             opponentMessenger.sendMessage(message);
+            Server.setUserFree(player, false);
+            Server.setUserFree(opponent, false);
         } catch (IOException ex) {
             System.out.println("NOOOoo");
             // Отправить запросившему игроку ошибку
         }
-        System.out.println(user1 + " wanna play with " + opponent);
+        //System.out.println(user1 + " wanna play with " + opponent);
     }
     
     private void callMessageEvent(Message message) {
@@ -74,6 +81,10 @@ public class ServerThreadMessenger {
             }
             case Message.LETS_PLAY: {
                 letsPlayRequested(message);
+                break;
+            }
+            case Message.LETS_PLAY_ANSWER: {
+                
                 break;
             }
             default: {
