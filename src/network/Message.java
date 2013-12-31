@@ -63,6 +63,12 @@ public class Message implements Serializable {
     public static final int GAME_OVER = 9;
     
     /**
+     * Attributes of this type must be like this:
+     * User opponent, String messageText
+     */
+    public static final int TEXT_MESSAGE = 10;
+    
+    /**
      * Don't forget to add all new types here!
      */
     private static final int[] TYPES = {
@@ -75,7 +81,8 @@ public class Message implements Serializable {
         TURN,
         TURN_RESULT,
         PLAYER_IS_READY,
-        GAME_OVER
+        GAME_OVER,
+        TEXT_MESSAGE
     };
     
     private int type;
