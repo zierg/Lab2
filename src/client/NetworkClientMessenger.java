@@ -66,6 +66,14 @@ public class NetworkClientMessenger{
                             (boolean) message.getAttributes()[2]));
                     break;
                 }
+                case Message.PLAYER_IS_READY: {
+                    listenNetworkPlayerIsReady(new NetworkPlayerIsReadyEvent(this));
+                    break;
+                }
+                case Message.GAME_OVER: {
+                    listenNetworkGameOver(new NetworkGameOverEvent(this));
+                    break;
+                }
                 default: {
                     // отправить юзеру ошибку
                 }
@@ -131,9 +139,24 @@ public class NetworkClientMessenger{
     }
     
     public void sendTurnResult(User opponent, int fieldNum, boolean hit) {
-        System.out.println("sending turn result...");
         try {
             messenger.sendMessage(new Message(Message.TURN_RESULT, opponent, fieldNum, hit));
+        } catch (IOException ex) {
+            // Лучше заменить на эксепшн
+        }
+    }
+    
+    public void sendReadyMessage(User opponent) {
+        try {
+            messenger.sendMessage(new Message(Message.PLAYER_IS_READY, opponent));
+        } catch (IOException ex) {
+            // Лучше заменить на эксепшн
+        }
+    }
+    
+    public void sendGameOverMessage(User opponent) {
+        try {
+            messenger.sendMessage(new Message(Message.GAME_OVER, opponent));
         } catch (IOException ex) {
             // Лучше заменить на эксепшн
         }
@@ -170,6 +193,18 @@ public class NetworkClientMessenger{
     private void listenNetworkTurnResult(NetworkTurnResultEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.turnResult(e);
+        }
+    }
+    
+    private void listenNetworkPlayerIsReady(NetworkPlayerIsReadyEvent e) {
+        for (NetworkClientMessengerListener listener : listeners) {
+            listener.playerIsReady(e);
+        }
+    }
+    
+    private void listenNetworkGameOver(NetworkGameOverEvent e) {
+        for (NetworkClientMessengerListener listener : listeners) {
+            listener.gameOver(e);
         }
     }
 }
