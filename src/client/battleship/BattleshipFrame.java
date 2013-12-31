@@ -157,7 +157,7 @@ public class BattleshipFrame extends JFrame {
     }
     
     private void createBroweShipPanel() {
-        browseShipPanel = new JButtonBrowseShipPanel(0,0,2);// тестить проще(4, 3, 2, 1);
+        browseShipPanel = new JButtonBrowseShipPanel(4, 3, 2, 1);
         browseShipPanel.addBrowseShipPanelEmptyListener(new BrowseShipPanelEmptyListener() {
 
             @Override

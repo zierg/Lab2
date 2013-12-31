@@ -114,11 +114,7 @@ public class ServerThreadMessenger {
     private void userIsFreeRecieved(Message message) {
         User user = (User) message.getAttributes()[1];
         Server.setUserFree(user, true);
-        User opponent = (User) message.getAttributes()[0];
-        if (opponent!=null) {
-            sendMessageToOpponent(message);
-        }
-        
+        sendMessageToOpponent(message);
     }
     
     private void callMessageEvent(Message message) {
@@ -173,12 +169,10 @@ public class ServerThreadMessenger {
     private void sendMessageToOpponent(Message message) {
         Object[] attrs = message.getAttributes();
         User opponent = (User) attrs[0];
+        try {
         NetworkMessenger opponentMessenger = Server.getUserServerThread(opponent).
                 getServerThreadMessenger().getMessenger();
-        try {
-            opponentMessenger.sendMessage(message);
-        } catch (IOException ex) {
-            
-        }
+        opponentMessenger.sendMessage(message);
+        } catch (NullPointerException | IOException ex) {}
     }
 }

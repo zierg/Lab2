@@ -12,6 +12,7 @@ final class BackgroundViewField extends JButtonField {
     
     private boolean filled;
     private boolean available = true;
+    private boolean visible = false;
     
     private Color currentFillColor;
     private Color currentEnableColor;
@@ -32,6 +33,7 @@ final class BackgroundViewField extends JButtonField {
         } else {
             setBackground(MISS_COLOR);
         }
+        visible = true;
         setEnabled(false);
         return filled;
     }
@@ -69,6 +71,7 @@ final class BackgroundViewField extends JButtonField {
         else {
             setBackground(currentEnableColor);
         }
+        this.visible = visible;
     }
 
     @Override
@@ -79,5 +82,10 @@ final class BackgroundViewField extends JButtonField {
     @Override
     public boolean getFill() {
         return filled;
+    }
+
+    @Override
+    public boolean getVisibleField() {
+        return visible;
     }
 }

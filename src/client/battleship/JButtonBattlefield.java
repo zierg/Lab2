@@ -42,7 +42,9 @@ class JButtonBattlefield extends JPanelBattlefield {
         }
         this.enabled = enabled;
         for (int i = 0; i < TOTAL_FIELDS_COUNT; i++) {
-            fields[i].setEnabled(enabled);
+            if (!enabled || (enabled && !fields[i].getVisibleField())) {
+                fields[i].setEnabled(enabled);
+            }
         }
     }
     
