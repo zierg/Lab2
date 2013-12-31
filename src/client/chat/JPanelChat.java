@@ -35,7 +35,7 @@ public class JPanelChat extends JPanel {
     
     private ChatInputListener chatInputListener = new ChatInputListener();
     
-    GridBagLayout layout = new GridBagLayout();
+    private GridBagLayout layout = new GridBagLayout();
 
     public JPanelChat(String userName) {
         super();
