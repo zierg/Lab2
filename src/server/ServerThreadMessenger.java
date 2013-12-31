@@ -92,29 +92,19 @@ public class ServerThreadMessenger {
     }
     
     private void turnRecieved(Message message) {
-        Object[] attrs = message.getAttributes();
-        User opponent = (User) attrs[0];
-        NetworkMessenger opponentMessenger = Server.getUserServerThread(opponent).
-                getServerThreadMessenger().getMessenger();
-        try {
-            opponentMessenger.sendMessage(message);
-        } catch (IOException ex) {
-            System.out.println("NOOOoo");
-            // Отправить запросившему игроку ошибку
-        }
+        sendMessageToOpponent(message);
     }
     
-    private void turnResultRecieved (Message message) {
-        Object[] attrs = message.getAttributes();
-        User opponent = (User) attrs[0];
-        NetworkMessenger opponentMessenger = Server.getUserServerThread(opponent).
-                getServerThreadMessenger().getMessenger();
-        try {
-            opponentMessenger.sendMessage(message);
-        } catch (IOException ex) {
-            System.out.println("NOOOoo");
-            // Отправить запросившему игроку ошибку
-        }
+    private void turnResultRecieved(Message message) {
+        sendMessageToOpponent(message);
+    }
+    
+    private void playerIsReadyRecieved(Message message) {
+        sendMessageToOpponent(message);
+    }
+    
+    private void gameOverRecieved(Message message) {
+        sendMessageToOpponent(message);
     }
     
     private void callMessageEvent(Message message) {
@@ -139,9 +129,34 @@ public class ServerThreadMessenger {
                 turnResultRecieved(message);
                 break;
             }
+            case Message.PLAYER_IS_READY: {
+                playerIsReadyRecieved(message);
+                break;
+            }
+            case Message.GAME_OVER: {
+                gameOverRecieved(message);
+                break;
+            }
             default: {
                 // отправить юзеру ошибку
             }
+        }
+    }
+    
+    /**
+     * Tries to cast first message's attribute to User
+     * and sends message to him.
+     * @param message Message to send
+     */
+    private void sendMessageToOpponent(Message message) {
+        Object[] attrs = message.getAttributes();
+        User opponent = (User) attrs[0];
+        NetworkMessenger opponentMessenger = Server.getUserServerThread(opponent).
+                getServerThreadMessenger().getMessenger();
+        try {
+            opponentMessenger.sendMessage(message);
+        } catch (IOException ex) {
+            
         }
     }
 }
