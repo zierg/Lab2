@@ -51,6 +51,16 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         public void turnResult(TurnResultEvent e) {
             turnResultRecieved(e.getFieldNumber(), e.getHit());
         }
+
+        @Override
+        public void playerIsReady(PlayerIsReadyEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void gameOver(BSFrameGameOverEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
         
     }
     
