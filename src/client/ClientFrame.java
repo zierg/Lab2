@@ -56,12 +56,18 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
 
         @Override
         public void playerIsReady(PlayerIsReadyEvent e) {
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            battleshipFrame.setEnemyBattlefieldEnabled(false);
+            if (!isOpponentReady) {
+                battleshipFrame.sendChatMessage("Your opponent is not ready. You will turn first. Wait please.");
+            } else {
+                battleshipFrame.sendChatMessage("Game started! Your opponent turns first.");
+            }
+            isUserReady = true;
+            clientMessenger.sendReadyMessage(opponent);
         }
 
         @Override
         public void gameOver(BSFrameGameOverEvent e) {
-            //battleshipFrame.showWinMessage();
             clientMessenger.sendGameOverMessage(opponent, user);
         }
 
@@ -74,7 +80,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     private boolean playing = false;
     
     private User user;
+    private boolean isUserReady = false;
     private User opponent;
+    private boolean isOpponentReady = false;
     private NetworkClientMessenger clientMessenger;
       
     private JPanel connectedPanel;
@@ -172,6 +180,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         boolean hit = e.getHit();
         if (!hit) {
             battleshipFrame.setEnemyBattlefieldEnabled(false);
+            battleshipFrame.sendChatMessage("You missed.");
+        } else {
+            battleshipFrame.sendChatMessage("You hit the ship!");
         }
         battleshipFrame.setEnemyFieldFill(fieldNum, hit);
         battleshipFrame.attackEnemy(fieldNum);
@@ -182,7 +193,11 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         if (!isPlaying()) {
             return;
         }
-        clientMessenger.sendReadyMessage(opponent);
+        if (isUserReady) {
+            battleshipFrame.setEnemyBattlefieldEnabled(true);
+            battleshipFrame.sendChatMessage("Game started! You turn first.");
+        }
+        isOpponentReady = true;
     }
 
     @Override
@@ -201,7 +216,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     @Override
     public void errorRecieved(ErrorEvent e) {
         if (isPlaying()) {
-            
+            battleshipFrame.sendChatMessage(e.getMessage());
         } else {
             showError(e.getMessage());
         }

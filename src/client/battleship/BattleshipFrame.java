@@ -54,6 +54,11 @@ public class BattleshipFrame extends JFrame {
     
     public void attackPlayer(int fieldNum) {
         boolean hit = playerBF.attack(fieldNum);
+        if (hit) {
+            sendChatMessage("Your opponent hits your ship!");
+        } else {
+            sendChatMessage("Your opponent missed!");
+        }
         listenTurnResult(new TurnResultEvent(this, fieldNum, hit));
     }
     
