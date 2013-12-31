@@ -198,6 +198,15 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         battleshipFrame.sendChatMessage(e.getMessage());
     }
     
+    @Override
+    public void errorRecieved(ErrorEvent e) {
+        if (isPlaying()) {
+            
+        } else {
+            showError(e.getMessage());
+        }
+    }
+    
     private boolean configureMessengers(String serverName) {
         try {
             NetworkMessenger messenger = new NetworkMessenger(serverName, Server.PORT); // Поменять на чтение из поля
@@ -347,5 +356,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             battleshipFrame.setEnemyBattlefieldEnabled(true);
         }
         clientMessenger.sendTurnResult(opponent, fieldNum, hit);
+    }
+    
+    private void showError(String errorText) {
+        JOptionPane.showMessageDialog(this, errorText, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }

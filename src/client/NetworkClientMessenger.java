@@ -79,6 +79,10 @@ public class NetworkClientMessenger{
                     listenTextMessage(new ChatActionEvent(this, (String) message.getAttributes()[1]));
                     break;
                 }
+                case Message.ERROR: {
+                    listenError(new ErrorEvent(this, (String) message.getAttributes()[0]));
+                    break;
+                }
                 default: {
                     // отправить юзеру ошибку
                 }
@@ -104,13 +108,12 @@ public class NetworkClientMessenger{
             Message authMessage = new Message(Message.AUTHORIZATION, userName);
             messenger.sendMessage(authMessage);
             Message answer = messenger.getMessage();    // Ждём ответ на авторизацию
-            int answerType = answer.getType();
-            if (answerType == Message.AUTHORIZATION) {
+            if (answer.getType() == Message.AUTHORIZATION) {
                 new MessageCatcher();
                 getUsersList();
                 return true;
-            }
-            else {
+            } else {
+                listenError(new ErrorEvent(this, (String) answer.getAttributes()[0]));
                 return false;
             }
         } catch (IOException ex) {
@@ -239,6 +242,12 @@ public class NetworkClientMessenger{
     private void listenTextMessage(ChatActionEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.textMessageRecieved(e);
+        }
+    }
+    
+    private void listenError(ErrorEvent e) {
+        for (NetworkClientMessengerListener listener : listeners) {
+            listener.errorRecieved(e);
         }
     }
 }

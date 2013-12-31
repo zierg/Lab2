@@ -11,4 +11,5 @@ public interface NetworkClientMessengerListener {
     public void playerIsReady(NetworkPlayerIsReadyEvent e);
     public void gameOver(NetworkGameOverEvent e);
     public void textMessageRecieved(ChatActionEvent e);
+    public void errorRecieved(ErrorEvent e);
 }
