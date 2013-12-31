@@ -64,7 +64,7 @@ public class Message implements Serializable {
     
     /**
      * Attributes of this type must be like this:
-     * User opponent, User sender, String messageText
+     * User opponent, String messageText
      */
     public static final int TEXT_MESSAGE = 10;
     
