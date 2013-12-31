@@ -21,7 +21,8 @@ public class JPanelChat extends JPanel {
             if (message.length()==0) {
                 return;
             }
-            addMessage(userName + ": " + message);
+            message = userName + ": " + message;
+            addMessage(message);
             listenAction(new ChatActionEvent(this, message));
         }
     }

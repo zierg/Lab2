@@ -195,7 +195,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
 
     @Override
     public void textMessageRecieved(ChatActionEvent e) {
-        battleshipFrame.sendChatMessage(opponent + ": " + e.getMessage());
+        battleshipFrame.sendChatMessage(e.getMessage());
     }
     
     private boolean configureMessengers(String serverName) {
