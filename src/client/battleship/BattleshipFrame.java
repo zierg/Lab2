@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class BattleshipFrame extends JFrame {
@@ -64,6 +65,11 @@ public class BattleshipFrame extends JFrame {
     
     public void setEnemyFieldFill(int fieldNum, boolean filled) {
         enemyBF.setFill(fieldNum, filled);
+    }
+    
+    public void showWinMessage() {
+        JOptionPane.showMessageDialog(this, "You won!");
+        dispose();
     }
     
     private void configureFrame() {
@@ -147,6 +153,7 @@ public class BattleshipFrame extends JFrame {
             public void panelIsEmpty(BrowseShipPanelEmptyEvent e) {
                 playerBF.setAvailable(true);
                 showEnemyBF();
+                listenPlayerIsReady(new PlayerIsReadyEvent(this));
             }
         });
         browseShipPanel.addBrowseShipPanelActionListener(new BrowseShipPanelActionListener() {
@@ -178,7 +185,8 @@ public class BattleshipFrame extends JFrame {
             @Override
             public void gameOver(GameOverEvent e) {
                 enemyBF.setEnabled(false);
-                chat.addMessage("Game over!");
+                listenGameOver(new BSFrameGameOverEvent(this));
+                showLoseMessage();
             }
         });
     }
@@ -216,15 +224,32 @@ public class BattleshipFrame extends JFrame {
         mainCardLayout.last(cardPanel);
     }
     
-    private void listenTurnMade (TurnMadeEvent e) {
+    private void listenTurnMade(TurnMadeEvent e) {
         for (BattleshipFrameListener listener : listeners) {
             listener.turnMade(e);
         }
     }
     
-    private void listenTurnResult (TurnResultEvent e) {
+    private void listenTurnResult(TurnResultEvent e) {
         for (BattleshipFrameListener listener : listeners) {
             listener.turnResult(e);
         }
+    }
+    
+    private void listenPlayerIsReady(PlayerIsReadyEvent e) {
+        for (BattleshipFrameListener listener : listeners) {
+            listener.playerIsReady(e);
+        }
+    }
+    
+    private void listenGameOver(BSFrameGameOverEvent e) {
+        for (BattleshipFrameListener listener : listeners) {
+            listener.gameOver(e);
+        }
+    }
+    
+    private void showLoseMessage() {
+        JOptionPane.showMessageDialog(this, "You lose!");
+        dispose();
     }
 }
