@@ -92,7 +92,7 @@ public class NetworkClientMessenger{
     
     public NetworkClientMessenger(NetworkMessenger messenger) {
         this.messenger = messenger;
-        new MessageCatcher();
+        
     }
     
     public void addNetworkClientMessengerListener(NetworkClientMessengerListener listener) {
@@ -103,12 +103,19 @@ public class NetworkClientMessenger{
         try {
             Message authMessage = new Message(Message.AUTHORIZATION, userName);
             messenger.sendMessage(authMessage);
+            Message answer = messenger.getMessage();    // Ждём ответ на авторизацию
+            int answerType = answer.getType();
+            if (answerType == Message.AUTHORIZATION) {
+                new MessageCatcher();
+                getUsersList();
+                return true;
+            }
+            else {
+                return false;
+            }
         } catch (IOException ex) {
-            //System.out.println("FAIL (nothing epic..)");
             return false;
         }
-        //System.out.println("Successfully conected =)");
-        return true;
     }
 
     public void getUsersList() {

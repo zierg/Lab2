@@ -23,7 +23,7 @@ public class Server {
         usersList.add(user);
         usersMap.put(user, userThread);
         System.out.println("User " + user + " has been added to users list.");
-        refreshUsersListForAll();
+        refreshUsersListAfterAdding(user);
         return true;
     }
     
@@ -84,6 +84,14 @@ public class Server {
     private static void refreshUsersListForAll() {
         for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
             entry.getValue().getServerThreadMessenger().getUsersListRequested();
+        }
+    }
+    
+    private static void refreshUsersListAfterAdding(User addedUser) {
+        for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
+            if (!entry.getKey().equals(addedUser)) {
+                entry.getValue().getServerThreadMessenger().getUsersListRequested();
+            }
         }
     }
     

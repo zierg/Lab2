@@ -3,6 +3,8 @@ package server;
 import java.io.IOException;
 import network.*;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 class ServerThread extends Thread {
     private User user = null;
@@ -20,10 +22,19 @@ class ServerThread extends Thread {
     
     @Override
     public void run() {
-        if ( !createUser() ) {
-            System.out.println("Can not add user.");
+        NetworkMessenger userMessenger = serverThreadMessenger.getMessenger();
+        try {
+            if ( !createUser() ) {
+                System.out.println("Can not add user.");                
+                userMessenger.sendMessage(new Message(Message.ERROR, "User already exists."));
+                return;
+            }
+            else {
+                userMessenger.sendMessage(new Message(Message.AUTHORIZATION, user.getName()));
+            }
+        } catch (IOException ex) {
             return;
-        }                
+        }
         communicate();
     }
     
@@ -32,7 +43,6 @@ class ServerThread extends Thread {
         if (user == null) {
             return false;
         }
-        
         return Server.addUser(user, this);
     }
     
