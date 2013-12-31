@@ -46,7 +46,7 @@ public class Message implements Serializable {
     
     /**
      * Attributes of this type must be like this:
-     * int fieldNumber, boolean hit
+     * User opponent, int fieldNumber, boolean hit
      */
     public static final int TURN_RESULT = 7;
     

@@ -41,7 +41,6 @@ public class NetworkClientMessenger{
         private void callMessageEvent(Message message) {
             switch(message.getType()) {
                 case Message.RETURN_USER_LIST: {
-                    
                     listenUsersListRefreshed( new UsersListRefreshedEvent(this, (Vector<User>) message.getAttributes()[0]) );
                     break;
                 }
@@ -58,7 +57,13 @@ public class NetworkClientMessenger{
                     break;
                 }
                 case Message.TURN: {
-                    System.out.println("Hey! You are under attack!");
+                    listenNetworkTurnMade(new NetworkTurnMadeEvent(this, (int) message.getAttributes()[1]));
+                    break;
+                }
+                case Message.TURN_RESULT: {
+                    listenNetworkTurnResult(new NetworkTurnResultEvent(this, 
+                            (int) message.getAttributes()[1], 
+                            (boolean) message.getAttributes()[2]));
                     break;
                 }
                 default: {
@@ -99,7 +104,6 @@ public class NetworkClientMessenger{
         } catch (IOException ex) {
             return;
         }
-        return;
     }
     
     public void letsPlay(User whoWantsPlay, User withWhomWantsPlay) {
@@ -126,6 +130,15 @@ public class NetworkClientMessenger{
         }
     }
     
+    public void sendTurnResult(User opponent, int fieldNum, boolean hit) {
+        System.out.println("sending turn result...");
+        try {
+            messenger.sendMessage(new Message(Message.TURN_RESULT, opponent, fieldNum, hit));
+        } catch (IOException ex) {
+            // Лучше заменить на эксепшн
+        }
+    }
+    
     public void shutdown() {
         working = false;
     }
@@ -145,6 +158,18 @@ public class NetworkClientMessenger{
     private void listenAnswerToInvitationRecieved(AnswerToInvitationRecievedEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.answerToInvitationRecieved(e);
+        }
+    }
+    
+    private void listenNetworkTurnMade(NetworkTurnMadeEvent e) {
+        for (NetworkClientMessengerListener listener : listeners) {
+            listener.turnMade(e);
+        }
+    }
+    
+    private void listenNetworkTurnResult(NetworkTurnResultEvent e) {
+        for (NetworkClientMessengerListener listener : listeners) {
+            listener.turnResult(e);
         }
     }
 }

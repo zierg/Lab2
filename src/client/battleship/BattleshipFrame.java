@@ -49,6 +49,23 @@ public class BattleshipFrame extends JFrame {
         listeners.add(listener);
     }
     
+    public void attackPlayer(int fieldNum) {
+        boolean hit = playerBF.attack(fieldNum);
+        listenTurnResult(new TurnResultEvent(this, fieldNum, hit));
+    }
+    
+    public void attackEnemy(int fieldNum) {
+        enemyBF.attack(fieldNum);
+    }
+    
+    public void setEnemyBattlefieldEnabled(boolean enabled) {
+        enemyBF.setEnabled(enabled);
+    }
+    
+    public void setEnemyFieldFill(int fieldNum, boolean filled) {
+        enemyBF.setFill(fieldNum, filled);
+    }
+    
     private void configureFrame() {
         int screenHeight;
         int screenWidth;
@@ -173,14 +190,6 @@ public class BattleshipFrame extends JFrame {
             @Override
             public void actionPerformed(BattlefieldActionEvent e) {
                 listenTurnMade(new TurnMadeEvent(this, Integer.parseInt(e.getMessage())));
-                /*int fieldNum = Integer.parseInt(e.getMessage());
-                boolean hit = playerBF.attack(fieldNum);
-                enemyBF.setFill(fieldNum, hit);
-                enemyBF.attack(fieldNum);
-                
-                if (hit) {
-                    chat.addMessage("Wow!");
-                }*/
             }
         });
     }
@@ -210,6 +219,12 @@ public class BattleshipFrame extends JFrame {
     private void listenTurnMade (TurnMadeEvent e) {
         for (BattleshipFrameListener listener : listeners) {
             listener.turnMade(e);
+        }
+    }
+    
+    private void listenTurnResult (TurnResultEvent e) {
+        for (BattleshipFrameListener listener : listeners) {
+            listener.turnResult(e);
         }
     }
 }

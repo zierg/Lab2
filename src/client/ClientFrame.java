@@ -44,8 +44,12 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
 
         @Override
         public void turnMade(TurnMadeEvent e) {
-            System.out.println("heh");
             attackEnemy(e.getFieldNumber());
+        }
+
+        @Override
+        public void turnResult(TurnResultEvent e) {
+            turnResultRecieved(e.getFieldNumber(), e.getHit());
         }
         
     }
@@ -62,7 +66,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     private JTextField serverIPTextField;
     
     private final CardLayout mainCardLayout = new CardLayout();
-    JPanel cardPanel = new JPanel(mainCardLayout);
+    private JPanel cardPanel = new JPanel(mainCardLayout);
     
     private final JList<User> playersList;
     private BattleshipFrame battleshipFrame;
@@ -132,6 +136,22 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         if (accept) {
             startGame(invitor);
         }
+    }
+    
+    @Override
+    public void turnMade(NetworkTurnMadeEvent e) {
+        battleshipFrame.attackPlayer(e.getFieldNumber());
+    }
+    
+    @Override
+    public void turnResult(NetworkTurnResultEvent e) {
+        int fieldNum = e.getFieldNumber();
+        boolean hit = e.getHit();
+        if (!hit) {
+            battleshipFrame.setEnemyBattlefieldEnabled(false);
+        }
+        battleshipFrame.setEnemyFieldFill(fieldNum, hit);
+        battleshipFrame.attackEnemy(fieldNum);
     }
     
     private boolean configureMessengers(String serverName) {
@@ -276,5 +296,12 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private void attackEnemy(int fieldNum) {
         clientMessenger.attack(opponent, fieldNum);
+    }
+    
+    private void turnResultRecieved (int fieldNum, boolean hit) {
+        if (!hit) {
+            battleshipFrame.setEnemyBattlefieldEnabled(true);
+        }
+        clientMessenger.sendTurnResult(opponent, fieldNum, hit);
     }
 }

@@ -104,6 +104,19 @@ public class ServerThreadMessenger {
         }
     }
     
+    private void turnResultRecieved (Message message) {
+        Object[] attrs = message.getAttributes();
+        User opponent = (User) attrs[0];
+        NetworkMessenger opponentMessenger = Server.getUserServerThread(opponent).
+                getServerThreadMessenger().getMessenger();
+        try {
+            opponentMessenger.sendMessage(message);
+        } catch (IOException ex) {
+            System.out.println("NOOOoo");
+            // Отправить запросившему игроку ошибку
+        }
+    }
+    
     private void callMessageEvent(Message message) {
         switch(message.getType()) {
             case Message.GET_USER_LIST: {
@@ -120,6 +133,10 @@ public class ServerThreadMessenger {
             }
             case Message.TURN: {
                 turnRecieved(message);
+                break;
+            }
+            case Message.TURN_RESULT: {
+                turnResultRecieved(message);
                 break;
             }
             default: {
