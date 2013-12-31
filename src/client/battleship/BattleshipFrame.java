@@ -33,11 +33,13 @@ public class BattleshipFrame extends JFrame {
     private JButtonBrowseShipPanel browseShipPanel;
     
     private JPanelChat chat;
+    private final String userName;
     
     protected List<BattleshipFrameListener> listeners = new LinkedList<>();
     
-    public BattleshipFrame() {
+    public BattleshipFrame(String userName) {
         super();
+        this.userName = userName;
         configureFrame();
         initConstraints();
         createTitleLabels();
@@ -71,6 +73,10 @@ public class BattleshipFrame extends JFrame {
         enemyBF.setEnabled(false);
         JOptionPane.showMessageDialog(this, "You won!");
         System.out.println("You won!");
+    }
+    
+    public void sendChatMessage(String message) {
+        chat.addMessage(message);
     }
     
     private void configureFrame() {
@@ -209,12 +215,12 @@ public class BattleshipFrame extends JFrame {
         gbc.weighty = 0.3;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-        chat = new JPanelChat();
+        chat = new JPanelChat(userName);
         chat.addChatActionListener(new ChatActionListener() {
 
             @Override
             public void actionPerformed(ChatActionEvent e) {
-                setTitle(e.getMessage());
+                listenChatAction(e);
             }
         });
         playLayout.setConstraints(chat, gbc);
@@ -223,6 +229,12 @@ public class BattleshipFrame extends JFrame {
     
     private void showEnemyBF() {
         mainCardLayout.last(cardPanel);
+    }
+      
+    private void showLoseMessage() {
+        enemyBF.setEnabled(false);
+        JOptionPane.showMessageDialog(this, "You lose!");
+        System.out.println("You lose!");
     }
     
     private void listenTurnMade(TurnMadeEvent e) {
@@ -249,9 +261,9 @@ public class BattleshipFrame extends JFrame {
         }
     }
     
-    private void showLoseMessage() {
-        enemyBF.setEnabled(false);
-        JOptionPane.showMessageDialog(this, "You lose!");
-        System.out.println("You lose!");
+    private void listenChatAction(ChatActionEvent e) {
+        for (BattleshipFrameListener listener : listeners) {
+            listener.chatActionPerformed(e);
+        }
     }
 }

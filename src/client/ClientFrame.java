@@ -2,6 +2,7 @@ package client;
 
 import client.battleship.*;
 import client.battleship.events.*;
+import client.chat.ChatActionEvent;
 import client.events.*;
 import network.*;
 import server.Server;
@@ -63,7 +64,11 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             //battleshipFrame.showWinMessage();
             clientMessenger.sendGameOverMessage(opponent, user);
         }
-        
+
+        @Override
+        public void chatActionPerformed(ChatActionEvent e) {
+            clientMessenger.sendTextMessage(opponent, e.getMessage());
+        }      
     }
     
     private boolean playing = false;
@@ -188,6 +193,11 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         battleshipFrame.showWinMessage();
     }
 
+    @Override
+    public void textMessageRecieved(ChatActionEvent e) {
+        battleshipFrame.sendChatMessage(opponent + ": " + e.getMessage());
+    }
+    
     private boolean configureMessengers(String serverName) {
         try {
             NetworkMessenger messenger = new NetworkMessenger(serverName, Server.PORT); // Поменять на чтение из поля
@@ -321,7 +331,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private void startGame(User opponent) {
         this.opponent = opponent;
-        battleshipFrame = new BattleshipFrame();
+        battleshipFrame = new BattleshipFrame(user.getName());
         battleshipFrame.addWindowListener(battleshipWindowListener);
         battleshipFrame.addBattleshipFrameListener(battleshipFrameListener);
         setPlaying(true);

@@ -1,5 +1,6 @@
 package client;
 
+import client.chat.ChatActionEvent;
 import client.events.*;
 import network.*;
 import java.io.IOException;
@@ -72,6 +73,10 @@ public class NetworkClientMessenger{
                 }
                 case Message.GAME_OVER: {
                     listenNetworkGameOver(new NetworkGameOverEvent(this));
+                    break;
+                }
+                case Message.TEXT_MESSAGE: {
+                    listenTextMessage(new ChatActionEvent(this, (String) message.getAttributes()[1]));
                     break;
                 }
                 default: {
@@ -162,6 +167,14 @@ public class NetworkClientMessenger{
         }
     }
     
+    public void sendTextMessage(User opponent, String messageText) {
+        try {
+            messenger.sendMessage(new Message(Message.TEXT_MESSAGE, opponent, messageText));
+        } catch (IOException ex) {
+            // Лучше заменить на эксепшн
+        }
+    }
+    
     public void setUserFree(User user) {
         try {
             messenger.sendMessage(new Message(Message.USER_IS_FREE, user));
@@ -213,6 +226,12 @@ public class NetworkClientMessenger{
     private void listenNetworkGameOver(NetworkGameOverEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.gameOver(e);
+        }
+    }
+    
+    private void listenTextMessage(ChatActionEvent e) {
+        for (NetworkClientMessengerListener listener : listeners) {
+            listener.textMessageRecieved(e);
         }
     }
 }

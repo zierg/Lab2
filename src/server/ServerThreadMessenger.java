@@ -107,6 +107,10 @@ public class ServerThreadMessenger {
         sendMessageToOpponent(message);
     }
     
+    private void textMessageRecieved(Message message) {
+        sendMessageToOpponent(message);
+    }
+    
     private void userIsFreeRecieved(Message message) {
         User user = (User) message.getAttributes()[0];
         Server.setUserFree(user, true);
@@ -140,6 +144,10 @@ public class ServerThreadMessenger {
             }
             case Message.GAME_OVER: {
                 gameOverRecieved(message);
+                break;
+            }
+            case Message.TEXT_MESSAGE: {
+                textMessageRecieved(message);
                 break;
             }
             case Message.USER_IS_FREE: {

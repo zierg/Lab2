@@ -21,7 +21,7 @@ public class JPanelChat extends JPanel {
             if (message.length()==0) {
                 return;
             }
-            addMessage(message);
+            addMessage(userName + ": " + message);
             listenAction(new ChatActionEvent(this, message));
         }
     }
@@ -30,13 +30,15 @@ public class JPanelChat extends JPanel {
     
     private JTextArea chatOutput;
     private JTextField chatInput;
+    private final String userName;
     
     private ChatInputListener chatInputListener = new ChatInputListener();
     
     GridBagLayout layout = new GridBagLayout();
 
-    public JPanelChat() {
+    public JPanelChat(String userName) {
         super();
+        this.userName = userName;
         setLayout(layout);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -58,7 +60,7 @@ public class JPanelChat extends JPanel {
     }
     
     private void createChatOutput(GridBagConstraints gbc) {
-        chatOutput = new JTextArea("coming soon");
+        chatOutput = new JTextArea();
         chatOutput.setLineWrap(true);
         chatOutput.setEditable(false);
         JScrollPane chatPanel = new JScrollPane(chatOutput);
