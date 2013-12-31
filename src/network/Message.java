@@ -54,7 +54,7 @@ public class Message implements Serializable {
      * Attributes of this type must be like this:
      * User opponent
      */
-    public static final int PLAYER_PREPARED = 8;
+    public static final int PLAYER_IS_READY = 8;
     
     /**
      * Attributes of this type must be like this:
@@ -74,7 +74,7 @@ public class Message implements Serializable {
         LETS_PLAY_ANSWER,
         TURN,
         TURN_RESULT,
-        PLAYER_PREPARED,
+        PLAYER_IS_READY,
         GAME_OVER
     };
     
