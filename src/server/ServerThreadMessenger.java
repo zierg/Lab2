@@ -112,8 +112,13 @@ public class ServerThreadMessenger {
     }
     
     private void userIsFreeRecieved(Message message) {
-        User user = (User) message.getAttributes()[0];
+        User user = (User) message.getAttributes()[1];
         Server.setUserFree(user, true);
+        User opponent = (User) message.getAttributes()[0];
+        if (opponent!=null) {
+            sendMessageToOpponent(message);
+        }
+        
     }
     
     private void callMessageEvent(Message message) {

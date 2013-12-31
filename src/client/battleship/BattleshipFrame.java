@@ -77,7 +77,6 @@ public class BattleshipFrame extends JFrame {
     public void showWinMessage() {
         enemyBF.setEnabled(false);
         JOptionPane.showMessageDialog(this, "You won!");
-        System.out.println("You won!");
     }
     
     public void sendChatMessage(String message) {
@@ -239,7 +238,6 @@ public class BattleshipFrame extends JFrame {
     private void showLoseMessage() {
         enemyBF.setEnabled(false);
         JOptionPane.showMessageDialog(this, "You lose!");
-        System.out.println("You lose!");
     }
     
     private void listenTurnMade(TurnMadeEvent e) {

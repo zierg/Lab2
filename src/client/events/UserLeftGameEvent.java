@@ -2,14 +2,14 @@ package client.events;
 
 import java.util.EventObject;
 
-public class NetworkGameOverEvent extends EventObject {
+public class UserLeftGameEvent extends EventObject {
     private String message;
     
-    public NetworkGameOverEvent(Object source) {
+    public UserLeftGameEvent(Object source) {
         super(source);
     }
     
-    public NetworkGameOverEvent(Object source, String message) {
+    public UserLeftGameEvent(Object source, String message) {
         super(source);
         this.message = message;
     }

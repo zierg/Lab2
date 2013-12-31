@@ -12,4 +12,5 @@ public interface NetworkClientMessengerListener {
     public void gameOver(NetworkGameOverEvent e);
     public void textMessageRecieved(ChatActionEvent e);
     public void errorRecieved(ErrorEvent e);
+    public void userLeftGame(UserLeftGameEvent e);
 }

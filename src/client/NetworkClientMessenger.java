@@ -25,7 +25,6 @@ public class NetworkClientMessenger{
                 try {
                     catchMessage();
                 } catch (IOException ex) {
-                    System.out.println("ohh");
                     return;               //!!!!
                 }
             }
@@ -81,6 +80,10 @@ public class NetworkClientMessenger{
                 }
                 case Message.ERROR: {
                     listenError(new ErrorEvent(this, (String) message.getAttributes()[0]));
+                    break;
+                }
+                case Message.USER_IS_FREE: {
+                    listenUserLeftGame(new UserLeftGameEvent(this));
                     break;
                 }
                 default: {
@@ -185,9 +188,9 @@ public class NetworkClientMessenger{
         }
     }
     
-    public void setUserFree(User user) {
+    public void setUserFree(User opponent, User user) {
         try {
-            messenger.sendMessage(new Message(Message.USER_IS_FREE, user));
+            messenger.sendMessage(new Message(Message.USER_IS_FREE, opponent, user));
         } catch (IOException ex) {
             // Лучше заменить на эксепшн
         }
@@ -248,6 +251,12 @@ public class NetworkClientMessenger{
     private void listenError(ErrorEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.errorRecieved(e);
+        }
+    }
+    
+    private void listenUserLeftGame(UserLeftGameEvent e) {
+        for (NetworkClientMessengerListener listener : listeners) {
+            listener.userLeftGame(e);
         }
     }
 }

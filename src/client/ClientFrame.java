@@ -38,7 +38,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             setVisible(true);
             setPlaying(false);
             battleshipFrame = null;
-            clientMessenger.setUserFree(user);
+            clientMessenger.setUserFree(opponent, user);
         }
     }
     
@@ -84,6 +84,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     private User opponent;
     private boolean isOpponentReady = false;
     private NetworkClientMessenger clientMessenger;
+    private boolean isGameOver = true;
       
     private JPanel connectedPanel;
     private JPanel nonConnectedPanel;
@@ -157,7 +158,6 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         }
         User invitor = e.getInvitor();
         boolean accept = e.getAccept();
-        System.out.println("User " + invitor + (accept ? "wants" : "does not want") + " play with you.");
         if (accept) {
             startGame(invitor);
         }
@@ -206,10 +206,14 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             return;
         }
         battleshipFrame.showWinMessage();
+        isGameOver = true;
     }
 
     @Override
     public void textMessageRecieved(ChatActionEvent e) {
+        if (!isPlaying()) {
+            return;
+        }
         battleshipFrame.sendChatMessage(e.getMessage());
     }
     
@@ -219,6 +223,18 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             battleshipFrame.sendChatMessage(e.getMessage());
         } else {
             showError(e.getMessage());
+        }
+    }
+    
+    @Override
+    public void userLeftGame(UserLeftGameEvent e) {
+        if (!isPlaying()) {
+            return;
+        }
+        if (!isGameOver) {
+            isGameOver = true;
+            battleshipFrame.sendChatMessage("Your opponent has left the game.");
+            battleshipFrame.showWinMessage();
         }
     }
     
@@ -265,7 +281,6 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
                     return;
                 }
                 User selectedUser = playersList.getSelectedValue();
-                System.out.println("I wanna play with " + selectedUser);
                 letsPlay(selectedUser);
             }
         });
@@ -360,6 +375,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         battleshipFrame.addBattleshipFrameListener(battleshipFrameListener);
         setPlaying(true);
         setVisible(false);
+        isGameOver = false;
     }
     
     private void attackEnemy(int fieldNum) {

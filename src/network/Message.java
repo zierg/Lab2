@@ -70,7 +70,7 @@ public class Message implements Serializable {
     
     /**
      * Attributes of this type must be like this:
-     * User user
+     * User opponent, User user
      */
     public static final int USER_IS_FREE = 11;
     
@@ -89,7 +89,7 @@ public class Message implements Serializable {
         PLAYER_IS_READY,
         GAME_OVER,
         TEXT_MESSAGE,
-        USER_IS_FREE
+        USER_IS_FREE,
     };
     
     private int type;
