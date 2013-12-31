@@ -51,6 +51,18 @@ public class Message implements Serializable {
     public static final int TURN_RESULT = 7;
     
     /**
+     * Attributes of this type must be like this:
+     * User opponent
+     */
+    public static final int PLAYER_PREPARED = 8;
+    
+    /**
+     * Attributes of this type must be like this:
+     * User opponent
+     */
+    public static final int GAME_OVER = 9;
+    
+    /**
      * Don't forget to add all new types here!
      */
     private static final int[] TYPES = {
@@ -61,7 +73,9 @@ public class Message implements Serializable {
         LETS_PLAY,
         LETS_PLAY_ANSWER,
         TURN,
-        TURN_RESULT
+        TURN_RESULT,
+        PLAYER_PREPARED,
+        GAME_OVER
     };
     
     private int type;
