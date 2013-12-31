@@ -6,4 +6,6 @@ public interface NetworkClientMessengerListener {
     public void answerToInvitationRecieved(AnswerToInvitationRecievedEvent e);
     public void turnMade(NetworkTurnMadeEvent e);
     public void turnResult(NetworkTurnResultEvent e);
+    public void playerIsReady(NetworkPlayerIsReadyEvent e);
+    public void gameOver(NetworkGameOverEvent e);
 }

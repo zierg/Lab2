@@ -35,8 +35,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         @Override
         public void windowClosing(WindowEvent e) {
             setVisible(true);
+            setPlaying(false);
             battleshipFrame = null;
-            // Добавить освобождение игрока
+            clientMessenger.setUserFree(user);
         }
     }
     
@@ -54,12 +55,13 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
 
         @Override
         public void playerIsReady(PlayerIsReadyEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
         @Override
         public void gameOver(BSFrameGameOverEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            //battleshipFrame.showWinMessage();
+            clientMessenger.sendGameOverMessage(opponent, user);
         }
         
     }
@@ -150,11 +152,17 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     @Override
     public void turnMade(NetworkTurnMadeEvent e) {
+        if (!isPlaying()) {
+            return;
+        }
         battleshipFrame.attackPlayer(e.getFieldNumber());
     }
     
     @Override
     public void turnResult(NetworkTurnResultEvent e) {
+        if (!isPlaying()) {
+            return;
+        }
         int fieldNum = e.getFieldNumber();
         boolean hit = e.getHit();
         if (!hit) {
@@ -164,6 +172,22 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         battleshipFrame.attackEnemy(fieldNum);
     }
     
+    @Override
+    public void playerIsReady(NetworkPlayerIsReadyEvent e) {
+        if (!isPlaying()) {
+            return;
+        }
+        clientMessenger.sendReadyMessage(opponent);
+    }
+
+    @Override
+    public void gameOver(NetworkGameOverEvent e) {
+        if (!isPlaying()) {
+            return;
+        }
+        battleshipFrame.showWinMessage();
+    }
+
     private boolean configureMessengers(String serverName) {
         try {
             NetworkMessenger messenger = new NetworkMessenger(serverName, Server.PORT); // Поменять на чтение из поля

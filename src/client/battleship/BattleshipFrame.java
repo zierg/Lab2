@@ -68,8 +68,9 @@ public class BattleshipFrame extends JFrame {
     }
     
     public void showWinMessage() {
+        enemyBF.setEnabled(false);
         JOptionPane.showMessageDialog(this, "You won!");
-        dispose();
+        System.out.println("You won!");
     }
     
     private void configureFrame() {
@@ -249,7 +250,8 @@ public class BattleshipFrame extends JFrame {
     }
     
     private void showLoseMessage() {
+        enemyBF.setEnabled(false);
         JOptionPane.showMessageDialog(this, "You lose!");
-        dispose();
+        System.out.println("You lose!");
     }
 }

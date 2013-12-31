@@ -154,9 +154,17 @@ public class NetworkClientMessenger{
         }
     }
     
-    public void sendGameOverMessage(User opponent) {
+    public void sendGameOverMessage(User opponent, User user) {
         try {
-            messenger.sendMessage(new Message(Message.GAME_OVER, opponent));
+            messenger.sendMessage(new Message(Message.GAME_OVER, opponent, user));
+        } catch (IOException ex) {
+            // Лучше заменить на эксепшн
+        }
+    }
+    
+    public void setUserFree(User user) {
+        try {
+            messenger.sendMessage(new Message(Message.USER_IS_FREE, user));
         } catch (IOException ex) {
             // Лучше заменить на эксепшн
         }
