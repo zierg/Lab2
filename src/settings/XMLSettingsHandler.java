@@ -49,7 +49,12 @@ public class XMLSettingsHandler implements SettingsHandler {
     
     @Override
     public void setValue(String property, String value) {
-        root.getChild(property).setAttribute(ATTR_NAME, value);
+        Element propertyElement = root.getChild(property);
+        if (propertyElement == null) {
+            root.addContent(new Element(property).setAttribute(ATTR_NAME, value));
+        } else {
+            root.getChild(property).setAttribute(ATTR_NAME, value);
+        }
         saveDocument();
     }
 

@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Vector;
 import settings.ConfigReader;
 import settings.PropertyConfigReader;
+import settings.SettingsHandler;
+import settings.XMLSettingsHandler;
 
 
 public class Server {
@@ -67,7 +69,6 @@ public class Server {
             ConfigReader configReader = new PropertyConfigReader(PROPERTIES_FILE);
             int port = Integer.parseInt(configReader.readValue("PORT"));
             ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println("port: " + port);
             System.out.println("Server is running.");
             while (true) {
                 Socket client = serverSocket.accept();  // заставляем сервер ждать подключений и выводим сообщение,
