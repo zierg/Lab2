@@ -12,7 +12,7 @@
 	<invitation_no value="No" />
 	<battleship_frame_title value="Battleship" />
 	<player_ships_label value="Your ships" />
-	<enemy_ships_label value="Enemy_ships" />
+	<enemy_ships_label value="Enemy ships" />
 	<chat_title value="Chat" />
 	<rotate_button value="Rotate" />
 	<player_first_message value="Your opponent is not ready. You will turn first. Wait please." />

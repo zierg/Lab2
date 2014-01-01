@@ -69,6 +69,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
 
         @Override
         public void gameOver(BSFrameGameOverEvent e) {
+            isGameOver = true;
             clientMessenger.sendGameOverMessage(opponent, user);
         }
 
@@ -171,10 +172,6 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             return;
         }
         User invitor = e.getInvitor();
-        System.out.println(invitationText);
-        System.out.println(invitationTitle);
-        System.out.println(invitationYes);
-        System.out.println(invitationNo);
         Object[] options = { invitationYes, invitationNo };
         int answer = JOptionPane.showOptionDialog(this, invitor + invitationText,
             invitationTitle, JOptionPane.YES_NO_OPTION,
