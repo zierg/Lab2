@@ -1,8 +1,10 @@
 package settings;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 import org.jdom2.Element;
 import org.jdom2.Document;
@@ -33,7 +35,8 @@ public class XMLSettingsHandler implements SettingsHandler {
             outputter = new XMLOutputter( Format.getPrettyFormat().setIndent("\t") );
 
             if (file.exists()) {
-                document = builder.build(file);
+                Reader reader = new FileReader(file);
+                document = builder.build(reader);
                 root = document.getRootElement();
             }
             else {
