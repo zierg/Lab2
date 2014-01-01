@@ -8,10 +8,14 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
+import settings.ConfigReader;
+import settings.PropertyConfigReader;
 
 
 public class Server {
     public static final int PORT = 12345;
+    
+    private static final String PROPERTIES_FILE = "properties.ini";
     
     private static Vector<User> usersList = new Vector<>();
     private static Map<User, ServerThread> usersMap = new HashMap<>();
@@ -60,14 +64,17 @@ public class Server {
     
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(PORT);
+            ConfigReader configReader = new PropertyConfigReader(PROPERTIES_FILE);
+            int port = Integer.parseInt(configReader.readValue("PORT"));
+            ServerSocket serverSocket = new ServerSocket(port);
+            System.out.println("port: " + port);
             System.out.println("Server is running.");
             while (true) {
                 Socket client = serverSocket.accept();  // заставляем сервер ждать подключений и выводим сообщение,
                 System.out.println("Got a client.");    // когда кто-то связался с сервером
                 new ServerThread(client);
             }
-        } catch (IOException ex) {
+        } catch (IOException | NumberFormatException ex) {
             
         }
     }
