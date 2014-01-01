@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<client_frame_title value="Морской бой" />
+	<player_name_label value="Игрок:" />
+	<server_label value="Сервер:" />
+	<port_label value="Порт:" />
+	<connect_button value="Подключиться" />
+	<start_button value="Начать игру" />
+	<invitation_title value="Приглашение в игру" />
+	<invitation_text value=" приглашает вас в игру. Согласиться?" />
+	<invitation_yes value="Да" />
+	<invitation_no value="Нет" />
+	<battleship_frame_title value="Морской бой" />
+	<player_ships_label value="Ваши корабли" />
+	<enemy_ships_label value="Корабли противника" />
+	<chat_title value="Чат" />
+	<rotate_button value="Повернуть" />
+	<player_first_message value="Ваш противник ещё не готов. Ваш ход будет первым. Пожалуйста, подождите." />
+	<player_second_message value="Игра началась! Ваш противник ходит первый." />
+	<game_started_message value="Игра началась! Ваш ход первый." />
+	<player_hit_message value="Вы попали в корабль!" />
+	<opponent_hit_message value="Противник попал в ваш корабль!" />
+	<player_miss_message value="Вы промахнулись." />
+	<opponent_miss_message value="Противник промахнулся." />
+	<win_message value="Вы победили!" />
+	<lose_message value="Вы проиграли!" />
+	<opponent_left_message value="Ваш противник покинул игру." />
+</settings>
