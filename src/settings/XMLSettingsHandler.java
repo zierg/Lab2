@@ -60,7 +60,11 @@ public class XMLSettingsHandler implements SettingsHandler {
 
     @Override
     public String readValue(String property) {
-        return root.getChild(property).getAttributeValue(ATTR_NAME);
+        Element propertyElement = root.getChild(property);
+        if (propertyElement != null) {
+            return propertyElement.getAttributeValue(ATTR_NAME);
+        }
+        return null;        
     }
 
     private void saveDocument() {
