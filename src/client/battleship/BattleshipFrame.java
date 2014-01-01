@@ -16,11 +16,26 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import settings.SettingsHandler;
 
 public class BattleshipFrame extends JFrame {
     private static final Insets LEFT_INSETS = new Insets(0, 0, 0, 2);
     private static final Insets RIGHT_INSETS = new Insets(0, 2, 0, 0);
     private static final int BATTLEFIELD_SIDE = JButtonBattlefield.SIDE_FIELDS_COUNT;
+    
+    
+    private final SettingsHandler translation;
+    // ---- Translation -------
+    private String frameTitle;
+    private String opponentHitMessage;
+    private String opponentMissMessage;
+    private String winMessage;
+    private String loseMessage;
+    private String playerShipsLabel;
+    private String enemyShipsLabel;
+    private String chatTitle;
+    private String rotateButtonText;
+    // ------------------------
     
     private final CardLayout mainCardLayout = new CardLayout();
     JPanel cardPanel = new JPanel(mainCardLayout);
@@ -37,14 +52,16 @@ public class BattleshipFrame extends JFrame {
     
     protected List<BattleshipFrameListener> listeners = new LinkedList<>();
     
-    public BattleshipFrame(String userName) {
+    public BattleshipFrame(String userName, SettingsHandler translation) {
         super();
+        this.translation = translation;
         this.userName = userName;
+        loadTranslation();
         configureFrame();
         initConstraints();
         createTitleLabels();
         createBattlefiedls();
-        createChat();
+        createChat(chatTitle);
         setVisible(true);
     }
     
@@ -55,9 +72,9 @@ public class BattleshipFrame extends JFrame {
     public void attackPlayer(int fieldNum) {
         boolean hit = playerBF.attack(fieldNum);
         if (hit) {
-            sendChatMessage("Your opponent hits your ship!");
+            sendChatMessage(opponentHitMessage);
         } else {
-            sendChatMessage("Your opponent missed!");
+            sendChatMessage(opponentMissMessage);
         }
         listenTurnResult(new TurnResultEvent(this, fieldNum, hit));
     }
@@ -76,11 +93,29 @@ public class BattleshipFrame extends JFrame {
     
     public void showWinMessage() {
         enemyBF.setEnabled(false);
-        JOptionPane.showMessageDialog(this, "You won!");
+        JOptionPane.showMessageDialog(this, winMessage);
     }
     
     public void sendChatMessage(String message) {
         chat.addMessage(message);
+    }
+    
+    private void loadTranslation() {
+        frameTitle = loadSetting(translation, "battleship_frame_title", "Battleship");
+        opponentHitMessage = loadSetting(translation, "opponent_hit_message", "Your opponent hits your ship!");
+        opponentMissMessage = loadSetting(translation, "opponent_miss_message", "Your opponent missed.");
+        winMessage = loadSetting(translation, "win_message", "You won!");
+        loseMessage = loadSetting(translation, "lose_message", "You lose!");
+        
+        playerShipsLabel = loadSetting(translation, "player_ships_label", "Your ships");
+        enemyShipsLabel = loadSetting(translation, "enemy_ships_label", "Enemy ships");
+        chatTitle = loadSetting(translation, "chat_title", "Chat");
+        rotateButtonText = loadSetting(translation, "rotate_button", "Rotate");
+    }
+    
+    private String loadSetting(SettingsHandler handler, String setting, String defaultValue) {
+        String value = handler.readValue(setting);
+        return (value==null ? defaultValue : value);
     }
     
     private void configureFrame() {
@@ -97,7 +132,7 @@ public class BattleshipFrame extends JFrame {
         frameHeihgt = screenHeight/2;
         frameWidth = frameHeihgt * 4/3;
         
-        setTitle("Battleship");
+        setTitle(frameTitle);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(frameWidth, frameHeihgt);
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
@@ -122,14 +157,14 @@ public class BattleshipFrame extends JFrame {
         
         gbc.gridwidth = BATTLEFIELD_SIDE;
         gbc.insets = LEFT_INSETS;
-        JLabel playerLabel = new JLabel("Your ships will be here");
+        JLabel playerLabel = new JLabel(playerShipsLabel);
         playerLabel.setHorizontalAlignment(JLabel.CENTER);
         playLayout.setConstraints(playerLabel, gbc);
         add(playerLabel);
         
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.insets = RIGHT_INSETS;
-        JLabel enemyLabel = new JLabel("Enemy ships will be here");
+        JLabel enemyLabel = new JLabel(enemyShipsLabel);
         enemyLabel.setHorizontalAlignment(JLabel.CENTER);
         playLayout.setConstraints(enemyLabel, gbc);
         add(enemyLabel);
@@ -157,7 +192,7 @@ public class BattleshipFrame extends JFrame {
     }
     
     private void createBroweShipPanel() {
-        browseShipPanel = new JButtonBrowseShipPanel(4, 3, 2, 1);
+        browseShipPanel = new JButtonBrowseShipPanel(rotateButtonText, 4, 3, 2, 1);
         browseShipPanel.addBrowseShipPanelEmptyListener(new BrowseShipPanelEmptyListener() {
 
             @Override
@@ -213,13 +248,13 @@ public class BattleshipFrame extends JFrame {
         });
     }
     
-    private void createChat() {
+    private void createChat(String chatTitle) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.weighty = 0.3;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-        chat = new JPanelChat(userName);
+        chat = new JPanelChat(userName, chatTitle);
         chat.addChatActionListener(new ChatActionListener() {
 
             @Override
@@ -237,7 +272,7 @@ public class BattleshipFrame extends JFrame {
       
     private void showLoseMessage() {
         enemyBF.setEnabled(false);
-        JOptionPane.showMessageDialog(this, "You lose!");
+        JOptionPane.showMessageDialog(this, loseMessage);
     }
     
     private void listenTurnMade(TurnMadeEvent e) {

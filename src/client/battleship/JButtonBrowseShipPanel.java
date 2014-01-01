@@ -36,8 +36,12 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
     
     private List<JButtonShip> shipList = new ArrayList<>();
     private JPanel shipPanels[];
-        
+    
     public JButtonBrowseShipPanel(int ... ships) {
+        this("Rotate");
+    }
+    
+    public JButtonBrowseShipPanel(String rotateButtonText, int ... ships) {
         super();
         shipPanels = new JPanel[ships.length];
         GridBagLayout layout = new GridBagLayout();
@@ -46,7 +50,7 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
                          
         constraints.weightx = 1;
         constraints.gridwidth = GridBagConstraints.REMAINDER;
-        JButton rotateButton = createRotateButton();
+        JButton rotateButton = createRotateButton(rotateButtonText);
         layout.setConstraints(rotateButton, constraints);
         add(rotateButton);        
      
@@ -89,8 +93,8 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
         }
     }
       
-    private JButton createRotateButton() {
-        JButton rotateButton = new JButton("Rotate");
+    private JButton createRotateButton(String rotateButtonText) {
+        JButton rotateButton = new JButton(rotateButtonText);
         rotateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

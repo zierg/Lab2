@@ -38,6 +38,10 @@ public class JPanelChat extends JPanel {
     private GridBagLayout layout = new GridBagLayout();
 
     public JPanelChat(String userName) {
+        this(userName, "Chat");
+    }
+    
+    public JPanelChat(String userName, String chatTitle) {
         super();
         this.userName = userName;
         setLayout(layout);
@@ -47,15 +51,15 @@ public class JPanelChat extends JPanel {
         gbc.gridheight = 1;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-        createChatLabel(gbc);     
+        createChatLabel(gbc, chatTitle);     
         gbc.weighty = 0.3;
         createChatOutput(gbc);
         gbc.weighty = 0.05;
         createChatInput(gbc);
     }
     
-    private void createChatLabel(GridBagConstraints gbc) {
-        JLabel chatLabel = new JLabel("Chat: ");
+    private void createChatLabel(GridBagConstraints gbc, String chatTitle) {
+        JLabel chatLabel = new JLabel(chatTitle);
         layout.setConstraints(chatLabel, gbc);
         add(chatLabel);
     }

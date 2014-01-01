@@ -171,6 +171,10 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             return;
         }
         User invitor = e.getInvitor();
+        System.out.println(invitationText);
+        System.out.println(invitationTitle);
+        System.out.println(invitationYes);
+        System.out.println(invitationNo);
         Object[] options = { invitationYes, invitationNo };
         int answer = JOptionPane.showOptionDialog(this, invitor + invitationText,
             invitationTitle, JOptionPane.YES_NO_OPTION,
@@ -275,7 +279,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         invitationTitle = loadSetting(translation, "invitation_title", "Accept invitation");
         invitationText = loadSetting(translation, "invitation_text", " invited you to play. Accept?");
         invitationYes = loadSetting(translation, "invitation_yes", "Yes");
-        invitationYes = loadSetting(translation, "invitation_no", "No");
+        invitationNo = loadSetting(translation, "invitation_no", "No");
         playerFirstMessage = loadSetting(translation, "player_first_message", "Your opponent is not ready. You will turn first. Wait please.");
         playerSecondMessage = loadSetting(translation, "player_second_message", "Game started! Your opponent turns first.");
         gameStartedMessage = loadSetting(translation, "game_started_message", "Game started! You turn first.");
@@ -430,7 +434,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private void startGame(User opponent) {
         this.opponent = opponent;
-        battleshipFrame = new BattleshipFrame(user.getName());
+        battleshipFrame = new BattleshipFrame(user.getName(), translation);
         battleshipFrame.addWindowListener(battleshipWindowListener);
         battleshipFrame.addBattleshipFrameListener(battleshipFrameListener);
         setPlaying(true);
