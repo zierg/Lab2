@@ -99,6 +99,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     private String playerHitMessage;
     private String playerMissMessage;
     private String opponentLeftMessage;
+    private String connectionError;
     // ------------------------
     
     private boolean playing = false;
@@ -283,6 +284,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         playerHitMessage = loadSetting(translation, "player_hit_message", "You hit the ship!");
         playerMissMessage = loadSetting(translation, "player_miss_message", "You missed.");
         opponentLeftMessage = loadSetting(translation, "opponent_left_message", "Your opponent has left the game.");
+        connectionError = loadSetting(translation, "connection_error", "Connection error!");
     }
     
     private String loadSetting(SettingsHandler handler, String setting, String defaultValue) {
@@ -365,6 +367,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
                 String serverIP = serverIPTextField.getText();
                 String serverPort = serverPortTextField.getText();
                 if (!configureMessengers(serverIP, Integer.parseInt(serverPort))) {
+                    showError(connectionError);
                     return;
                 }
                 if ( !connect() ) {
