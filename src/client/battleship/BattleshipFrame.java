@@ -34,7 +34,6 @@ public class BattleshipFrame extends JFrame {
     private String playerShipsLabel;
     private String enemyShipsLabel;
     private String chatTitle;
-    private String rotateButtonText;
     // ------------------------
     
     private final CardLayout mainCardLayout = new CardLayout();
@@ -110,7 +109,6 @@ public class BattleshipFrame extends JFrame {
         playerShipsLabel = loadSetting(translation, "player_ships_label", "Your ships");
         enemyShipsLabel = loadSetting(translation, "enemy_ships_label", "Enemy ships");
         chatTitle = loadSetting(translation, "chat_title", "Chat");
-        rotateButtonText = loadSetting(translation, "rotate_button", "Rotate");
     }
     
     private String loadSetting(SettingsHandler handler, String setting, String defaultValue) {
@@ -192,7 +190,7 @@ public class BattleshipFrame extends JFrame {
     }
     
     private void createBroweShipPanel() {
-        browseShipPanel = new JButtonBrowseShipPanel(rotateButtonText, 4, 3, 2, 1);
+        browseShipPanel = new JButtonBrowseShipPanel(translation, 4, 3, 2, 1);
         browseShipPanel.addBrowseShipPanelEmptyListener(new BrowseShipPanelEmptyListener() {
 
             @Override
@@ -254,7 +252,7 @@ public class BattleshipFrame extends JFrame {
         gbc.weighty = 0.3;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         
-        chat = new JPanelChat(userName, chatTitle);
+        chat = new JPanelChat(userName, translation);
         chat.addChatActionListener(new ChatActionListener() {
 
             @Override

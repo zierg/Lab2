@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import client.battleship.events.bscomponents.*;
+import settings.SettingsHandler;
 
 final class JButtonBrowseShipPanel extends BrowseShipPanel {
     private class ShipActionListener implements ActionListener {
@@ -29,6 +30,11 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
         }
     }
     
+    private final SettingsHandler translation;
+    // ---- Translation -------
+    private String rotateButtonText;
+    // ------------------------
+    
     private static final int BROWSE_SHIP_SIDE_SIZE = 30;
     private final static int DEFAULT_ROTATION = JButtonShip.SHIP_HORIZONTAL;
 
@@ -36,13 +42,11 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
     
     private List<JButtonShip> shipList = new ArrayList<>();
     private JPanel shipPanels[];
-    
-    public JButtonBrowseShipPanel(int ... ships) {
-        this("Rotate");
-    }
-    
-    public JButtonBrowseShipPanel(String rotateButtonText, int ... ships) {
+       
+    public JButtonBrowseShipPanel(SettingsHandler translation, int ... ships) {
         super();
+        this.translation = translation;
+        loadTranslation();
         shipPanels = new JPanel[ships.length];
         GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
@@ -76,6 +80,15 @@ final class JButtonBrowseShipPanel extends BrowseShipPanel {
                 listenEmpty(new BrowseShipPanelEmptyEvent(this));
             }
         }
+    }
+    
+    private void loadTranslation() {
+        rotateButtonText = loadSetting(translation, "rotate_button", "Rotate");
+    }
+    
+    private String loadSetting(SettingsHandler handler, String setting, String defaultValue) {
+        String value = handler.readValue(setting);
+        return (value==null ? defaultValue : value);
     }
     
     private void resetShips(JButtonShip dontReset) {

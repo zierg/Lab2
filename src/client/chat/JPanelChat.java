@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import settings.SettingsHandler;
 
 public class JPanelChat extends JPanel {
     private class ChatInputListener implements ActionListener {
@@ -29,6 +30,11 @@ public class JPanelChat extends JPanel {
     
     protected List<ChatActionListener> listeners = new LinkedList<>();
     
+    private final SettingsHandler translation;
+    // ---- Translation -------
+    private String chatTitle;
+    // ------------------------
+    
     private JTextArea chatOutput;
     private JTextField chatInput;
     private final String userName;
@@ -36,13 +42,11 @@ public class JPanelChat extends JPanel {
     private ChatInputListener chatInputListener = new ChatInputListener();
     
     private GridBagLayout layout = new GridBagLayout();
-
-    public JPanelChat(String userName) {
-        this(userName, "Chat");
-    }
     
-    public JPanelChat(String userName, String chatTitle) {
+    public JPanelChat(String userName, SettingsHandler translation) {
         super();
+        this.translation = translation;
+        loadTranslation();
         this.userName = userName;
         setLayout(layout);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -56,6 +60,15 @@ public class JPanelChat extends JPanel {
         createChatOutput(gbc);
         gbc.weighty = 0.05;
         createChatInput(gbc);
+    }
+    
+    private void loadTranslation() {
+        chatTitle = loadSetting(translation, "chat_title", "Chat");
+    }
+    
+    private String loadSetting(SettingsHandler handler, String setting, String defaultValue) {
+        String value = handler.readValue(setting);
+        return (value==null ? defaultValue : value);
     }
     
     private void createChatLabel(GridBagConstraints gbc, String chatTitle) {
