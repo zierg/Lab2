@@ -59,9 +59,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         public void playerIsReady(PlayerIsReadyEvent e) {
             battleshipFrame.setEnemyBattlefieldEnabled(false);
             if (!isOpponentReady) {
-                battleshipFrame.sendChatMessage("Your opponent is not ready. You will turn first. Wait please.");
+                battleshipFrame.sendChatMessage(playerFirstMessage);
             } else {
-                battleshipFrame.sendChatMessage("Game started! Your opponent turns first.");
+                battleshipFrame.sendChatMessage(playerSecondMessage);
             }
             isUserReady = true;
             clientMessenger.sendReadyMessage(opponent);
@@ -80,6 +80,25 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private final SettingsHandler settings;
     private final SettingsHandler translation;
+    
+    // ---- Translation -------
+    private String frameTitle;
+    private String playerNameLabel;
+    private String serverLabel;
+    private String portLabel;
+    private String connectButtonText;
+    private String startButton;
+    private String invitationTitle;
+    private String invitationText;
+    private String invitationYes;
+    private String invitationNo;
+    private String playerFirstMessage;
+    private String playerSecondMessage;
+    private String gameStartedMessage;
+    private String playerHitMessage;
+    private String playerMissMessage;
+    private String opponentLeftMessage;
+    // ------------------------
     
     private boolean playing = false;
     
@@ -108,6 +127,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         super();
         this.settings = settings;
         this.translation = translation;
+        loadTranslation();
         GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
         GridBagConstraints constraints = new GridBagConstraints();
@@ -144,16 +164,16 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         }
         setUsersList(e.getUsersList());
     }
-    
+
     @Override
     public void invitedToPlay(InviteToPlayEvent e) {
         if (isPlaying()) {
             return;
         }
         User invitor = e.getInvitor();
-        Object[] options = { "Yes", "No" };
-        int answer = JOptionPane.showOptionDialog(this, invitor + " invited you to play. Accept?",
-            "Accept invitation", JOptionPane.YES_NO_OPTION,
+        Object[] options = { invitationYes, invitationNo };
+        int answer = JOptionPane.showOptionDialog(this, invitor + invitationText,
+            invitationTitle, JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         answerToInvitation(invitor, answer == 0);
     }
@@ -187,9 +207,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         boolean hit = e.getHit();
         if (!hit) {
             battleshipFrame.setEnemyBattlefieldEnabled(false);
-            battleshipFrame.sendChatMessage("You missed.");
+            battleshipFrame.sendChatMessage(playerMissMessage);
         } else {
-            battleshipFrame.sendChatMessage("You hit the ship!");
+            battleshipFrame.sendChatMessage(playerHitMessage);
         }
         battleshipFrame.setEnemyFieldFill(fieldNum, hit);
         battleshipFrame.attackEnemy(fieldNum);
@@ -202,7 +222,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         }
         if (isUserReady) {
             battleshipFrame.setEnemyBattlefieldEnabled(true);
-            battleshipFrame.sendChatMessage("Game started! You turn first.");
+            battleshipFrame.sendChatMessage(gameStartedMessage);
         }
         isOpponentReady = true;
     }
@@ -240,9 +260,33 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         }
         if (!isGameOver) {
             isGameOver = true;
-            battleshipFrame.sendChatMessage("Your opponent has left the game.");
+            battleshipFrame.sendChatMessage(opponentLeftMessage);
             battleshipFrame.showWinMessage();
         }
+    }
+    
+    private void loadTranslation() {
+        frameTitle = loadSetting(translation, "client_frame_title", "Battleship");
+        playerNameLabel = loadSetting(translation, "player_name_label", "Player name:");
+        serverLabel = loadSetting(translation, "server_label", "Server:");
+        portLabel = loadSetting(translation, "port_label", "Port:");
+        connectButtonText = loadSetting(translation, "connect_button", "Connect");
+        startButton = loadSetting(translation, "start_button", "Start game");
+        invitationTitle = loadSetting(translation, "invitation_title", "Accept invitation");
+        invitationText = loadSetting(translation, "invitation_text", " invited you to play. Accept?");
+        invitationYes = loadSetting(translation, "invitation_yes", "Yes");
+        invitationYes = loadSetting(translation, "invitation_no", "No");
+        playerFirstMessage = loadSetting(translation, "player_first_message", "Your opponent is not ready. You will turn first. Wait please.");
+        playerSecondMessage = loadSetting(translation, "player_second_message", "Game started! Your opponent turns first.");
+        gameStartedMessage = loadSetting(translation, "game_started_message", "Game started! You turn first.");
+        playerHitMessage = loadSetting(translation, "player_hit_message", "You hit the ship!");
+        playerMissMessage = loadSetting(translation, "player_miss_message", "You missed.");
+        opponentLeftMessage = loadSetting(translation, "opponent_left_message", "Your opponent has left the game.");
+    }
+    
+    private String loadSetting(SettingsHandler handler, String setting, String defaultValue) {
+        String value = handler.readValue(setting);
+        return (value==null ? defaultValue : value);
     }
     
     private boolean configureMessengers(String serverName, int port) {
@@ -270,7 +314,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         frameHeihgt = screenHeight/2;
         frameWidth = frameHeihgt*2/3;
         
-        setTitle("Battleship");
+        setTitle(frameTitle);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(frameWidth, frameHeihgt);
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
@@ -279,7 +323,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private void createConnectedPanel() {
         connectedPanel = new JPanel();
-        final JButton startGameButton = new JButton("Start game");
+        final JButton startGameButton = new JButton(startButton);
         startGameButton.addActionListener(new ActionListener() {
 
             @Override
@@ -299,30 +343,35 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         nonConnectedPanel = new JPanel();
         nonConnectedPanel.setLayout(new GridLayout(4, 2));
         
-        nonConnectedPanel.add(new JLabel("Player name:"));
-        playerNameTextField = new JTextField("петя");
+        nonConnectedPanel.add(new JLabel(playerNameLabel));
+        playerNameTextField = new JTextField(loadSetting(settings, "player_name", "петя"));
         nonConnectedPanel.add(playerNameTextField);
         
-        nonConnectedPanel.add(new JLabel("Server:"));
-        serverIPTextField = new JTextField("127.0.0.1");
+        nonConnectedPanel.add(new JLabel(serverLabel));
+        serverIPTextField = new JTextField(loadSetting(settings, "server", "127.0.0.1"));
         nonConnectedPanel.add(serverIPTextField);
         
-        nonConnectedPanel.add(new JLabel("port:"));
-        serverPortTextField = new JTextField("12345");
+        nonConnectedPanel.add(new JLabel(portLabel));
+        serverPortTextField = new JTextField(loadSetting(settings, "port", "12345"));
         nonConnectedPanel.add(serverPortTextField);
         
-        final JButton connectButton = new JButton("Connect");
+        final JButton connectButton = new JButton(connectButtonText);
         connectButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                if (!configureMessengers(serverIPTextField.getText(), Integer.parseInt(serverPortTextField.getText()))) {
+                String serverIP = serverIPTextField.getText();
+                String serverPort = serverPortTextField.getText();
+                if (!configureMessengers(serverIP, Integer.parseInt(serverPort))) {
                     return;
                 }
                 if ( !connect() ) {
                     return;
                 }
+                settings.setValue("server", serverIP);
+                settings.setValue("port", serverPort);
+                settings.setValue("player_name", playerNameTextField.getText());
                 mainCardLayout.next(cardPanel);
             }
         });
