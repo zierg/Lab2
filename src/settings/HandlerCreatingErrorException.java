@@ -1,5 +1,5 @@
 package settings;
 
-public class HandlerCreatingErrorException extends Exception {
+public class HandlerCreatingErrorException extends RuntimeException {
 
 }
