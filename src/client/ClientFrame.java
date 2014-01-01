@@ -131,7 +131,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     }
     
     @Override
-    public void usersListRefreshed(UsersListRefreshedEvent e) {
+    public void usersListRefreshed(UsersListRefreshEvent e) {
         if (isPlaying()) {
             return;
         }
@@ -139,7 +139,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     }
     
     @Override
-    public void invitedToPlay(InvitedToPlayEvent e) {
+    public void invitedToPlay(InviteToPlayEvent e) {
         if (isPlaying()) {
             return;
         }
@@ -152,7 +152,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     }
     
     @Override
-    public void answerToInvitationRecieved(AnswerToInvitationRecievedEvent e) {
+    public void answerToInvitationRecieved(AnswerToInvitationEvent e) {
         if (isPlaying()) {
             return;
         }

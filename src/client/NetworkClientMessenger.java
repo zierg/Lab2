@@ -41,16 +41,16 @@ public class NetworkClientMessenger{
         private void callMessageEvent(Message message) {
             switch(message.getType()) {
                 case Message.RETURN_USER_LIST: {
-                    listenUsersListRefreshed( new UsersListRefreshedEvent(this, (Vector<User>) message.getAttributes()[0]) );
+                    listenUsersListRefreshed( new UsersListRefreshEvent(this, (Vector<User>) message.getAttributes()[0]) );
                     break;
                 }
                 case Message.LETS_PLAY: {
-                    listenInvitedToPlay(new InvitedToPlayEvent(this, (User) message.getAttributes()[0]));
+                    listenInvitedToPlay(new InviteToPlayEvent(this, (User) message.getAttributes()[0]));
                     break;
                 }
                 case Message.LETS_PLAY_ANSWER: { 
                     listenAnswerToInvitationRecieved(
-                            new AnswerToInvitationRecievedEvent(this,
+                            new AnswerToInvitationEvent(this,
                             (User) message.getAttributes()[1],
                             (boolean) message.getAttributes()[2])
                             );
@@ -200,19 +200,19 @@ public class NetworkClientMessenger{
         working = false;
     }
     
-    private void listenUsersListRefreshed(UsersListRefreshedEvent e) {
+    private void listenUsersListRefreshed(UsersListRefreshEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.usersListRefreshed(e);
         }
     }
     
-    private void listenInvitedToPlay(InvitedToPlayEvent e) {
+    private void listenInvitedToPlay(InviteToPlayEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.invitedToPlay(e);
         }
     }
     
-    private void listenAnswerToInvitationRecieved(AnswerToInvitationRecievedEvent e) {
+    private void listenAnswerToInvitationRecieved(AnswerToInvitationEvent e) {
         for (NetworkClientMessengerListener listener : listeners) {
             listener.answerToInvitationRecieved(e);
         }

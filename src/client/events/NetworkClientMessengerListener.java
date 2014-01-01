@@ -3,9 +3,9 @@ package client.events;
 import client.chat.ChatActionEvent;
 
 public interface NetworkClientMessengerListener {
-    public void usersListRefreshed(UsersListRefreshedEvent e);
-    public void invitedToPlay(InvitedToPlayEvent e);
-    public void answerToInvitationRecieved(AnswerToInvitationRecievedEvent e);
+    public void usersListRefreshed(UsersListRefreshEvent e);
+    public void invitedToPlay(InviteToPlayEvent e);
+    public void answerToInvitationRecieved(AnswerToInvitationEvent e);
     public void turnMade(NetworkTurnMadeEvent e);
     public void turnResult(NetworkTurnResultEvent e);
     public void playerIsReady(NetworkPlayerIsReadyEvent e);

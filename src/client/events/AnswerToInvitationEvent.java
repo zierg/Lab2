@@ -3,11 +3,11 @@ package client.events;
 import java.util.EventObject;
 import network.User;
 
-public class AnswerToInvitationRecievedEvent extends EventObject {
+public class AnswerToInvitationEvent extends EventObject {
     private User invitor;
     private boolean accept;
     
-    public AnswerToInvitationRecievedEvent(Object source, User invitor, boolean accept) {
+    public AnswerToInvitationEvent(Object source, User invitor, boolean accept) {
         super(source);
         this.invitor = invitor;
         this.accept = accept;
