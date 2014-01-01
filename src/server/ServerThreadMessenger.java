@@ -23,7 +23,6 @@ class ServerThreadMessenger {
                 return null;
             }
             String userName = (String) authMessage.getAttributes()[0];
-            // Добавить проверку имени на уникальность
             User user = new User(userName);
             return user;
         } catch (IOException ex) {
@@ -41,9 +40,8 @@ class ServerThreadMessenger {
 
     void getUsersListRequested() {
         try {
+            Vector<User> usersList = Server.getUsers();
             // Так надо о_О:
-            Vector<User> usersList = (Vector<User>) Server.getUsers();
-            // И так тоже надо
             Vector<User> newUL = new Vector<>();
             for (User currentUser:usersList) {
                 newUL.add(currentUser.clone());
