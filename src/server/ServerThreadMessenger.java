@@ -19,7 +19,7 @@ class ServerThreadMessenger {
     public User createUser() {
         try {
             Message authMessage = messenger.getMessage();
-            if (authMessage.getType() != Message.AUTHORIZATION || authMessage==null) {
+            if (authMessage==null || authMessage.getType() != Message.AUTHORIZATION) {
                 return null;
             }
             String userName = (String) authMessage.getAttributes()[0];
