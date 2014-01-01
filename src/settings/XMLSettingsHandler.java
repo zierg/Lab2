@@ -71,8 +71,6 @@ public class XMLSettingsHandler implements SettingsHandler {
         try ( Writer writer = new FileWriter(filename) ) {
             outputter.output(document, writer);
         }
-        catch (IOException ex) {
-            
-        }
+        catch (IOException ex) {}
     }
 }

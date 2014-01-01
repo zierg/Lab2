@@ -29,6 +29,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import settings.SettingsHandler;
 
 public class ClientFrame extends JFrame implements NetworkClientMessengerListener {
 
@@ -77,6 +78,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         }      
     }
     
+    private final SettingsHandler settings;
+    private final SettingsHandler translation;
+    
     private boolean playing = false;
     
     private User user;
@@ -90,6 +94,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     private JPanel nonConnectedPanel;
     private JTextField playerNameTextField;
     private JTextField serverIPTextField;
+    private JTextField serverPortTextField;
     
     private final CardLayout mainCardLayout = new CardLayout();
     private JPanel cardPanel = new JPanel(mainCardLayout);
@@ -99,8 +104,10 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     private final BattleshipWindowListener battleshipWindowListener = new BattleshipWindowListener();
     private final NetworkBattleshipFrameListener battleshipFrameListener = new NetworkBattleshipFrameListener();
     
-    public ClientFrame() {
+    public ClientFrame(SettingsHandler settings, SettingsHandler translation) {
         super();
+        this.settings = settings;
+        this.translation = translation;
         GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
         GridBagConstraints constraints = new GridBagConstraints();
@@ -238,9 +245,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         }
     }
     
-    private boolean configureMessengers(String serverName) {
+    private boolean configureMessengers(String serverName, int port) {
         try {
-            NetworkMessenger messenger = new NetworkMessenger(serverName, Server.PORT); // Поменять на чтение из поля
+            NetworkMessenger messenger = new NetworkMessenger(serverName, port); // Поменять на чтение из поля
             clientMessenger = new NetworkClientMessenger(messenger);
             clientMessenger.addNetworkClientMessengerListener(this);
         } catch (IOException ex) {
@@ -290,7 +297,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private void createNonConnectedPanel() {
         nonConnectedPanel = new JPanel();
-        nonConnectedPanel.setLayout(new GridLayout(3, 2));
+        nonConnectedPanel.setLayout(new GridLayout(4, 2));
         
         nonConnectedPanel.add(new JLabel("Player name:"));
         playerNameTextField = new JTextField("петя");
@@ -300,13 +307,17 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         serverIPTextField = new JTextField("127.0.0.1");
         nonConnectedPanel.add(serverIPTextField);
         
+        nonConnectedPanel.add(new JLabel("port:"));
+        serverPortTextField = new JTextField("12345");
+        nonConnectedPanel.add(serverPortTextField);
+        
         final JButton connectButton = new JButton("Connect");
         connectButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                if (!configureMessengers(serverIPTextField.getText())) {
+                if (!configureMessengers(serverIPTextField.getText(), Integer.parseInt(serverPortTextField.getText()))) {
                     return;
                 }
                 if ( !connect() ) {
