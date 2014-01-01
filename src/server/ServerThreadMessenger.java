@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Vector;
 import network.*;
 
-public class ServerThreadMessenger {
+class ServerThreadMessenger {
     
     private final NetworkMessenger messenger;
     
