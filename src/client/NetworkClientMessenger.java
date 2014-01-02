@@ -25,7 +25,9 @@ public class NetworkClientMessenger{
                 try {
                     catchMessage();
                 } catch (IOException ex) {
-                    listenError(new ErrorEvent(this, "Disconnected!"));
+                    if (working) {
+                        listenError(new ErrorEvent(this, "Disconnected!"));
+                    }
                     return;               //!!!!
                 }
             }

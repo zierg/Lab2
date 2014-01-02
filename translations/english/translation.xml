@@ -26,4 +26,5 @@
 	<lose_message value="You lose!" />
 	<opponent_left_message value="Your opponent has left the game." />
 	<connection_error value="Connection error!" />
+	<disconncect_button value="Disconnect" />
 </settings>

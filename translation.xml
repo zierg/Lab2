@@ -26,4 +26,5 @@
 	<lose_message value="Вы проиграли!" />
 	<opponent_left_message value="Ваш противник покинул игру." />
 	<connection_error value="Ошибка подключения!" />
+	<disconncect_button value="Отключиться" />
 </settings>
