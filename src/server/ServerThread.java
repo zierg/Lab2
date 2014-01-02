@@ -3,7 +3,6 @@ package server;
 import java.io.IOException;
 import network.*;
 import java.net.Socket;
-import logger.LoggerManager;
 
 class ServerThread extends Thread {
     

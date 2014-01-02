@@ -2,7 +2,6 @@ package server;
 
 import java.io.IOException;
 import java.util.Vector;
-import logger.LoggerManager;
 import network.*;
 
 class ServerThreadMessenger {
