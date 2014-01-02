@@ -11,7 +11,7 @@ import server.Server;
 
 public class NetworkMessenger {
     
-    private final Socket socket;
+    private Socket socket;
     private final InputStream sin;
     private final OutputStream sout;
     private final ObjectInputStream input;
@@ -44,5 +44,11 @@ public class NetworkMessenger {
     public void sendMessage(Message message) throws IOException {
         output.writeObject(message);
         output.flush();
+    }
+    
+    public void shutdown() {
+        try {
+            socket.close();
+        } catch (IOException ex) {}
     }
 }

@@ -25,6 +25,7 @@ public class NetworkClientMessenger{
                 try {
                     catchMessage();
                 } catch (IOException ex) {
+                    listenError(new ErrorEvent(this, "Disconnected!"));
                     return;               //!!!!
                 }
             }
@@ -96,6 +97,7 @@ public class NetworkClientMessenger{
     protected List<NetworkClientMessengerListener> listeners = new LinkedList<>();
     
     private final NetworkMessenger messenger;
+    private MessageCatcher messageCatcher;
     
     public NetworkClientMessenger(NetworkMessenger messenger) {
         this.messenger = messenger;
@@ -112,7 +114,7 @@ public class NetworkClientMessenger{
             messenger.sendMessage(authMessage);
             Message answer = messenger.getMessage();    // Ждём ответ на авторизацию
             if (answer.getType() == Message.AUTHORIZATION) {
-                new MessageCatcher();
+                messageCatcher = new MessageCatcher();
                 getUsersList();
                 return true;
             } else {
@@ -198,6 +200,7 @@ public class NetworkClientMessenger{
     
     public void shutdown() {
         working = false;
+        messenger.shutdown();
     }
     
     private void listenUsersListRefreshed(UsersListRefreshEvent e) {

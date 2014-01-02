@@ -100,6 +100,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     private String playerMissMessage;
     private String opponentLeftMessage;
     private String connectionError;
+    private String disconnectButtonText;
     // ------------------------
     
     private boolean playing = false;
@@ -285,6 +286,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         playerMissMessage = loadSetting(translation, "player_miss_message", "You missed.");
         opponentLeftMessage = loadSetting(translation, "opponent_left_message", "Your opponent has left the game.");
         connectionError = loadSetting(translation, "connection_error", "Connection error!");
+        disconnectButtonText = loadSetting(translation, "disconncect_button", "Disconnect");
     }
     
     private String loadSetting(SettingsHandler handler, String setting, String defaultValue) {
@@ -339,6 +341,19 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             }
         });
         connectedPanel.add(startGameButton);
+        
+        final JButton disconnectButton = new JButton(disconnectButtonText);
+        disconnectButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clientMessenger.shutdown();
+                clientMessenger = null;
+                mainCardLayout.first(cardPanel);
+            }
+        });
+        connectedPanel.add(disconnectButton);
+        
         cardPanel.add(connectedPanel);
     }
     
