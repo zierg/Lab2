@@ -28,7 +28,7 @@ public class NetworkClientMessenger{
                     if (working) {
                         listenError(new ErrorEvent(this, "Disconnected!"));
                     }
-                    return;               //!!!!
+                    return;
                 }
             }
         }
@@ -129,80 +129,52 @@ public class NetworkClientMessenger{
     }
 
     public void getUsersList() {
-        try {
-            messenger.sendMessage(new Message(Message.GET_USER_LIST));
-        } catch (IOException ex) {
-            return;
-        }
+        sendMessage(new Message(Message.GET_USER_LIST));
     }
     
     public void letsPlay(User whoWantsPlay, User withWhomWantsPlay) {
-        try {
-            messenger.sendMessage(new Message(Message.LETS_PLAY, whoWantsPlay, withWhomWantsPlay));
-        } catch (IOException ex) {
-            // Лучше заменить на эксепшн
-        }
+        sendMessage(new Message(Message.LETS_PLAY, whoWantsPlay, withWhomWantsPlay));
     }
     
     public void answerToInvitation(User whoWantsPlay, User withWhomWantsPlay, boolean accept) {
-        try {
-            messenger.sendMessage(new Message(Message.LETS_PLAY_ANSWER, whoWantsPlay, withWhomWantsPlay, accept));
-        } catch (IOException ex) {
-            // Лучше заменить на эксепшн
-        }
+        sendMessage(new Message(Message.LETS_PLAY_ANSWER, whoWantsPlay, withWhomWantsPlay, accept));
     }
     
     public void attack(User opponent, int fieldNum) {
-        try {
-            messenger.sendMessage(new Message(Message.TURN, opponent, fieldNum));
-        } catch (IOException ex) {
-            // Лучше заменить на эксепшн
-        }
+        sendMessage(new Message(Message.TURN, opponent, fieldNum));
     }
     
     public void sendTurnResult(User opponent, int fieldNum, boolean hit) {
-        try {
-            messenger.sendMessage(new Message(Message.TURN_RESULT, opponent, fieldNum, hit));
-        } catch (IOException ex) {
-            // Лучше заменить на эксепшн
-        }
+        sendMessage(new Message(Message.TURN_RESULT, opponent, fieldNum, hit));
     }
     
     public void sendReadyMessage(User opponent) {
-        try {
-            messenger.sendMessage(new Message(Message.PLAYER_IS_READY, opponent));
-        } catch (IOException ex) {
-            // Лучше заменить на эксепшн
-        }
+        sendMessage(new Message(Message.PLAYER_IS_READY, opponent));
     }
     
     public void sendGameOverMessage(User opponent, User user) {
-        try {
-            messenger.sendMessage(new Message(Message.GAME_OVER, opponent, user));
-        } catch (IOException ex) {
-            // Лучше заменить на эксепшн
-        }
+        sendMessage(new Message(Message.GAME_OVER, opponent, user));
     }
     
     public void sendTextMessage(User opponent, String messageText) {
-        try {
-            messenger.sendMessage(new Message(Message.TEXT_MESSAGE, opponent, messageText));
-        } catch (IOException ex) {
-            // Лучше заменить на эксепшн
-        }
+        sendMessage(new Message(Message.TEXT_MESSAGE, opponent, messageText));
     }
     
     public void setUserFree(User opponent, User user) {
-        try {
-            messenger.sendMessage(new Message(Message.USER_IS_FREE, opponent, user));
-        } catch (IOException ex) {
-            // Лучше заменить на эксепшн
-        }
+        sendMessage(new Message(Message.USER_IS_FREE, opponent, user));
     }
     
     public void shutdown() {
         working = false;
         messenger.shutdown();
+    }
+    
+    private void sendMessage(Message message) {
+        try {
+            messenger.sendMessage(message);
+        } catch (IOException ex) {
+            // Лучше заменить на эксепшн
+        }
     }
     
     private void listenUsersListRefreshed(UsersListRefreshEvent e) {
