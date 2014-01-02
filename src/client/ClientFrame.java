@@ -5,7 +5,6 @@ import client.battleship.events.*;
 import client.chat.ChatActionEvent;
 import client.events.*;
 import network.*;
-import server.Server;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -29,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import logger.LoggerManager;
 import settings.SettingsHandler;
 
 public class ClientFrame extends JFrame implements NetworkClientMessengerListener {
@@ -300,6 +300,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             clientMessenger = new NetworkClientMessenger(messenger);
             clientMessenger.addNetworkClientMessengerListener(this);
         } catch (IOException ex) {
+            LoggerManager.ERROR_FILE_LOGGER.error("Messengers creating error. " + ClientFrame.class.toString() + ex);
             return false;
         }
         return true;

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
+import logger.LoggerManager;
 
 public class NetworkClientMessenger{
     
@@ -27,6 +28,7 @@ public class NetworkClientMessenger{
                 } catch (IOException ex) {
                     if (working) {
                         listenError(new ErrorEvent(this, "Disconnected!"));
+                        LoggerManager.ERROR_FILE_LOGGER.error("Disconnected " + ex);
                     }
                     return;
                 }
@@ -88,10 +90,7 @@ public class NetworkClientMessenger{
                 case Message.USER_IS_FREE: {
                     listenUserLeftGame(new UserLeftGameEvent(this));
                     break;
-                }
-                default: {
-                    // отправить юзеру ошибку
-                }
+                } 
             }
         }
     }
@@ -99,7 +98,6 @@ public class NetworkClientMessenger{
     protected List<NetworkClientMessengerListener> listeners = new LinkedList<>();
     
     private final NetworkMessenger messenger;
-    private MessageCatcher messageCatcher;
     
     public NetworkClientMessenger(NetworkMessenger messenger) {
         this.messenger = messenger;
@@ -116,7 +114,7 @@ public class NetworkClientMessenger{
             messenger.sendMessage(authMessage);
             Message answer = messenger.getMessage();    // Ждём ответ на авторизацию
             if (answer.getType() == Message.AUTHORIZATION) {
-                messageCatcher = new MessageCatcher();
+                new MessageCatcher();
                 getUsersList();
                 return true;
             } else {
@@ -124,6 +122,7 @@ public class NetworkClientMessenger{
                 return false;
             }
         } catch (IOException ex) {
+            LoggerManager.ERROR_FILE_LOGGER.error(NetworkClientMessenger.class.toString() + ex);
             return false;
         }
     }
@@ -173,7 +172,8 @@ public class NetworkClientMessenger{
         try {
             messenger.sendMessage(message);
         } catch (IOException ex) {
-            // Лучше заменить на эксепшн
+            LoggerManager.ERROR_FILE_LOGGER.error("Sending message error. " + 
+                    NetworkClientMessenger.class.toString() + ex);
         }
     }
     
