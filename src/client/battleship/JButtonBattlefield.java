@@ -9,7 +9,6 @@ class JButtonBattlefield extends JPanelBattlefield {
     private class PlayerFieldListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            //JButtonField a = (JButtonField) ae.getSource();
             listenAction(new BattlefieldActionEvent(this, ae.getActionCommand()));
         }
     }
