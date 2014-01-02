@@ -112,11 +112,21 @@ public class Message implements Serializable {
     }
     
     private boolean isTypeCorrect(int type) {
-        for (int currentType:TYPES) {
+        for (int currentType : TYPES) {
             if (type == currentType) {
                 return true;
             }
         }
         return false;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder stringMessage = new StringBuilder("Type = " + type);
+        for (Serializable currentAttr : attributes) {
+            stringMessage.append(", ");
+            stringMessage.append(currentAttr.toString());
+        }
+        return stringMessage.toString();
     }
 }

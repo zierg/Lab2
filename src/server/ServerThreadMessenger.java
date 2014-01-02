@@ -2,6 +2,7 @@ package server;
 
 import java.io.IOException;
 import java.util.Vector;
+import logger.LoggerManager;
 import network.*;
 
 class ServerThreadMessenger {
@@ -26,7 +27,8 @@ class ServerThreadMessenger {
             User user = new User(userName);
             return user;
         } catch (IOException ex) {
-             return null;
+            ServerLogger.error(ServerThreadMessenger.class.toString() + ex);
+            return null;
         }
     }
     
@@ -35,6 +37,7 @@ class ServerThreadMessenger {
         if (message==null) {
             return;
         }
+        ServerLogger.trace("Message recieved: " + message);
         callMessageEvent(message);
     }
 
@@ -49,7 +52,7 @@ class ServerThreadMessenger {
             //-----------------
             messenger.sendMessage(new Message(Message.RETURN_USER_LIST, newUL));    
         } catch (IOException ex) {
-            //Добавить логгирование
+            ServerLogger.error(ServerThreadMessenger.class.toString() + ex);
         }
     }
     
@@ -65,10 +68,9 @@ class ServerThreadMessenger {
             Server.setUserFree(player, false);
             Server.setUserFree(opponent, false);
         } catch (IOException ex) {
-            System.out.println("NOOOoo");
-            // Отправить запросившему игроку ошибку
+            ServerLogger.error(ServerThreadMessenger.class.toString() + ex);
         }
-        System.out.println(player + " wanna play with " + opponent);
+        ServerLogger.trace(player + " wanna play with " + opponent);
     }
     
     private void letsPlayAnswered(Message message) {
@@ -84,8 +86,7 @@ class ServerThreadMessenger {
         try {
             invitorMessenger.sendMessage(message);
         } catch (IOException ex) {
-            System.out.println("NOOOoo");
-            // Отправить запросившему игроку ошибку
+            ServerLogger.error(ServerThreadMessenger.class.toString() + ex);
         }
     }
     
@@ -171,6 +172,8 @@ class ServerThreadMessenger {
         NetworkMessenger opponentMessenger = Server.getUserServerThread(opponent).
                 getServerThreadMessenger().getMessenger();
         opponentMessenger.sendMessage(message);
-        } catch (NullPointerException | IOException ex) {}
+        } catch (NullPointerException | IOException ex) {
+            ServerLogger.error(ServerThreadMessenger.class.toString() + ex);
+        }
     }
 }

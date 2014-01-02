@@ -3,10 +3,10 @@ package server;
 import java.io.IOException;
 import network.*;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import logger.LoggerManager;
 
 class ServerThread extends Thread {
+    
     private User user = null;
     private ServerThreadMessenger serverThreadMessenger;
     
@@ -15,6 +15,7 @@ class ServerThread extends Thread {
             NetworkMessenger messenger = new NetworkMessenger(clientSocket);
             serverThreadMessenger = new ServerThreadMessenger(messenger);
         } catch (IOException ex) {
+            ServerLogger.error(ServerThread.class.toString() + ex);
             return;
         }
         start();
@@ -25,7 +26,7 @@ class ServerThread extends Thread {
         NetworkMessenger userMessenger = serverThreadMessenger.getMessenger();
         try {
             if ( !createUser() ) {
-                System.out.println("Can not add user.");                
+                ServerLogger.trace("Can not add user " + user);                
                 userMessenger.sendMessage(new Message(Message.ERROR, "User already exists."));
                 return;
             }
@@ -33,6 +34,7 @@ class ServerThread extends Thread {
                 userMessenger.sendMessage(new Message(Message.AUTHORIZATION, user.getName()));
             }
         } catch (IOException ex) {
+            ServerLogger.error(ServerThread.class.toString() + ex);
             return;
         }
         communicate();
@@ -56,7 +58,8 @@ class ServerThread extends Thread {
                 serverThreadMessenger.waitMessage();
             }
         } catch (IOException ex) {
-             System.out.println("User " + user + " is offline.");
+             ServerLogger.trace("User " + user + " is offline.");
+             ServerLogger.error(ServerThread.class.toString() + ex);
              Server.removeUser(user);
         }
     }
