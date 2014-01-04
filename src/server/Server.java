@@ -48,7 +48,11 @@ public class Server {
     }
     
     synchronized static Vector<User> getUsers() {
-        return usersList;
+        Vector<User> newUL = new Vector<>();
+        for (User currentUser:usersList) {
+            newUL.add(currentUser.clone());
+        }
+        return newUL;
     }
     
     static ServerThread getUserServerThread(User user) {
