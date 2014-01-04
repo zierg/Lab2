@@ -140,7 +140,7 @@ class JButtonBattlefield extends JPanelBattlefield {
             case Ship.SHIP_HORIZONTAL: {
                 if (endOfShip % SIDE_FIELDS_COUNT < SIDE_FIELDS_COUNT-1) {
                     setAvailableField(endOfShip+1, false);
-                    if (endOfShip > SIDE_FIELDS_COUNT) {
+                    if (endOfShip > SIDE_FIELDS_COUNT-1) {
                         setAvailableField(endOfShip-SIDE_FIELDS_COUNT+1, false);
                     }
                     if (endOfShip + SIDE_FIELDS_COUNT < TOTAL_FIELDS_COUNT) {
