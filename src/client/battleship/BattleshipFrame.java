@@ -9,13 +9,18 @@ import java.awt.Insets;
 import java.awt.GridBagConstraints;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import logger.LoggerManager;
 import settings.SettingsHandler;
 
 public class BattleshipFrame extends JFrame {
@@ -136,6 +141,13 @@ public class BattleshipFrame extends JFrame {
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
         setResizable(false);
         setLayout(playLayout);
+        try {
+            Image icon =ImageIO.read(new File("data/icon.png"));
+            setIconImage(icon);
+        }
+        catch (IOException ex) {
+            LoggerManager.ERROR_FILE_LOGGER.error(ex);
+        }
     }
     
     private void initConstraints() {

@@ -11,11 +11,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ListIterator;
 import javax.swing.JButton;
@@ -27,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import java.util.Vector;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import logger.LoggerManager;
 import settings.SettingsHandler;
@@ -325,6 +328,13 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         setSize(frameWidth, frameHeihgt);
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
         setResizable(false);
+        try {
+            Image icon =ImageIO.read(new File("data/icon.png"));
+            setIconImage(icon);
+        }
+        catch (IOException ex) {
+            LoggerManager.ERROR_FILE_LOGGER.error(ex);
+        }
     }
     
     private void createConnectedPanel() {
