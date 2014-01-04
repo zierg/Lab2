@@ -1,5 +1,6 @@
 package server;
 
+import static network.Message.MessageTypes;
 import java.io.IOException;
 import java.util.Vector;
 import network.*;
@@ -19,7 +20,7 @@ class ServerThreadMessenger {
     public User createUser() {
         try {
             Message authMessage = messenger.getMessage();
-            if (authMessage==null || authMessage.getType() != Message.AUTHORIZATION) {
+            if (authMessage==null || authMessage.getType() != MessageTypes.AUTHORIZATION) {
                 return null;
             }
             String userName = (String) authMessage.getAttributes()[0];
@@ -42,14 +43,7 @@ class ServerThreadMessenger {
 
     void getUsersListRequested() {
         try {
-            Vector<User> usersList = Server.getUsers();
-            // Так надо о_О:
-            Vector<User> newUL = new Vector<>();
-            for (User currentUser:usersList) {
-                newUL.add(currentUser.clone());
-            }
-            //-----------------
-            messenger.sendMessage(new Message(Message.RETURN_USER_LIST, newUL));    
+            messenger.sendMessage(new Message(MessageTypes.RETURN_USER_LIST, Server.getUsers()));    
         } catch (IOException ex) {
             ServerLogger.error(ServerThreadMessenger.class.toString() + ex);
         }
@@ -117,39 +111,39 @@ class ServerThreadMessenger {
     
     private void callMessageEvent(Message message) {
         switch(message.getType()) {
-            case Message.GET_USER_LIST: {
+            case GET_USER_LIST: {
                 getUsersListRequested();
                 break;
             }
-            case Message.LETS_PLAY: {
+            case LETS_PLAY: {
                 letsPlayRequested(message);
                 break;
             }
-            case Message.LETS_PLAY_ANSWER: {
+            case LETS_PLAY_ANSWER: {
                 letsPlayAnswered(message);
                 break;
             }
-            case Message.TURN: {
+            case TURN: {
                 turnRecieved(message);
                 break;
             }
-            case Message.TURN_RESULT: {
+            case TURN_RESULT: {
                 turnResultRecieved(message);
                 break;
             }
-            case Message.PLAYER_IS_READY: {
+            case PLAYER_IS_READY: {
                 playerIsReadyRecieved(message);
                 break;
             }
-            case Message.GAME_OVER: {
+            case GAME_OVER: {
                 gameOverRecieved(message);
                 break;
             }
-            case Message.TEXT_MESSAGE: {
+            case TEXT_MESSAGE: {
                 textMessageRecieved(message);
                 break;
             }
-            case Message.USER_IS_FREE: {
+            case USER_IS_FREE: {
                 userIsFreeRecieved(message);
                 break;
             }

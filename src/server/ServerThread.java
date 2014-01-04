@@ -1,5 +1,6 @@
 package server;
 
+import static network.Message.MessageTypes;
 import java.io.IOException;
 import network.*;
 import java.net.Socket;
@@ -26,11 +27,11 @@ class ServerThread extends Thread {
         try {
             if ( !createUser() ) {
                 ServerLogger.trace("Can not add user " + user);                
-                userMessenger.sendMessage(new Message(Message.ERROR, "User already exists."));
+                userMessenger.sendMessage(new Message(MessageTypes.ERROR, "User already exists."));
                 return;
             }
             else {
-                userMessenger.sendMessage(new Message(Message.AUTHORIZATION, user.getName()));
+                userMessenger.sendMessage(new Message(MessageTypes.AUTHORIZATION, user.getName()));
             }
         } catch (IOException ex) {
             ServerLogger.error(ServerThread.class.toString() + ex);

@@ -1,5 +1,6 @@
 package client;
 
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import settings.SettingsHandler;
 import settings.XMLSettingsHandler;
@@ -12,6 +13,7 @@ public class GameClient {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                JFrame.setDefaultLookAndFeelDecorated(true);
                 new ClientFrame(settings, translation);
             }
         });
