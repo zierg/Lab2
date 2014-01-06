@@ -49,7 +49,7 @@ public class BattleshipFrame extends JFrame {
         
     private JPanelBattlefield playerBF;
     private JPanelBattlefield enemyBF;
-    private JButtonBrowseShipPanel browseShipPanel;
+    private BrowseShipPanel browseShipPanel;
     
     private JPanelChat chat;
     private final String userName;
