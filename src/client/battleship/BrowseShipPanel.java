@@ -10,7 +10,7 @@ abstract class BrowseShipPanel extends JPanel {
     protected List<BrowseShipPanelActionListener> actionListeners = new LinkedList<>();
     protected List<BrowseShipPanelEmptyListener> emptyListeners = new LinkedList<>();
     
-    public BrowseShipPanel() {
+    protected BrowseShipPanel() {
         super();
     }
 
