@@ -40,7 +40,7 @@ class ServerThreadMessenger {
         callMessageEvent(message);
     }
 
-    void getUsersListRequested() {
+    public void getUsersListRequested() {
         try {
             messenger.sendMessage(new Message(MessageTypes.RETURN_USER_LIST, Server.getUsers()));    
         } catch (IOException ex) {
