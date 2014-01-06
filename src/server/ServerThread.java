@@ -40,16 +40,16 @@ class ServerThread extends Thread {
         communicate();
     }
     
+    public ServerThreadMessenger getServerThreadMessenger() {
+        return serverThreadMessenger;
+    }
+    
     private boolean createUser() {
         user = serverThreadMessenger.createUser();
         if (user == null) {
             return false;
         }
         return Server.addUser(user, this);
-    }
-    
-    public ServerThreadMessenger getServerThreadMessenger() {
-        return serverThreadMessenger;
     }
     
     private void communicate() {
