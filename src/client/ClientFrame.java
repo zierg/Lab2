@@ -212,9 +212,9 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         int fieldNum = e.getFieldNumber();
         boolean hit = e.getHit();
         if (!hit) {
-            battleshipFrame.setEnemyBattlefieldEnabled(false);
             battleshipFrame.sendChatMessage(playerMissMessage);
         } else {
+            battleshipFrame.setEnemyBattlefieldEnabled(true);
             battleshipFrame.sendChatMessage(playerHitMessage);
         }
         battleshipFrame.setEnemyFieldFill(fieldNum, hit);
@@ -472,6 +472,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     }
     
     private void attackEnemy(int fieldNum) {
+        battleshipFrame.setEnemyBattlefieldEnabled(false);
         clientMessenger.attack(opponent, fieldNum);
     }
     
