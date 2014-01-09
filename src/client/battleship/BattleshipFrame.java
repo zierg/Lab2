@@ -69,6 +69,11 @@ public class BattleshipFrame extends JFrame {
         setVisible(true);
     }
     
+    public BattleshipFrame(String userName, SettingsHandler translation, Image icon) {
+        this(userName, translation);
+        setIconImage(icon);
+    }
+    
     public void addBattleshipFrameListener(BattleshipFrameListener listener) {
         listeners.add(listener);
     }
@@ -141,13 +146,6 @@ public class BattleshipFrame extends JFrame {
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
         setResizable(false);
         setLayout(playLayout);
-        try {
-            Image icon =ImageIO.read(new File("data/icon.png"));
-            setIconImage(icon);
-        }
-        catch (IOException ex) {
-            LoggerManager.ERROR_FILE_LOGGER.error(ex);
-        }
     }
     
     private void initConstraints() {

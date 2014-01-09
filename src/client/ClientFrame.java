@@ -329,10 +329,13 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
         setResizable(false);
         try {
-            Image icon =ImageIO.read(new File("data/icon.png"));
+            String sep = File.separator;
+            String iconPath = (new File(ClientFrame.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent())
+                    + sep + "data" + sep + "icon.png";
+            Image icon =ImageIO.read(new File(iconPath));
             setIconImage(icon);
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             LoggerManager.ERROR_FILE_LOGGER.error(ex);
         }
     }
@@ -460,7 +463,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
     
     private void startGame(User opponent) {
         this.opponent = opponent;
-        battleshipFrame = new BattleshipFrame(user.getName(), translation);
+        battleshipFrame = new BattleshipFrame(user.getName(), translation, this.getIconImage());
         battleshipFrame.addWindowListener(battleshipWindowListener);
         battleshipFrame.addBattleshipFrameListener(battleshipFrameListener);
         setPlaying(true);

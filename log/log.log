@@ -1,0 +1,374 @@
+2014-01-04 11:57:10,891 - Server is running.
+2014-01-04 11:57:20,216 - Got a client.
+2014-01-04 11:57:20,256 - User петя2 has been added to users list.
+2014-01-04 11:57:20,271 - Message recieved: Type = GET_USER_LIST
+2014-01-04 11:57:21,658 - Got a client.
+2014-01-04 11:57:21,693 - User петя has been added to users list.
+2014-01-04 11:57:21,698 - Message recieved: Type = GET_USER_LIST
+2014-01-04 11:58:38,100 - Message recieved: Type = LETS_PLAY, петя2, петя
+2014-01-04 11:58:38,110 - петя2 wanna play with петя
+2014-01-04 11:58:40,390 - Message recieved: Type = LETS_PLAY_ANSWER, петя2, петя, true
+2014-01-04 11:59:09,605 - Message recieved: Type = PLAYER_IS_READY, петя
+2014-01-04 11:59:19,599 - Message recieved: Type = PLAYER_IS_READY, петя2
+2014-01-04 12:12:23,882 - Message recieved: Type = USER_IS_FREE, петя, петя2
+2014-01-04 12:12:28,900 - Message recieved: Type = USER_IS_FREE, петя2, петя
+2014-01-04 12:12:31,015 - User петя is offline.
+2014-01-04 12:12:31,015 - User петя has been removed from users list.
+2014-01-04 12:12:32,127 - User петя2 is offline.
+2014-01-04 12:12:32,132 - User петя2 has been removed from users list.
+2014-01-04 12:29:31,105 - Got a client.
+2014-01-04 12:29:31,225 - User ╨┐╨╡╤В╤П has been added to users list.
+2014-01-04 12:29:31,230 - Message recieved: Type = GET_USER_LIST
+2014-01-04 12:29:42,873 - User ╨┐╨╡╤В╤П is offline.
+2014-01-04 12:29:42,873 - User ╨┐╨╡╤В╤П has been removed from users list.
+2014-01-04 12:29:49,210 - Got a client.
+2014-01-04 12:29:49,213 - User пер has been added to users list.
+2014-01-04 12:29:49,215 - Message recieved: Type = GET_USER_LIST
+2014-01-04 12:29:59,398 - User пер is offline.
+2014-01-04 12:29:59,398 - User пер has been removed from users list.
+2014-01-04 12:33:43,317 - Got a client.
+2014-01-04 12:33:43,342 - User петя has been added to users list.
+2014-01-04 12:33:43,347 - Message recieved: Type = GET_USER_LIST
+2014-01-04 12:33:44,687 - User петя is offline.
+2014-01-04 12:33:44,687 - User петя has been removed from users list.
+2014-01-04 12:35:51,656 - Server is running.
+2014-01-04 12:35:53,881 - Got a client.
+2014-01-04 12:35:53,931 - User петя has been added to users list.
+2014-01-04 12:35:53,936 - Message recieved: Type = GET_USER_LIST
+2014-01-04 12:36:00,347 - Got a client.
+2014-01-04 12:36:00,382 - Can not add user петя
+2014-01-04 12:36:02,430 - Got a client.
+2014-01-04 12:36:02,432 - User петя4 has been added to users list.
+2014-01-04 12:36:02,440 - Message recieved: Type = GET_USER_LIST
+2014-01-04 12:36:05,965 - Message recieved: Type = LETS_PLAY, петя, петя4
+2014-01-04 12:36:05,972 - петя wanna play with петя4
+2014-01-04 12:36:07,930 - Message recieved: Type = LETS_PLAY_ANSWER, петя, петя4, true
+2014-01-04 12:36:30,212 - Message recieved: Type = PLAYER_IS_READY, петя4
+2014-01-04 12:36:36,692 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв 
+2014-01-04 12:36:36,842 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв
+2014-01-04 12:36:36,982 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  ф
+2014-01-04 12:36:37,087 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: ыв 
+2014-01-04 12:36:37,210 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фы
+2014-01-04 12:36:37,345 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в 
+2014-01-04 12:36:37,475 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв
+2014-01-04 12:36:37,572 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  фы
+2014-01-04 12:36:37,702 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в
+2014-01-04 12:36:37,925 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  фыв
+2014-01-04 12:36:38,047 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  фы
+2014-01-04 12:36:38,165 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в
+2014-01-04 12:36:38,300 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  фы
+2014-01-04 12:36:38,407 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в
+2014-01-04 12:36:38,897 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  фывфы в
+2014-01-04 12:36:39,047 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фы
+2014-01-04 12:36:39,204 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в ф
+2014-01-04 12:36:39,361 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: ыв
+2014-01-04 12:36:39,511 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  фы
+2014-01-04 12:36:39,671 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в 
+2014-01-04 12:36:39,859 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв 
+2014-01-04 12:36:40,004 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: ф ы
+2014-01-04 12:36:40,171 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в
+2014-01-04 12:36:40,356 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фы в
+2014-01-04 12:36:40,549 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  2
+2014-01-04 12:36:40,876 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  
+2014-01-04 12:36:41,239 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: ф
+2014-01-04 12:36:41,416 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в
+2014-01-04 12:36:41,589 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  ы
+2014-01-04 12:36:41,766 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  ф
+2014-01-04 12:36:41,926 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в
+2014-01-04 12:36:42,096 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  
+2014-01-04 12:36:42,274 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: выф
+2014-01-04 12:36:42,461 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  вфы
+2014-01-04 12:36:42,631 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  
+2014-01-04 12:36:42,819 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв 
+2014-01-04 12:36:43,009 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв
+2014-01-04 12:36:43,171 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  фы
+2014-01-04 12:36:43,344 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в 
+2014-01-04 12:36:43,519 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв 
+2014-01-04 12:36:43,711 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв
+2014-01-04 12:36:43,879 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  фыв
+2014-01-04 12:36:44,034 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  ф
+2014-01-04 12:36:44,201 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в 
+2014-01-04 12:36:44,386 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв
+2014-01-04 12:36:44,566 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фы
+2014-01-04 12:36:44,739 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: вф 
+2014-01-04 12:36:44,901 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: ыв
+2014-01-04 12:36:45,049 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв
+2014-01-04 12:36:45,204 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фы
+2014-01-04 12:36:45,356 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в 
+2014-01-04 12:36:45,526 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв
+2014-01-04 12:36:45,649 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  ф
+2014-01-04 12:36:45,909 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: ыв ф
+2014-01-04 12:36:46,084 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: вф
+2014-01-04 12:36:46,254 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: ыв 
+2014-01-04 12:36:46,431 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: фыв
+2014-01-04 12:36:46,584 - Message recieved: Type = TEXT_MESSAGE, петя4, петя:  фы
+2014-01-04 12:36:47,534 - Message recieved: Type = TEXT_MESSAGE, петя4, петя: в ф
+2014-01-04 12:36:50,409 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: фыв фыв
+2014-01-04 12:36:50,576 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фыв
+2014-01-04 12:36:50,719 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  
+2014-01-04 12:36:50,876 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: фыв
+2014-01-04 12:36:53,234 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фыв 
+2014-01-04 12:36:53,599 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: фыв фыв
+2014-01-04 12:36:53,749 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  
+2014-01-04 12:36:53,896 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: фыв
+2014-01-04 12:36:54,086 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фыв
+2014-01-04 12:36:54,241 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  
+2014-01-04 12:36:54,419 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: фыв
+2014-01-04 12:36:54,599 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фвы
+2014-01-04 12:36:54,784 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  
+2014-01-04 12:36:54,986 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: в 
+2014-01-04 12:36:55,169 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: фы 
+2014-01-04 12:36:55,581 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фы
+2014-01-04 12:36:55,774 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  
+2014-01-04 12:36:55,971 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  
+2014-01-04 12:36:56,164 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  
+2014-01-04 12:36:56,336 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фы
+2014-01-04 12:36:56,519 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: в 
+2014-01-04 12:36:56,696 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: ыфв
+2014-01-04 12:36:56,874 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фы
+2014-01-04 12:36:57,046 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: в ф
+2014-01-04 12:36:57,246 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: ыв
+2014-01-04 12:36:57,474 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фыв
+2014-01-04 12:36:57,824 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фыв5 
+2014-01-04 12:36:58,041 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: фы5в
+2014-01-04 12:36:58,249 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: ф 5ыв
+2014-01-04 12:36:58,516 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фы5
+2014-01-04 12:36:58,789 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: 5фыв
+2014-01-04 12:36:59,029 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: 6 ф
+2014-01-04 12:36:59,197 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: ыв6 
+2014-01-04 12:36:59,412 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: фы5в
+2014-01-04 12:36:59,654 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фыв
+2014-01-04 12:36:59,899 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  ф5ыв
+2014-01-04 12:37:00,134 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  5фыв
+2014-01-04 12:37:00,352 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  5фы
+2014-01-04 12:37:00,584 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: в5 фы
+2014-01-04 12:37:01,589 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: в5ф5ыв 5фв5252в
+2014-01-04 12:37:01,819 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  5ф5
+2014-01-04 12:37:02,067 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  фв25
+2014-01-04 12:37:02,334 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  2ф5в
+2014-01-04 12:37:02,584 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  5ф25
+2014-01-04 12:37:02,747 - Message recieved: Type = TEXT_MESSAGE, петя, петя4:  ф25
+2014-01-04 12:37:03,897 - Message recieved: Type = TEXT_MESSAGE, петя, петя4: 5
+2014-01-04 12:37:09,017 - Message recieved: Type = USER_IS_FREE, петя, петя4
+2014-01-04 12:37:10,497 - User петя4 is offline.
+2014-01-04 12:37:10,497 - User петя4 has been removed from users list.
+2014-01-04 12:37:12,414 - Message recieved: Type = USER_IS_FREE, петя4, петя
+2014-01-04 12:37:21,333 - Got a client.
+2014-01-04 12:37:21,363 - User петя4 has been added to users list.
+2014-01-04 12:37:21,368 - Message recieved: Type = GET_USER_LIST
+2014-01-04 12:37:24,133 - Message recieved: Type = LETS_PLAY, петя4, петя
+2014-01-04 12:37:24,140 - петя4 wanna play with петя
+2014-01-04 12:37:26,704 - Message recieved: Type = LETS_PLAY_ANSWER, петя4, петя, true
+2014-01-04 12:37:27,937 - Message recieved: Type = USER_IS_FREE, петя4, петя
+2014-01-04 12:37:30,725 - Message recieved: Type = USER_IS_FREE, петя, петя4
+2014-01-04 12:37:34,399 - Message recieved: Type = LETS_PLAY, петя4, петя
+2014-01-04 12:37:34,419 - петя4 wanna play with петя
+2014-01-04 12:37:36,004 - Message recieved: Type = LETS_PLAY_ANSWER, петя4, петя, true
+2014-01-04 12:37:37,024 - Message recieved: Type = USER_IS_FREE, петя, петя4
+2014-01-04 12:37:39,806 - Message recieved: Type = USER_IS_FREE, петя4, петя
+2014-01-04 12:37:46,394 - User петя is offline.
+2014-01-04 12:37:46,399 - User петя has been removed from users list.
+2014-01-04 12:37:46,874 - User петя4 is offline.
+2014-01-04 12:37:46,876 - User петя4 has been removed from users list.
+2014-01-04 12:40:26,216 - Server is running.
+2014-01-04 12:40:29,072 - Got a client.
+2014-01-04 12:40:29,119 - User  has been added to users list.
+2014-01-04 12:40:29,124 - Message recieved: Type = GET_USER_LIST
+2014-01-04 12:40:31,769 - User  is offline.
+2014-01-04 12:40:31,769 - User  has been removed from users list.
+2014-01-04 12:40:33,104 - Got a client.
+2014-01-04 12:40:33,104 - User  has been added to users list.
+2014-01-04 12:40:33,109 - Message recieved: Type = GET_USER_LIST
+2014-01-04 12:40:39,097 - Got a client.
+2014-01-04 12:40:39,122 - Can not add user 
+2014-01-04 12:40:41,207 - Got a client.
+2014-01-04 12:40:41,209 - User 3 has been added to users list.
+2014-01-04 12:40:41,214 - Message recieved: Type = GET_USER_LIST
+2014-01-04 12:40:46,664 - Message recieved: Type = LETS_PLAY, 3, 
+2014-01-04 12:40:46,669 - 3 wanna play with 
+2014-01-04 12:40:48,114 - Message recieved: Type = LETS_PLAY_ANSWER, 3, , false
+2014-01-04 12:40:49,782 - Message recieved: Type = LETS_PLAY, , 3
+2014-01-04 12:40:49,792 -  wanna play with 3
+2014-01-04 12:40:51,692 - Message recieved: Type = LETS_PLAY_ANSWER, , 3, false
+2014-01-04 12:40:53,374 - User 3 is offline.
+2014-01-04 12:40:53,374 - User 3 has been removed from users list.
+2014-01-04 12:40:55,559 - User  is offline.
+2014-01-04 12:40:55,559 - User  has been removed from users list.
+2014-01-05 19:46:40,733 - Server is running.
+2014-01-05 19:46:43,053 - Got a client.
+2014-01-05 19:46:43,245 - User 3 has been added to users list.
+2014-01-05 19:46:43,268 - Message recieved: Type = GET_USER_LIST
+2014-01-05 19:46:52,327 - Got a client.
+2014-01-05 19:46:52,357 - User 33 has been added to users list.
+2014-01-05 19:46:52,362 - Message recieved: Type = GET_USER_LIST
+2014-01-05 19:46:54,895 - Message recieved: Type = LETS_PLAY, 33, 3
+2014-01-05 19:46:54,905 - 33 wanna play with 3
+2014-01-05 19:46:57,675 - Message recieved: Type = LETS_PLAY_ANSWER, 33, 3, true
+2014-01-05 19:46:59,572 - User 3 is offline.
+2014-01-05 19:46:59,577 - User 3 has been removed from users list.
+2014-01-06 20:56:45,347 - Server is running.
+2014-01-06 20:56:55,937 - Got a client.
+2014-01-06 20:56:57,429 - User 33 has been added to users list.
+2014-01-06 20:56:57,464 - Message recieved: Type = GET_USER_LIST
+2014-01-06 20:57:09,899 - Got a client.
+2014-01-06 20:57:10,014 - User 333 has been added to users list.
+2014-01-06 20:57:10,064 - Message recieved: Type = GET_USER_LIST
+2014-01-06 20:57:12,124 - Message recieved: Type = LETS_PLAY, 333, 33
+2014-01-06 20:57:12,129 - 333 wanna play with 33
+2014-01-06 20:57:14,304 - Message recieved: Type = LETS_PLAY_ANSWER, 333, 33, true
+2014-01-06 20:57:20,757 - Message recieved: Type = USER_IS_FREE, 333, 33
+2014-01-06 20:57:22,529 - User 33 is offline.
+2014-01-06 20:57:22,549 - User 33 has been removed from users list.
+2014-01-06 20:57:23,664 - Message recieved: Type = USER_IS_FREE, 33, 333
+2014-01-06 20:57:25,396 - User 333 is offline.
+2014-01-06 20:57:25,396 - User 333 has been removed from users list.
+2014-01-07 15:49:39,381 - Server is running.
+2014-01-07 15:49:49,794 - Got a client.
+2014-01-07 15:49:49,939 - User user1 has been added to users list.
+2014-01-07 15:49:49,944 - Message recieved: Type = GET_USER_LIST
+2014-01-07 15:49:56,364 - Got a client.
+2014-01-07 15:49:56,389 - User user2 has been added to users list.
+2014-01-07 15:49:56,394 - Message recieved: Type = GET_USER_LIST
+2014-01-07 15:50:03,755 - Got a client.
+2014-01-07 15:50:03,780 - User user3 has been added to users list.
+2014-01-07 15:50:03,790 - Message recieved: Type = GET_USER_LIST
+2014-01-07 15:50:09,021 - Got a client.
+2014-01-07 15:50:09,046 - User user4 has been added to users list.
+2014-01-07 15:50:09,051 - Message recieved: Type = GET_USER_LIST
+2014-01-07 15:50:16,741 - Got a client.
+2014-01-07 15:50:16,761 - User user5 has been added to users list.
+2014-01-07 15:50:16,771 - Message recieved: Type = GET_USER_LIST
+2014-01-07 15:57:42,024 - Message recieved: Type = LETS_PLAY, user4, user3
+2014-01-07 15:57:42,049 - user4 wanna play with user3
+2014-01-07 15:58:59,066 - User user5 is offline.
+2014-01-07 15:58:59,081 - User user5 has been removed from users list.
+2014-01-07 15:59:01,926 - Message recieved: Type = LETS_PLAY_ANSWER, user4, user3, true
+2014-01-07 15:59:15,119 - Message recieved: Type = TEXT_MESSAGE, user4, user3: Hello!
+2014-01-07 15:59:18,994 - Message recieved: Type = TEXT_MESSAGE, user3, user4: Hi!
+2014-01-07 16:05:18,878 - Message recieved: Type = PLAYER_IS_READY, user3
+2014-01-07 16:20:42,314 - Message recieved: Type = PLAYER_IS_READY, user4
+2014-01-07 16:20:46,999 - Message recieved: Type = TURN, user3, 42
+2014-01-07 16:20:47,024 - Message recieved: Type = TURN_RESULT, user4, 42, false
+2014-01-07 16:20:47,404 - Message recieved: Type = TURN, user4, 34
+2014-01-07 16:20:47,409 - Message recieved: Type = TURN_RESULT, user3, 34, true
+2014-01-07 16:20:49,889 - Message recieved: Type = TURN, user4, 44
+2014-01-07 16:20:49,894 - Message recieved: Type = TURN_RESULT, user3, 44, true
+2014-01-07 16:20:51,454 - Message recieved: Type = TURN, user4, 54
+2014-01-07 16:20:51,459 - Message recieved: Type = TURN_RESULT, user3, 54, true
+2014-01-07 16:20:52,889 - Message recieved: Type = TURN, user4, 24
+2014-01-07 16:20:52,899 - Message recieved: Type = TURN_RESULT, user3, 24, false
+2014-01-07 16:20:55,324 - Message recieved: Type = TURN, user3, 45
+2014-01-07 16:20:55,339 - Message recieved: Type = TURN_RESULT, user4, 45, false
+2014-01-07 16:20:56,524 - Message recieved: Type = TURN, user4, 33
+2014-01-07 16:20:56,539 - Message recieved: Type = TURN_RESULT, user3, 33, false
+2014-01-07 16:20:58,784 - Message recieved: Type = TURN, user3, 46
+2014-01-07 16:20:58,789 - Message recieved: Type = TURN_RESULT, user4, 46, true
+2014-01-07 16:21:00,529 - Message recieved: Type = TURN, user3, 47
+2014-01-07 16:21:00,534 - Message recieved: Type = TURN_RESULT, user4, 47, true
+2014-01-07 16:21:03,924 - Message recieved: Type = TURN, user3, 48
+2014-01-07 16:21:03,924 - Message recieved: Type = TURN_RESULT, user4, 48, true
+2014-01-07 16:21:05,744 - Message recieved: Type = TURN, user3, 49
+2014-01-07 16:21:05,764 - Message recieved: Type = TURN_RESULT, user4, 49, true
+2014-01-07 16:21:07,199 - Message recieved: Type = TURN, user3, 69
+2014-01-07 16:21:07,214 - Message recieved: Type = TURN_RESULT, user4, 69, false
+2014-01-07 16:21:08,554 - Message recieved: Type = TURN, user4, 64
+2014-01-07 16:21:08,554 - Message recieved: Type = TURN_RESULT, user3, 64, true
+2014-01-07 16:21:14,989 - Message recieved: Type = TURN, user4, 77
+2014-01-07 16:21:14,999 - Message recieved: Type = TURN_RESULT, user3, 77, false
+2014-01-07 16:21:16,059 - Message recieved: Type = TURN, user3, 77
+2014-01-07 16:21:16,079 - Message recieved: Type = TURN_RESULT, user4, 77, false
+2014-01-07 16:22:04,769 - Message recieved: Type = TURN, user4, 71
+2014-01-07 16:22:04,789 - Message recieved: Type = TURN_RESULT, user3, 71, false
+2014-01-07 16:22:06,739 - Message recieved: Type = TURN, user3, 85
+2014-01-07 16:22:06,754 - Message recieved: Type = TURN_RESULT, user4, 85, false
+2014-01-07 16:22:07,806 - Message recieved: Type = TURN, user4, 13
+2014-01-07 16:22:07,826 - Message recieved: Type = TURN_RESULT, user3, 13, false
+2014-01-07 16:22:08,581 - Message recieved: Type = TURN, user3, 82
+2014-01-07 16:22:08,586 - Message recieved: Type = TURN_RESULT, user4, 82, true
+2014-01-07 16:22:09,566 - Message recieved: Type = TURN, user3, 81
+2014-01-07 16:22:09,581 - Message recieved: Type = TURN_RESULT, user4, 81, false
+2014-01-07 16:22:10,601 - Message recieved: Type = TURN, user4, 11
+2014-01-07 16:22:10,611 - Message recieved: Type = TURN_RESULT, user3, 11, false
+2014-01-07 16:22:12,321 - Message recieved: Type = TURN, user3, 83
+2014-01-07 16:22:12,336 - Message recieved: Type = TURN_RESULT, user4, 83, false
+2014-01-07 16:22:13,376 - Message recieved: Type = TURN, user4, 30
+2014-01-07 16:22:13,386 - Message recieved: Type = TURN_RESULT, user3, 30, false
+2014-01-07 16:22:14,916 - Message recieved: Type = TURN, user3, 72
+2014-01-07 16:22:14,921 - Message recieved: Type = TURN_RESULT, user4, 72, true
+2014-01-07 16:22:22,216 - Message recieved: Type = TURN, user3, 62
+2014-01-07 16:22:22,221 - Message recieved: Type = TURN_RESULT, user4, 62, true
+2014-01-07 16:22:23,781 - Message recieved: Type = TURN, user3, 21
+2014-01-07 16:22:23,796 - Message recieved: Type = TURN_RESULT, user4, 21, false
+2014-01-07 16:22:25,051 - Message recieved: Type = TURN, user4, 61
+2014-01-07 16:22:25,066 - Message recieved: Type = TURN_RESULT, user3, 61, false
+2014-01-07 16:22:25,841 - Message recieved: Type = TURN, user3, 24
+2014-01-07 16:22:25,861 - Message recieved: Type = TURN_RESULT, user4, 24, false
+2014-01-07 16:22:27,341 - Message recieved: Type = TURN, user4, 17
+2014-01-07 16:22:27,346 - Message recieved: Type = TURN_RESULT, user3, 17, true
+2014-01-07 16:22:28,751 - Message recieved: Type = TURN, user4, 27
+2014-01-07 16:22:28,761 - Message recieved: Type = TURN_RESULT, user3, 27, false
+2014-01-07 16:22:29,976 - Message recieved: Type = TURN, user3, 6
+2014-01-07 16:22:29,996 - Message recieved: Type = TURN_RESULT, user4, 6, false
+2014-01-07 16:22:56,766 - Message recieved: Type = TURN, user4, 58
+2014-01-07 16:22:56,771 - Message recieved: Type = TURN_RESULT, user3, 58, true
+2014-01-07 16:22:57,191 - Message recieved: Type = TURN, user4, 57
+2014-01-07 16:22:57,196 - Message recieved: Type = TURN_RESULT, user3, 57, true
+2014-01-07 16:22:57,666 - Message recieved: Type = TURN, user4, 56
+2014-01-07 16:22:57,666 - Message recieved: Type = TURN_RESULT, user3, 56, true
+2014-01-07 16:23:03,371 - Message recieved: Type = TURN, user4, 18
+2014-01-07 16:23:03,376 - Message recieved: Type = TURN_RESULT, user3, 18, true
+2014-01-07 16:23:16,061 - Message recieved: Type = TEXT_MESSAGE, user3, user4: good game
+2014-01-07 16:23:56,146 - Message recieved: Type = TURN, user4, 19
+2014-01-07 16:23:56,156 - Message recieved: Type = TURN_RESULT, user3, 19, true
+2014-01-07 16:23:58,536 - Message recieved: Type = TURN, user4, 5
+2014-01-07 16:23:58,541 - Message recieved: Type = TURN_RESULT, user3, 5, true
+2014-01-07 16:24:03,661 - Message recieved: Type = TURN, user4, 15
+2014-01-07 16:24:03,676 - Message recieved: Type = TURN_RESULT, user3, 15, false
+2014-01-07 16:28:22,970 - Message recieved: Type = USER_IS_FREE, user3, user4
+2014-01-07 16:28:27,409 - Message recieved: Type = USER_IS_FREE, user4, user3
+2014-01-07 16:28:32,168 - Message recieved: Type = LETS_PLAY, user4, user2
+2014-01-07 16:28:32,183 - user4 wanna play with user2
+2014-01-07 16:28:41,868 - Message recieved: Type = LETS_PLAY_ANSWER, user4, user2, false
+2014-01-07 16:28:50,073 - Message recieved: Type = LETS_PLAY, user3, user4
+2014-01-07 16:28:50,083 - user3 wanna play with user4
+2014-01-07 16:28:53,498 - Message recieved: Type = LETS_PLAY_ANSWER, user3, user4, false
+2014-01-07 16:28:58,273 - User user1 is offline.
+2014-01-07 16:28:58,273 - User user1 has been removed from users list.
+2014-01-07 16:28:59,325 - User user3 is offline.
+2014-01-07 16:28:59,325 - User user3 has been removed from users list.
+2014-01-07 16:29:00,232 - User user4 is offline.
+2014-01-07 16:29:00,232 - User user4 has been removed from users list.
+2014-01-07 16:29:01,057 - User user2 is offline.
+2014-01-07 16:29:01,057 - User user2 has been removed from users list.
+2014-01-09 13:21:50,711 - Server is running.
+2014-01-09 13:21:55,099 - Got a client.
+2014-01-09 13:21:55,154 - User user5 has been added to users list.
+2014-01-09 13:21:55,154 - Message recieved: Type = GET_USER_LIST
+2014-01-09 13:22:05,918 - Got a client.
+2014-01-09 13:22:05,935 - User user has been added to users list.
+2014-01-09 13:22:05,940 - Message recieved: Type = GET_USER_LIST
+2014-01-09 13:22:08,478 - Message recieved: Type = LETS_PLAY, user, user5
+2014-01-09 13:22:08,488 - user wanna play with user5
+2014-01-09 13:22:10,545 - Message recieved: Type = LETS_PLAY_ANSWER, user, user5, true
+2014-01-09 13:22:15,475 - Message recieved: Type = USER_IS_FREE, user5, user
+2014-01-09 13:22:18,522 - Message recieved: Type = USER_IS_FREE, user, user5
+2014-01-09 13:22:19,392 - User user5 is offline.
+2014-01-09 13:22:19,392 - User user5 has been removed from users list.
+2014-01-09 13:22:20,065 - User user is offline.
+2014-01-09 13:22:20,065 - User user has been removed from users list.
+2014-01-09 13:24:17,115 - Server is running.
+2014-01-09 13:40:48,613 - Got a client.
+2014-01-09 13:40:48,655 - User user has been added to users list.
+2014-01-09 13:40:48,658 - Message recieved: Type = GET_USER_LIST
+2014-01-09 13:40:57,589 - Got a client.
+2014-01-09 13:40:57,612 - User user3 has been added to users list.
+2014-01-09 13:40:57,614 - Message recieved: Type = GET_USER_LIST
+2014-01-09 13:40:59,144 - Message recieved: Type = LETS_PLAY, user3, user
+2014-01-09 13:40:59,154 - user3 wanna play with user
+2014-01-09 13:41:01,067 - Message recieved: Type = LETS_PLAY_ANSWER, user3, user, true
+2014-01-09 13:41:02,874 - Message recieved: Type = USER_IS_FREE, user3, user
+2014-01-09 13:41:04,166 - User user is offline.
+2014-01-09 13:41:04,166 - User user has been removed from users list.
+2014-01-09 13:41:05,875 - Message recieved: Type = USER_IS_FREE, user, user3
+2014-01-09 13:41:07,548 - User user3 is offline.
+2014-01-09 13:41:07,548 - User user3 has been removed from users list.

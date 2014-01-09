@@ -1,0 +1,39 @@
+2014-01-04 12:12:31,015 [Thread-1] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-04 12:12:32,132 [Thread-0] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-04 12:29:42,873 [Thread-2] ERROR ErrorFileLogger - class server.ServerThreadjava.io.EOFException
+2014-01-04 12:29:59,398 [Thread-3] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-04 12:33:44,687 [Thread-4] ERROR ErrorFileLogger - class server.ServerThreadjava.io.EOFException
+2014-01-04 12:37:10,497 [Thread-2] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-04 12:37:12,416 [Thread-0] ERROR ErrorFileLogger - class server.ServerThreadMessengerjava.lang.NullPointerException
+2014-01-04 12:37:46,394 [Thread-0] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-04 12:37:46,876 [Thread-3] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-04 12:40:21,010 [AWT-EventQueue-0] ERROR ErrorFileLogger - Messengers creating error. class client.ClientFramejava.net.ConnectException: Connection refused: connect
+2014-01-04 12:40:31,769 [Thread-0] ERROR ErrorFileLogger - class server.ServerThreadjava.io.EOFException
+2014-01-04 12:40:53,374 [Thread-3] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-04 12:40:55,559 [Thread-1] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-05 19:46:31,338 [AWT-EventQueue-0] ERROR ErrorFileLogger - Messengers creating error. class client.ClientFramejava.net.ConnectException: Connection refused: connect
+2014-01-05 19:46:59,577 [Thread-0] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-05 19:47:14,590 [Thread-2] ERROR ErrorFileLogger - Disconnected java.net.SocketException: Connection reset
+2014-01-05 19:47:35,965 [AWT-EventQueue-0] ERROR ErrorFileLogger - Sending message error. class client.NetworkClientMessengerjava.net.SocketException: Connection reset by peer: socket write error
+2014-01-05 19:47:39,265 [AWT-EventQueue-0] ERROR ErrorFileLogger - Sending message error. class client.NetworkClientMessengerjava.net.SocketException: Connection reset by peer: socket write error
+2014-01-05 19:47:45,640 [AWT-EventQueue-0] ERROR ErrorFileLogger - Messengers creating error. class client.ClientFramejava.net.ConnectException: Connection refused: connect
+2014-01-06 20:57:22,529 [Thread-0] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-06 20:57:23,664 [Thread-1] ERROR ErrorFileLogger - class server.ServerThreadMessengerjava.lang.NullPointerException
+2014-01-06 20:57:25,396 [Thread-1] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-07 15:58:59,066 [Thread-4] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-07 16:28:58,273 [Thread-0] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-07 16:28:59,325 [Thread-2] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-07 16:29:00,232 [Thread-3] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-07 16:29:01,057 [Thread-1] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-09 13:19:50,942 [AWT-EventQueue-0] ERROR ErrorFileLogger - java.lang.IllegalArgumentException: input == null!
+2014-01-09 13:20:16,186 [AWT-EventQueue-0] ERROR ErrorFileLogger - java.lang.IllegalArgumentException: input == null!
+2014-01-09 13:22:19,392 [Thread-0] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-09 13:22:20,065 [Thread-1] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-09 13:38:33,492 [AWT-EventQueue-0] ERROR ErrorFileLogger - javax.imageio.IIOException: Can't read input file!
+2014-01-09 13:38:49,519 [AWT-EventQueue-0] ERROR ErrorFileLogger - javax.imageio.IIOException: Can't read input file!
+2014-01-09 13:41:04,166 [Thread-0] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-09 13:41:05,875 [Thread-1] ERROR ErrorFileLogger - class server.ServerThreadMessengerjava.lang.NullPointerException
+2014-01-09 13:41:07,548 [Thread-1] ERROR ErrorFileLogger - class server.ServerThreadjava.net.SocketException: Connection reset
+2014-01-09 13:44:35,247 [AWT-EventQueue-0] ERROR ErrorFileLogger - javax.imageio.IIOException: Can't read input file!
+2014-01-09 13:45:01,365 [AWT-EventQueue-0] ERROR ErrorFileLogger - javax.imageio.IIOException: Can't read input file!
+2014-01-09 13:48:25,601 [AWT-EventQueue-0] ERROR ErrorFileLogger - javax.imageio.IIOException: Can't read input file!
