@@ -14,12 +14,7 @@ import settings.ConfigReader;
 import settings.PropertyConfigReader;
 
 public class Server {    
-    private static final String PROPERTIES_FILE;
-    static {
-        String sep = File.separator;
-        PROPERTIES_FILE = (new File(Server.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent())
-                + sep + "properties.ini"; 
-    }
+    private static final String PROPERTIES_FILE = "properties.ini";
     
     private static Vector<User> usersList = new Vector<>();
     private static Map<User, ServerThread> usersMap = new HashMap<>();

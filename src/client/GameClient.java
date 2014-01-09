@@ -8,14 +8,8 @@ import settings.XMLSettingsHandler;
 
 public class GameClient {
     public static void main(String[ ] args) {
-        String sep = File.separator;
-        String settingsPath = (new File(GameClient.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent())
-                + sep + "settings.xml";
-        String translationPath = (new File(GameClient.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent())
-                + sep + "translation.xml";
-        
-        final SettingsHandler settings = new XMLSettingsHandler(settingsPath);
-        final SettingsHandler translation = new XMLSettingsHandler(translationPath);
+        final SettingsHandler settings = new XMLSettingsHandler("settings.xml");
+        final SettingsHandler translation = new XMLSettingsHandler("translation.xml");
         
         SwingUtilities.invokeLater(new Runnable() {
             @Override

@@ -329,10 +329,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         setLocation(screenWidth/2 - frameWidth/2, screenHeight/2 - frameHeihgt/2);
         setResizable(false);
         try {
-            String sep = File.separator;
-            String iconPath = (new File(ClientFrame.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent())
-                    + sep + "data" + sep + "icon.png";
-            Image icon =ImageIO.read(new File(iconPath));
+            Image icon =ImageIO.read(new File("data" + File.separator + "icon.png"));
             setIconImage(icon);
         }
         catch (Exception ex) {
