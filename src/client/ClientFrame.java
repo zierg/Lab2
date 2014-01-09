@@ -390,18 +390,22 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                String serverIP = serverIPTextField.getText();
-                String serverPort = serverPortTextField.getText();
+                String playerName = playerNameTextField.getText().trim();
+                String serverIP = serverIPTextField.getText().trim();
+                String serverPort = serverPortTextField.getText().trim();
+                if ( playerName.isEmpty() || serverIP.isEmpty() || serverPort.isEmpty() ) {
+                    return;
+                }
                 if (!configureMessengers(serverIP, Integer.parseInt(serverPort))) {
                     showError(connectionError);
                     return;
                 }
-                if ( !connect() ) {
+                if ( !connect(playerName) ) {
                     return;
                 }
                 settings.setValue("server", serverIP);
                 settings.setValue("port", serverPort);
-                settings.setValue("player_name", playerNameTextField.getText());
+                settings.setValue("player_name", playerName);
                 mainCardLayout.next(cardPanel);
             }
         });
@@ -409,8 +413,7 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         cardPanel.add(nonConnectedPanel);
     }
     
-    private boolean connect(){
-        String userName = playerNameTextField.getText();
+    private boolean connect(String userName){
         boolean connected = clientMessenger.login(userName);
         if (connected) {
             user = new User(userName);
