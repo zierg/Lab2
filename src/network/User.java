@@ -1,6 +1,7 @@
 package network;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable, Cloneable {
     private final String userName;
@@ -36,5 +37,25 @@ public class User implements Serializable, Cloneable {
     
     public boolean equals(User user) {
         return userName.equals(user.userName);
+    }
+    
+    @Override
+    public int hashCode() {
+        return userName.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.userName, other.userName)) {
+            return false;
+        }
+        return true;
     }
 }

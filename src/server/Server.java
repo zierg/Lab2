@@ -57,12 +57,7 @@ public class Server {
     }
     
     static ServerThread getUserServerThread(User user) {
-        for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
-            if (entry.getKey().equals(user)) {
-                return entry.getValue();
-            }
-        }
-        return null;
+        return usersMap.get(user);
     }
     
     public static void main(String[] args) {
