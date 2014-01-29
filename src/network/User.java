@@ -1,14 +1,18 @@
 package network;
 
 import java.io.Serializable;
-import java.util.Objects;
 
-public class User implements Serializable, Cloneable {
+public class User implements Serializable {
     private final String userName;
     private boolean free = true;
     
     public User(String userName) {
         this.userName = userName;
+    }
+    
+    public User(User user) {
+        this.userName = user.userName;
+        this.free = user.free;
     }
     
     public String getName() {
@@ -29,33 +33,22 @@ public class User implements Serializable, Cloneable {
     }
     
     @Override
-    public User clone() {
-        User clonedUser = new User(userName);
-        clonedUser.free = this.free;
-        return clonedUser;
-    }
-    
-    public boolean equals(User user) {
-        return userName.equals(user.userName);
-    }
-    
-    @Override
-    public int hashCode() {
-        return userName.hashCode();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if ( !(obj instanceof User) ) {
             return false;
         }
         final User other = (User) obj;
-        if (!Objects.equals(this.userName, other.userName)) {
+        if (!this.userName.equals(other.userName)) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return userName.hashCode();
     }
 }
