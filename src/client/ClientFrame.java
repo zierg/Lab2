@@ -19,7 +19,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ListIterator;
+import java.util.Collection;
+import java.util.Iterator;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,7 +29,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import logger.LoggerManager;
@@ -425,14 +425,14 @@ public class ClientFrame extends JFrame implements NetworkClientMessengerListene
         clientMessenger.getUsersList();
     }
     
-    private void setUsersList(Vector<User> usersList) {
+    private void setUsersList(Collection<User> usersList) {
         trimUsersList(usersList);
-        playersList.setListData(usersList);
+        playersList.setListData(usersList.toArray(new User[usersList.size()]));
         playersList.setEnabled(true);
     }
     
-    private void trimUsersList(Vector<User> usersList) {
-        ListIterator<User> iterator = usersList.listIterator();
+    private void trimUsersList(Collection<User> usersList) {
+        Iterator<User> iterator = usersList.iterator();
         while(iterator.hasNext()) {
             User currentUser = iterator.next();
             if (!currentUser.isFree() || currentUser.equals(user)) {

@@ -5,9 +5,9 @@ import client.chat.ChatActionEvent;
 import client.events.*;
 import network.*;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 import logger.LoggerManager;
 
 public class NetworkClientMessenger{
@@ -47,7 +47,7 @@ public class NetworkClientMessenger{
         private void callMessageEvent(Message message) {
             switch(message.getType()) {
                 case RETURN_USER_LIST: {
-                    listenUsersListRefreshed( new UsersListRefreshEvent(this, (Vector<User>) message.getAttributes()[0]) );
+                    listenUsersListRefreshed( new UsersListRefreshEvent(this, (Collection<User>) message.getAttributes()[0]) );
                     break;
                 }
                 case LETS_PLAY: {
