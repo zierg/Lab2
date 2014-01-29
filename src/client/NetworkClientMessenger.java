@@ -113,7 +113,7 @@ public class NetworkClientMessenger{
         try {
             Message authMessage = new Message(MessageTypes.AUTHORIZATION, userName);
             messenger.sendMessage(authMessage);
-            Message answer = messenger.getMessage();    // Ждём ответ на авторизацию
+            Message answer = messenger.getMessage();
             if (answer.getType() == MessageTypes.AUTHORIZATION) {
                 new MessageCatcher();
                 getUsersList();
