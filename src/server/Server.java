@@ -34,13 +34,11 @@ public class Server {
     }
     
     synchronized static void setUserFree(User user, boolean free) {
-        for (User currentUser : usersMap.keySet()) {
-            if (currentUser.equals(user) && currentUser.isFree() != free) {
-                currentUser.setFree(free);
-                refreshUsersListForAll();
-                return;
-            }
-        }
+        ServerThread userThread = usersMap.get(user);
+        usersMap.remove(user);
+        user.setFree(free);
+        usersMap.put(user, userThread);
+        refreshUsersListForAll();
     }
     
     synchronized static HashSet<User> getUsers() {
