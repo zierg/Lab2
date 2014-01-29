@@ -1,14 +1,13 @@
 package server;
 
-import java.io.File;
 import network.*;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.Vector;
 import logger.LoggerManager;
 import settings.ConfigReader;
 import settings.PropertyConfigReader;
@@ -16,14 +15,12 @@ import settings.PropertyConfigReader;
 public class Server {    
     private static final String PROPERTIES_FILE = "properties.ini";
     
-    private static Vector<User> usersList = new Vector<>();
     private static Map<User, ServerThread> usersMap = new HashMap<>();
     
     synchronized static boolean addUser(User user, ServerThread userThread) {
         if (userExists(user)) {
             return false;
         }
-        usersList.add(user);
         usersMap.put(user, userThread);
         ServerLogger.trace("User " + user + " has been added to users list.");
         refreshUsersListAfterAdding(user);
@@ -31,15 +28,13 @@ public class Server {
     }
     
     synchronized static void removeUser(User user) {
-        usersList.remove(user);
         usersMap.remove(user);
         ServerLogger.trace("User " + user + " has been removed from users list.");
         refreshUsersListForAll();
     }
     
     synchronized static void setUserFree(User user, boolean free) {
-        for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
-            User currentUser = entry.getKey();
+        for (User currentUser : usersMap.keySet()) {
             if (currentUser.equals(user) && currentUser.isFree() != free) {
                 currentUser.setFree(free);
                 refreshUsersListForAll();
@@ -48,12 +43,12 @@ public class Server {
         }
     }
     
-    synchronized static Vector<User> getUsers() {
-        Vector<User> newUL = new Vector<>();
-        for (User currentUser:usersList) {
-            newUL.add(currentUser.clone());
+    synchronized static HashSet<User> getUsers() {
+        HashSet<User> setToReturn = new HashSet<>();
+        for (User currentUser : usersMap.keySet()) {
+            setToReturn.add(new User(currentUser));
         }
-        return newUL;
+        return setToReturn;
     }
     
     static ServerThread getUserServerThread(User user) {
@@ -79,24 +74,21 @@ public class Server {
     }
     
     private static boolean userExists(User user) {
-        for (User currentUser:usersList) {
-            if (currentUser.equals(user)) {
-                return true;
-            }
-        }
-        return false;
+        return usersMap.containsKey(user);
     }
     
     private static void refreshUsersListForAll() {
-        for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
-            entry.getValue().getServerThreadMessenger().getUsersListRequested();
+        HashSet users = getUsers();
+        for (ServerThread currentThread : usersMap.values()) {
+            currentThread.getServerThreadMessenger().sendUsersList(users);
         }
     }
     
     private static void refreshUsersListAfterAdding(User addedUser) {
+        HashSet users = getUsers();
         for (Map.Entry<User, ServerThread> entry : usersMap.entrySet()) {
             if (!entry.getKey().equals(addedUser)) {
-                entry.getValue().getServerThreadMessenger().getUsersListRequested();
+                entry.getValue().getServerThreadMessenger().sendUsersList(users);
             }
         }
     }
