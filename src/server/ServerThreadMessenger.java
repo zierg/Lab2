@@ -2,6 +2,7 @@ package server;
 
 import static network.Message.MessageTypes;
 import java.io.IOException;
+import java.io.Serializable;
 import network.*;
 
 class ServerThreadMessenger {
@@ -39,13 +40,17 @@ class ServerThreadMessenger {
         ServerLogger.trace("Message recieved: " + message);
         callMessageEvent(message);
     }
-
-    public void getUsersListRequested() {
+    
+    public void sendUsersList (Serializable users) {
         try {
-            messenger.sendMessage(new Message(MessageTypes.RETURN_USER_LIST, Server.getUsers()));    
+            messenger.sendMessage(new Message(MessageTypes.RETURN_USER_LIST, users));    
         } catch (IOException ex) {
             ServerLogger.error(ServerThreadMessenger.class.toString() + ex);
         }
+    }
+    
+    private void getUsersListRequested() {
+        sendUsersList(Server.getUsers());
     }
     
     private void letsPlayRequested(Message message) {
